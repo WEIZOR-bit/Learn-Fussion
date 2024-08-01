@@ -1,0 +1,6 @@
+{
+    "require": {
+        "spatie/laravel-translatable": "^6.8",
+        "zircote/swagger-php": "^4.10"
+    }
+}
