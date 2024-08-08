@@ -8,12 +8,25 @@ use Illuminate\Support\Facades\Route;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
-        api: __DIR__ . '/../routes/api/',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
-//        then: function () {
-//            Route::middleware('api')->prefix('api.public.auth')->group(base_path('routes/api/public/auth.php'));
-//        }
+        then: function () {
+            // Регистрация маршрутов для API admin
+            $adminRouteFiles = glob(base_path('routes/api/admin/*.php'));
+            foreach ($adminRouteFiles as $file) {
+                Route::middleware('api')
+                    ->prefix('api/admin')
+                    ->group($file);
+            }
+
+            // Регистрация маршрутов для API public
+            $publicRouteFiles = glob(base_path('routes/api/public/*.php'));
+            foreach ($publicRouteFiles as $file) {
+                Route::middleware('api')
+                    ->prefix('api/public')
+                    ->group($file);
+            }
+        }
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
