@@ -1,7 +1,8 @@
+
 version: '3'
 services:
 
-# --------------------------    Front   --------------------------
+    # --------------------------    Front   --------------------------
 
     # Контейнер для фронта модераторов
     storage54.front.admin:
@@ -35,7 +36,7 @@ services:
         env_file:
             - .env
 
-# --------------------------    Back   --------------------------
+    # --------------------------    Back   --------------------------
 
     # Контейнер для бека публики
     storage54.api.public:
@@ -52,13 +53,10 @@ services:
         networks:
             - storage54
         depends_on:
-            - storage54.db.postgresql
-            - storage54.db.redis.cache
-        healthcheck:
-            test: [ "CMD-SHELL", "[ -f /var/www/html/vendor/autoload.php ] || exit 1" ]
-            interval: 30s
-            timeout: 10s
-            retries: 3
+            storage54.db.postgresql:
+                condition: service_healthy
+            storage54.db.redis.cache:
+                condition: service_healthy
 
     # Контейнер для бека модеров
     storage54.api.admin:
@@ -75,13 +73,10 @@ services:
         networks:
             - storage54
         depends_on:
-            - storage54.db.postgresql
-            - storage54.db.redis.cache
-        healthcheck:
-            test: [ "CMD-SHELL", "[ -f /var/www/html/vendor/autoload.php ] || exit 1" ]
-            interval: 30s
-            timeout: 10s
-            retries: 3
+                storage54.db.postgresql:
+                    condition: service_healthy
+                storage54.db.redis.cache:
+                    condition: service_healthy
 
     # Контейнер для обработки джоб
     storage54.api.jobs:
@@ -100,13 +95,8 @@ services:
             - storage54.db.postgresql
             - storage54.db.redis.cache
             - storage54.db.redis.jobs
-        healthcheck:
-            test: [ "CMD-SHELL", "[ -f /var/www/html/vendor/autoload.php ] || exit 1" ]
-            interval: 30s
-            timeout: 10s
-            retries: 3
 
-# --------------------------    Services   --------------------------
+    # --------------------------    Services   --------------------------
 
     # База данных
     storage54.db.postgresql:
@@ -126,6 +116,11 @@ services:
             - 'host.docker.internal:host-gateway'
         networks:
             - storage54
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U user -d db" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
 
     # Redis сервер для обработки очередей
     storage54.db.redis.jobs:
@@ -150,6 +145,11 @@ services:
             - ./volumes/db/redis/cache:/data
         networks:
             - storage54
+        healthcheck:
+            test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+            interval: 1s
+            timeout: 3s
+            retries: 5
 
     # Redis сервер для обмена сообщениями по WebSocket
     storage54.db.redis.sockets:
@@ -201,6 +201,21 @@ services:
         depends_on:
             -   storage54.api.public
             -   storage54.api.admin
+
+    # Собственное локальное хранилище
+    storage54.minio:
+        build:
+            context: ./services/minio
+            dockerfile: Dockerfile
+        container_name: storage54.minio
+        volumes:
+            - ./volumes/storages/minio:/data
+        ports:
+            - "9000:9000"
+            - "9009:9009"
+        env_file:
+            - .env
+        command: server --console-address :9009 /data
 
 
 networks:
