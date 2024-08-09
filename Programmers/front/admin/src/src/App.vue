@@ -1,6 +1,26 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+
+
+export default {
+  methods: {
+    async login() {
+      const response = await axios.post('http://0.0.0.0:80/api/admin/login', {
+        email: 'admin@gmail.com',
+        password: '123123123123'})
+      console.log(response.data);
+      const token = response.data.token.access_token;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    },
+
+    async logout() {
+      const response = await axios.post('http://0.0.0.0:80/api/admin/logout')
+      console.log(response.data);
+    }
+  }
+}
 </script>
 
 <template>
@@ -9,6 +29,8 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <h1> Admin </h1>
+      <button @click="login">Login</button>
+      <button @click="logout">logout</button>
     </div>
   </header>
 

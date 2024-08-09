@@ -41,7 +41,7 @@ class AuthController extends Controller
         return Response::json(new LoggedInUserResource($user));
     }
 
-    public function logout(Request $request): JsonResponse
+    public function logout(Request $request)
     {
         $this->authService->logoutUser($request->user());
 

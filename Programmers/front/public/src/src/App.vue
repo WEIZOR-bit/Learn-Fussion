@@ -1,6 +1,36 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import axios from "axios";
+// import Index from 'components/Index.vue'
+export default {
+  methods: {
+   async login() {
+     const response = await axios.post('http://0.0.0.0:80/api/public/login', {
+       email: 'john1@gmail.com',
+       password: '123123123123'})
+     console.log(response.data);
+     const token = response.data.token.access_token;
+     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    },
+
+    async logout() {
+      const response = await axios.post('http://0.0.0.0:80/api/public/logout')
+      console.log(response.data);
+    },
+
+    async signup() {
+      const response = await axios.post('http://0.0.0.0:80/api/public/signup', {
+        email: 'john12@gmail.com',
+        password: '123123123123',
+        name: 'Johner',
+        password_confirmation: '123123123123'})
+      console.log(response.data);
+      const token = response.data.token.access_token;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+  }
+}
+
 </script>
 
 <template>
@@ -9,6 +39,9 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <h1> Public </h1>
+      <button @click="login">Login</button>
+      <button @click="logout">logout</button>
+      <button @click="signup">Signup</button>
     </div>
   </header>
 
