@@ -1,0 +1,223 @@
+
+version: '3'
+services:
+
+    # --------------------------    Front   --------------------------
+
+    # Контейнер для фронта модераторов
+    storage54.front.admin:
+        build: ./front/admin
+        container_name: storage54.front.admin
+        volumes:
+            - ./front/admin/src:/usr/src/app
+        command: sh -c " npm install && npm start "
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        networks:
+            - storage54
+        environment:
+            - NAME=front.admin
+        env_file:
+            - .env
+
+    # Контейнер для фронта публики
+    storage54.front.public:
+        build: ./front/public
+        container_name: storage54.front.public
+        volumes:
+            - ./front/public/src:/usr/src/app
+        command: sh -c " npm install && npm start "
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        networks:
+            - storage54
+        environment:
+            - NAME=front.public
+        env_file:
+            - .env
+
+    # --------------------------    Back   --------------------------
+
+    # Контейнер для бека публики
+    storage54.api.public:
+        build:
+            dockerfile: Dockerfile_api_public
+            context: back/app
+        container_name: storage54.api.public
+        volumes:
+            - ./back/app/src:/var/www/html
+        ports:
+            - '8000:8000'
+        env_file:
+            - ./.env
+        networks:
+            - storage54
+        depends_on:
+            storage54.db.postgresql:
+                condition: service_healthy
+            storage54.db.redis.cache:
+                condition: service_healthy
+
+    # Контейнер для бека модеров
+    storage54.api.admin:
+        build:
+            dockerfile: Dockerfile_api_admin
+            context: back/app
+        container_name: storage54.api.admin
+        volumes:
+            - ./back/app/src:/var/www/html
+        ports:
+            - '8001:8001'
+        env_file:
+            - ./.env
+        networks:
+            - storage54
+        depends_on:
+                storage54.db.postgresql:
+                    condition: service_healthy
+                storage54.db.redis.cache:
+                    condition: service_healthy
+
+    # Контейнер для обработки джоб
+    storage54.api.jobs:
+        build:
+            dockerfile: Dockerfile_api_jobs
+            context: back/app
+        container_name: storage54.api.jobs
+        volumes:
+            - ./back/app/src:/var/www/html
+        env_file:
+            - ./.env
+        networks:
+            - storage54
+        depends_on:
+            - storage54.api.public
+            - storage54.db.postgresql
+            - storage54.db.redis.cache
+            - storage54.db.redis.jobs
+
+    # --------------------------    Services   --------------------------
+
+    # База данных
+    storage54.db.postgresql:
+        build:
+            context: ./services/postgresql
+            dockerfile: Dockerfile
+        container_name: storage54.db.postgresql
+        volumes:
+            - ./volumes/db/postgresql:/var/lib/postgresql
+        ports:
+            - "5432:5432"
+        environment:
+            - NAME=storage54.db.postgresql
+        env_file:
+            -   ./.env
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        networks:
+            - storage54
+        healthcheck:
+            test: [ "CMD-SHELL", "pg_isready -U user -d db" ]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+
+    # Redis сервер для обработки очередей
+    storage54.db.redis.jobs:
+        build:
+            context: ./services/redis
+            dockerfile: Dockerfile
+        container_name: storage54.db.redis.jobs
+        volumes:
+            - ./volumes/db/redis/jobs:/data
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        networks:
+            - storage54
+
+    # Redis сервер для кеша
+    storage54.db.redis.cache:
+        build:
+            context: ./services/redis
+            dockerfile: Dockerfile
+        container_name: storage54.db.redis.cache
+        volumes:
+            - ./volumes/db/redis/cache:/data
+        networks:
+            - storage54
+        healthcheck:
+            test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+            interval: 1s
+            timeout: 3s
+            retries: 5
+
+    # Redis сервер для обмена сообщениями по WebSocket
+    storage54.db.redis.sockets:
+        build:
+            context: ./services/redis
+            dockerfile: Dockerfile
+        container_name: storage54.db.redis.sockets
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./volumes/db/redis/sockets:/data
+        networks:
+            - storage54
+
+    storage54.socket.sunny:
+        build:
+            context: ./back/sockets
+            dockerfile: Dockerfile
+        container_name: storage54.socket.sunny
+        volumes:
+            - ./back/sockets/src:/usr/src/api
+        env_file:
+            - ./.env
+        environment:
+            - SERVER_NAME=socketSunny
+            - SERVER_PORT=3000
+        networks:
+            - storage54
+        depends_on:
+            - storage54.api.public
+            - storage54.api.admin
+            - storage54.db.redis.sockets
+
+    # Роутер на основе nginx
+    storage54.nginx:
+        build:
+            context: ./services/nginx
+            dockerfile: Dockerfile
+        container_name: storage54.nginx
+        volumes:
+            - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./volumes/nginx/log:/var/log/nginx
+        ports:
+            - "80:80"
+        extra_hosts:
+            - 'host.docker.internal:host-gateway'
+        networks:
+            - storage54
+        depends_on:
+            -   storage54.api.public
+            -   storage54.api.admin
+
+    # Собственное локальное хранилище
+    storage54.minio:
+        build:
+            context: ./services/minio
+            dockerfile: Dockerfile
+        container_name: storage54.minio
+        volumes:
+            - ./volumes/storages/minio:/data
+        ports:
+            - "9000:9000"
+            - "9009:9009"
+        env_file:
+            - .env
+        command: server --console-address :9009 /data
+
+
+networks:
+    storage54:
+        driver: bridge
