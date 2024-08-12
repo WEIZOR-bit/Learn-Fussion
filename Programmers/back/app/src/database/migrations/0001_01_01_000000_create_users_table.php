@@ -18,6 +18,12 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+<<<<<<< HEAD
+=======
+            $table->integer('friendliness_rating');
+            $table->integer('mastery_level');
+            $table->string('mastery_tag');
+>>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
             $table->timestamps();
         });
 

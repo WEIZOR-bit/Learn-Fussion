@@ -1,4 +1,3 @@
-
 version: '3'
 services:
 
@@ -201,6 +200,21 @@ services:
         depends_on:
             -   storage54.api.public
             -   storage54.api.admin
+
+    # Собственное локальное хранилище
+    storage54.minio:
+        build:
+            context: ./services/minio
+            dockerfile: Dockerfile
+        container_name: storage54.minio
+        volumes:
+            - ./volumes/storages/minio:/data
+        ports:
+            - "9000:9000"
+            - "9009:9009"
+        env_file:
+            - .env
+        command: server --console-address :9009 /data
 
 
 networks:

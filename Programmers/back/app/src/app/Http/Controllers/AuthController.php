@@ -17,17 +17,22 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AuthController extends Controller
 {
+<<<<<<< HEAD
     /**
      * Create a new controller instance.
      *
      * @param  AuthService  $authService
      * @return void
      */
+=======
+
+>>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
     public function __construct(private AuthService $authService)
     {
         //
     }
 
+<<<<<<< HEAD
     /**
      * Signup a user.
      *
@@ -57,6 +62,9 @@ class AuthController extends Controller
             ),
         ]
     )]
+=======
+
+>>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
     public function signup(SignupRequest $request): JsonResponse
     {
         $user = $this->authService->signupUser($request);
@@ -66,6 +74,7 @@ class AuthController extends Controller
         return Response::json(new LoggedInUserResource($user), HttpResponse::HTTP_CREATED);
     }
 
+<<<<<<< HEAD
     /**
      * Login a user.
      *
@@ -111,6 +120,9 @@ class AuthController extends Controller
             ),
         ]
     )]
+=======
+
+>>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
     public function login(LoginRequest $request): JsonResponse
     {
         $user = $this->authService->loginUser($request);
@@ -118,6 +130,7 @@ class AuthController extends Controller
         return Response::json(new LoggedInUserResource($user));
     }
 
+<<<<<<< HEAD
     /**
      * Logout a user.
      *
@@ -137,10 +150,16 @@ class AuthController extends Controller
             ),
         ]
     )]
+=======
+>>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
     public function logout(Request $request): JsonResponse
     {
         $this->authService->logoutUser($request->user());
 
         return Response::json(null, HttpResponse::HTTP_NO_CONTENT);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
 }
