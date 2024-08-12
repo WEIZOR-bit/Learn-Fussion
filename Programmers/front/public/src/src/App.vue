@@ -31,12 +31,6 @@ export default {
     }
   }
 }
-
-=======
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
->>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
 </script>
 
 <template>
@@ -45,12 +39,9 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <h1> Public </h1>
-<<<<<<< HEAD
       <button @click="login">Login</button>
       <button @click="logout">logout</button>
       <button @click="signup">Signup</button>
-=======
->>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
     </div>
   </header>
 

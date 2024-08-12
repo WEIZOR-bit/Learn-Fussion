@@ -1,1 +1,4 @@
 2024/08/08 10:09:38 [emerg] 1#1: host not found in upstream "storage54.api.public" in /etc/nginx/nginx.conf:34
+2024/08/12 14:30:07 [emerg] 1#1: host not found in upstream "storage54.front.admin" in /etc/nginx/nginx.conf:28
+2024/08/12 14:33:49 [emerg] 1#1: host not found in upstream "storage54.front.admin" in /etc/nginx/nginx.conf:28
+2024/08/12 14:50:00 [emerg] 1#1: host not found in upstream "storage54.front.admin" in /etc/nginx/nginx.conf:28

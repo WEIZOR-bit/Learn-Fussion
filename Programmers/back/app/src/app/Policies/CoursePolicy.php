@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
+use App\Models\Course;
 use App\Models\User;
-use App\Models\odel=Course;
 use Illuminate\Auth\Access\Response;
 
 class CoursePolicy
@@ -13,15 +13,15 @@ class CoursePolicy
      */
     public function viewAny(User $user): bool
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, odel=Course $odel=Course): bool
+    public function view(User $user, Course $course): bool
     {
-        //
+        return ($user->can('view articles'));
     }
 
     /**
@@ -29,38 +29,38 @@ class CoursePolicy
      */
     public function create(User $user): bool
     {
-        //
+        return ($user->can('create articles'));
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, odel=Course $odel=Course): bool
+    public function update(User $user, Course $course): bool
     {
-        //
+        return ($user->can('update articles'));
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, odel=Course $odel=Course): bool
+    public function delete(User $user, Course $course): bool
     {
-        //
+        return ($user->can('delete articles'));
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, odel=Course $odel=Course): bool
+    public function restore(User $user, Course $course): bool
     {
-        //
+         return $user->id === $course->user_id;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, odel=Course $odel=Course): bool
+    public function forceDelete(User $user, Course $course): bool
     {
-        //
+        return true;
     }
 }

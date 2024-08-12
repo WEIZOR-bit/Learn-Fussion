@@ -29,10 +29,10 @@ class PermissionSeeder extends Seeder
         $role1->givePermissionTo('view articles');
 
         $role2 = Role::create(['name' => 'Teacher']);
-        $role2->givePermissionTo('publish articles');
-        $role2->givePermissionTo('unpublish articles');
+        $role2->givePermissionTo('create articles');
         $role2->givePermissionTo('edit articles');
         $role2->givePermissionTo('delete articles');
+        $role2->givePermissionTo('view articles');
 
         $role3 = Role::create(['name' => 'Super-Admin']);
         // gets all permissions via Gate::before rule; see AuthServiceProvider
