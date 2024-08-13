@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Course;
+use App\Models\Homework;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Course>
+ * @extends Factory<Homework>
  */
-class CourseFactory extends Factory
+class HomeworkFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +18,7 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->name(),
-            'average_rating' => 0.0,
-            'description' => fake()->text(),
-            'review_count' => 0,
+            'task' => fake()->unique()->name(),
             'created_by' => fake()->firstName(),
             'updated_by' => fake()->firstName(),
         ];

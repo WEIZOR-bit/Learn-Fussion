@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Homework_Lesson extends Model
+class HomeworkLesson extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'homework_id',
         'lesson_id',

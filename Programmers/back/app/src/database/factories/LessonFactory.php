@@ -2,13 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Models\Admin;
 use App\Models\Course;
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Course>
+ * @extends Factory<Lesson>
  */
-class CourseFactory extends Factory
+class LessonFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,12 +20,16 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
+            'order' => $this->faker->numberBetween(1, 10),
             'name' => fake()->unique()->name(),
-            'average_rating' => 0.0,
             'description' => fake()->text(),
+            'tutorial_link' => fake()->url(),
+            'average_rating' => 0.0,
             'review_count' => 0,
-            'created_by' => fake()->firstName(),
-            'updated_by' => fake()->firstName(),
+            'question_count' => 0,
+            'created_by' => Admin::factory(),
+            'updated_by' => Admin::factory(),
+            'course_id' => Course::factory(),
         ];
     }
 }
