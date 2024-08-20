@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\SignupRequest;
 use App\Http\Resources\LoggedInUserResource;
 use App\Services\AuthService;
+use App\Services\CourseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
@@ -25,7 +26,7 @@ class AuthController extends Controller
      * @return void
      */
 
-    public function __construct(private AuthService $authService)
+    public function __construct(private AuthService $authService, private CourseService $courseService)
     {
         //
     }

@@ -1248,3 +1248,550 @@
 2024-08-12 15:15:27,875 INFO spawned: 'laravel-queues' with pid 7
 2024-08-12 15:15:28,877 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2024-08-12 15:15:30,873 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-12 15:51:13,513 WARN received SIGTERM indicating exit request
+2024-08-12 15:51:13,674 INFO waiting for laravel-webserver to die
+2024-08-12 15:51:13,818 WARN received SIGTERM indicating exit request
+2024-08-12 15:51:13,819 INFO waiting for laravel-queues to die
+2024-08-12 15:51:13,870 WARN received SIGTERM indicating exit request
+2024-08-12 15:51:13,874 INFO waiting for laravel-webserver to die
+2024-08-12 15:51:14,676 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-12 15:51:14,821 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-12 15:51:14,875 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 03:28:10,593 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 03:28:10,594 INFO supervisord started with pid 1
+2024-08-13 03:28:11,598 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 03:28:11,600 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 03:28:13,203 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 03:28:13,203 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 03:28:14,048 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 03:28:14,256 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 03:28:14,435 INFO supervisord started with pid 1
+2024-08-13 03:28:15,438 INFO spawned: 'composer-install' with pid 7
+2024-08-13 03:28:15,441 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 03:28:15,443 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 03:28:15,561 WARN exited: laravel-migrate (exit status 0; not expected)
+2024-08-13 03:28:17,041 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 03:28:17,042 INFO spawned: 'laravel-migrate' with pid 32
+2024-08-13 03:28:17,042 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 03:28:17,373 WARN exited: laravel-migrate (exit status 0; not expected)
+2024-08-13 03:28:17,758 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 03:28:19,763 INFO spawned: 'laravel-migrate' with pid 43
+2024-08-13 03:28:19,887 WARN exited: laravel-migrate (exit status 0; not expected)
+2024-08-13 03:28:22,893 INFO spawned: 'laravel-migrate' with pid 53
+2024-08-13 03:28:23,011 WARN exited: laravel-migrate (exit status 0; not expected)
+2024-08-13 03:28:24,013 INFO gave up: laravel-migrate entered FATAL state, too many start retries too quickly
+2024-08-13 03:28:26,277 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 03:28:26,283 INFO supervisord started with pid 1
+2024-08-13 03:28:27,287 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 03:28:28,290 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 03:47:38,539 WARN received SIGTERM indicating exit request
+2024-08-13 03:47:38,539 INFO waiting for laravel-queues to die
+2024-08-13 03:47:39,540 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 03:47:53,284 WARN received SIGTERM indicating exit request
+2024-08-13 03:47:53,284 INFO waiting for laravel-webserver to die
+2024-08-13 03:47:53,313 WARN received SIGTERM indicating exit request
+2024-08-13 03:47:53,313 INFO waiting for laravel-webserver to die
+2024-08-13 03:47:54,286 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 03:47:54,314 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:05:39,022 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:05:39,023 INFO supervisord started with pid 1
+2024-08-13 04:05:39,287 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:05:39,288 INFO supervisord started with pid 1
+2024-08-13 04:05:40,027 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 04:05:40,031 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 04:05:40,292 INFO spawned: 'composer-install' with pid 7
+2024-08-13 04:05:40,296 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 04:05:40,298 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 04:05:40,466 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:05:41,633 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:05:41,633 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:05:41,898 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:05:41,899 INFO spawned: 'laravel-migrate' with pid 32
+2024-08-13 04:05:41,899 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:05:42,376 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 04:05:43,286 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:05:43,299 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:05:49,501 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:05:49,502 INFO supervisord started with pid 1
+2024-08-13 04:05:50,504 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 04:05:51,505 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:05:53,438 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:23:38,613 WARN received SIGTERM indicating exit request
+2024-08-13 04:23:38,613 INFO waiting for laravel-queues to die
+2024-08-13 04:23:39,614 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 04:23:50,429 WARN received SIGTERM indicating exit request
+2024-08-13 04:23:50,429 INFO waiting for laravel-webserver to die
+2024-08-13 04:23:50,555 WARN received SIGTERM indicating exit request
+2024-08-13 04:23:50,555 INFO waiting for laravel-webserver to die
+2024-08-13 04:23:51,430 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:23:51,556 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:27:07,892 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:27:07,893 INFO supervisord started with pid 1
+2024-08-13 04:27:08,047 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:27:08,160 INFO supervisord started with pid 1
+2024-08-13 04:27:08,894 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 04:27:08,895 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 04:27:09,005 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:27:09,161 INFO spawned: 'composer-install' with pid 7
+2024-08-13 04:27:09,162 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 04:27:09,163 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 04:27:10,501 INFO spawned: 'laravel-migrate' with pid 16
+2024-08-13 04:27:10,501 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:27:10,553 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:27:10,553 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:27:10,553 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:27:10,607 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:27:10,673 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 04:27:12,610 INFO spawned: 'laravel-migrate' with pid 20
+2024-08-13 04:27:12,712 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:27:15,715 INFO spawned: 'laravel-migrate' with pid 30
+2024-08-13 04:27:15,819 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:27:15,972 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:27:16,014 INFO supervisord started with pid 1
+2024-08-13 04:27:16,820 INFO gave up: laravel-migrate entered FATAL state, too many start retries too quickly
+2024-08-13 04:27:17,016 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 04:27:18,017 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:27:21,539 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 04:32:22,303 WARN received SIGTERM indicating exit request
+2024-08-13 04:32:22,303 INFO waiting for laravel-queues to die
+2024-08-13 04:32:23,304 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 04:32:31,116 WARN received SIGTERM indicating exit request
+2024-08-13 04:32:31,116 INFO waiting for laravel-webserver to die
+2024-08-13 04:32:31,835 WARN received SIGTERM indicating exit request
+2024-08-13 04:32:31,835 INFO waiting for laravel-webserver to die
+2024-08-13 04:32:32,117 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:32:32,836 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:35:32,047 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:35:32,049 INFO supervisord started with pid 1
+2024-08-13 04:35:32,433 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:35:32,434 INFO supervisord started with pid 1
+2024-08-13 04:35:33,053 INFO spawned: 'composer-install' with pid 7
+2024-08-13 04:35:33,057 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 04:35:33,061 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 04:35:33,436 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 04:35:33,437 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 04:35:33,543 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:35:34,440 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:35:34,440 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:35:34,440 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:35:34,782 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 04:35:35,045 INFO spawned: 'laravel-migrate' with pid 16
+2024-08-13 04:35:35,046 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:35:35,149 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:35:37,152 INFO spawned: 'laravel-migrate' with pid 20
+2024-08-13 04:35:37,263 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:35:39,674 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:35:39,802 INFO supervisord started with pid 1
+2024-08-13 04:35:40,267 INFO spawned: 'laravel-migrate' with pid 30
+2024-08-13 04:35:40,371 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:35:40,803 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 04:35:41,372 INFO gave up: laravel-migrate entered FATAL state, too many start retries too quickly
+2024-08-13 04:35:41,805 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:35:48,945 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 04:38:32,989 WARN received SIGTERM indicating exit request
+2024-08-13 04:38:32,989 INFO waiting for laravel-queues to die
+2024-08-13 04:38:33,990 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 04:38:40,562 WARN received SIGTERM indicating exit request
+2024-08-13 04:38:40,562 INFO waiting for laravel-webserver to die
+2024-08-13 04:38:41,129 WARN received SIGTERM indicating exit request
+2024-08-13 04:38:41,129 INFO waiting for laravel-webserver to die
+2024-08-13 04:38:41,563 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:38:42,130 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:42:31,550 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:42:31,551 INFO supervisord started with pid 1
+2024-08-13 04:42:31,622 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:42:31,736 INFO supervisord started with pid 1
+2024-08-13 04:42:32,555 INFO spawned: 'composer-install' with pid 7
+2024-08-13 04:42:32,560 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 04:42:32,561 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 04:42:32,738 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 04:42:32,739 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 04:42:32,909 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:42:33,910 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:42:33,910 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:42:33,910 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:42:34,341 INFO spawned: 'laravel-migrate' with pid 16
+2024-08-13 04:42:34,342 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:42:34,478 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 04:42:35,456 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:42:35,510 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:42:39,365 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:42:39,406 INFO supervisord started with pid 1
+2024-08-13 04:42:40,408 INFO spawned: 'laravel-queues' with pid 6
+2024-08-13 04:42:41,409 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:42:47,976 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 04:56:32,308 WARN received SIGTERM indicating exit request
+2024-08-13 04:56:32,308 INFO waiting for laravel-queues to die
+2024-08-13 04:56:33,309 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 04:56:45,229 WARN received SIGTERM indicating exit request
+2024-08-13 04:56:45,229 INFO waiting for laravel-webserver to die
+2024-08-13 04:56:45,428 WARN received SIGTERM indicating exit request
+2024-08-13 04:56:45,428 INFO waiting for laravel-webserver to die
+2024-08-13 04:56:46,230 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:56:46,429 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 04:59:42,024 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:59:42,025 INFO supervisord started with pid 1
+2024-08-13 04:59:42,149 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:59:42,314 INFO supervisord started with pid 1
+2024-08-13 04:59:43,027 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 04:59:43,028 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 04:59:43,316 INFO spawned: 'composer-install' with pid 7
+2024-08-13 04:59:43,317 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 04:59:43,318 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 04:59:43,649 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:59:44,642 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:59:44,643 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:59:44,701 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:59:44,702 INFO spawned: 'laravel-migrate' with pid 32
+2024-08-13 04:59:44,702 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:59:45,044 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 04:59:46,045 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:59:46,333 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 04:59:50,551 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 04:59:50,597 INFO supervisord started with pid 1
+2024-08-13 04:59:51,599 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 04:59:52,601 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 04:59:55,053 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 05:01:18,688 WARN received SIGTERM indicating exit request
+2024-08-13 05:01:18,688 INFO waiting for laravel-queues to die
+2024-08-13 05:01:19,690 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 05:01:27,141 WARN received SIGTERM indicating exit request
+2024-08-13 05:01:27,141 INFO waiting for laravel-webserver to die
+2024-08-13 05:01:27,428 WARN received SIGTERM indicating exit request
+2024-08-13 05:01:27,429 INFO waiting for laravel-webserver to die
+2024-08-13 05:01:28,142 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 05:01:28,430 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 05:03:51,978 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 05:03:51,979 INFO supervisord started with pid 1
+2024-08-13 05:03:52,388 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 05:03:52,481 INFO supervisord started with pid 1
+2024-08-13 05:03:52,981 INFO spawned: 'composer-install' with pid 7
+2024-08-13 05:03:52,982 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 05:03:52,983 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 05:03:53,483 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 05:03:53,484 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 05:03:54,385 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:03:54,385 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:03:54,386 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:03:54,681 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 05:03:55,092 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:03:55,092 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:03:55,211 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 05:03:59,872 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 05:03:59,873 INFO supervisord started with pid 1
+2024-08-13 05:04:00,874 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 05:04:01,875 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:04:07,692 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 05:18:08,683 WARN received SIGTERM indicating exit request
+2024-08-13 05:18:08,683 INFO waiting for laravel-queues to die
+2024-08-13 05:18:09,685 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 05:18:20,315 WARN received SIGTERM indicating exit request
+2024-08-13 05:18:20,315 INFO waiting for laravel-webserver to die
+2024-08-13 05:18:20,845 WARN received SIGTERM indicating exit request
+2024-08-13 05:18:20,845 INFO waiting for laravel-webserver to die
+2024-08-13 05:18:21,316 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 05:18:21,846 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 05:24:36,832 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 05:24:36,833 INFO supervisord started with pid 1
+2024-08-13 05:24:37,036 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 05:24:37,175 INFO supervisord started with pid 1
+2024-08-13 05:24:37,834 INFO spawned: 'composer-install' with pid 7
+2024-08-13 05:24:37,835 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 05:24:37,836 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 05:24:38,177 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 05:24:38,178 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 05:24:39,048 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:24:39,049 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:24:39,049 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:24:39,559 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:24:39,559 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:24:39,571 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 05:24:40,870 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 05:24:45,813 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 05:24:45,814 INFO supervisord started with pid 1
+2024-08-13 05:24:46,816 INFO spawned: 'laravel-queues' with pid 13
+2024-08-13 05:24:47,816 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 05:24:49,775 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 06:04:30,168 WARN exited: laravel-queues (exit status 1; not expected)
+2024-08-13 06:04:31,170 INFO spawned: 'laravel-queues' with pid 492
+2024-08-13 06:04:32,172 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:06:12,268 WARN received SIGTERM indicating exit request
+2024-08-13 06:06:12,269 INFO waiting for laravel-queues to die
+2024-08-13 06:06:13,270 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 06:06:20,479 WARN received SIGTERM indicating exit request
+2024-08-13 06:06:20,479 INFO waiting for laravel-webserver to die
+2024-08-13 06:06:20,845 WARN received SIGTERM indicating exit request
+2024-08-13 06:06:20,845 INFO waiting for laravel-webserver to die
+2024-08-13 06:06:21,481 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 06:06:21,846 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 06:09:33,555 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 06:09:33,556 INFO supervisord started with pid 1
+2024-08-13 06:09:33,754 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 06:09:33,874 INFO supervisord started with pid 1
+2024-08-13 06:09:34,558 INFO spawned: 'composer-install' with pid 7
+2024-08-13 06:09:34,560 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 06:09:34,561 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 06:09:34,876 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 06:09:34,877 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 06:09:35,108 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 06:09:35,943 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:09:35,943 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:09:35,943 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:09:36,082 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 06:09:36,478 INFO spawned: 'laravel-migrate' with pid 16
+2024-08-13 06:09:36,478 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:09:37,439 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 06:09:39,441 INFO spawned: 'laravel-migrate' with pid 26
+2024-08-13 06:09:40,027 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 06:09:40,073 INFO supervisord started with pid 1
+2024-08-13 06:09:40,562 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:09:41,075 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 06:09:41,274 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 06:09:42,076 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:09:54,419 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 06:12:49,252 WARN received SIGTERM indicating exit request
+2024-08-13 06:12:49,252 INFO waiting for laravel-queues to die
+2024-08-13 06:12:50,253 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-13 06:12:55,467 WARN received SIGTERM indicating exit request
+2024-08-13 06:12:55,468 INFO waiting for laravel-webserver to die
+2024-08-13 06:12:56,469 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 06:12:59,598 WARN received SIGTERM indicating exit request
+2024-08-13 06:12:59,598 INFO waiting for laravel-webserver to die
+2024-08-13 06:13:00,600 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 06:18:01,954 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 06:18:01,955 INFO supervisord started with pid 1
+2024-08-13 06:18:02,021 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 06:18:02,037 INFO supervisord started with pid 1
+2024-08-13 06:18:02,957 INFO spawned: 'composer-install' with pid 7
+2024-08-13 06:18:02,958 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-13 06:18:02,959 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-13 06:18:03,039 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-13 06:18:03,041 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-13 06:18:03,420 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 06:18:04,321 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:18:04,321 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:18:04,321 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:18:04,445 INFO exited: composer-install (exit status 0; expected)
+2024-08-13 06:18:04,649 INFO spawned: 'laravel-migrate' with pid 16
+2024-08-13 06:18:04,650 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:18:05,661 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:18:05,676 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-13 06:18:06,898 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-13 06:18:06,902 INFO supervisord started with pid 1
+2024-08-13 06:18:07,904 INFO spawned: 'laravel-queues' with pid 7
+2024-08-13 06:18:08,905 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-13 06:18:22,011 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-13 14:31:31,283 WARN received SIGTERM indicating exit request
+2024-08-13 14:31:31,283 WARN received SIGTERM indicating exit request
+2024-08-13 14:31:31,284 INFO waiting for laravel-webserver to die
+2024-08-13 14:31:31,284 INFO waiting for laravel-webserver to die
+2024-08-13 14:31:31,331 WARN received SIGTERM indicating exit request
+2024-08-13 14:31:31,332 INFO waiting for laravel-queues to die
+2024-08-13 14:31:32,330 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 14:31:32,330 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-13 14:31:32,333 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-19 09:17:41,764 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 09:17:41,812 INFO supervisord started with pid 1
+2024-08-19 09:17:41,828 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 09:17:41,829 INFO supervisord started with pid 1
+2024-08-19 09:17:42,814 INFO spawned: 'composer-install' with pid 7
+2024-08-19 09:17:42,815 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-19 09:17:42,816 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-19 09:17:42,831 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-19 09:17:42,833 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-19 09:17:44,329 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 09:17:44,329 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 09:17:44,329 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 09:17:44,437 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 09:17:44,437 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 09:17:44,606 INFO exited: composer-install (exit status 0; expected)
+2024-08-19 09:17:51,534 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-19 09:17:51,596 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-19 09:17:53,058 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 09:17:59,634 INFO supervisord started with pid 1
+2024-08-19 09:18:00,638 INFO spawned: 'laravel-queues' with pid 12
+2024-08-19 09:18:01,640 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:31:39,015 WARN received SIGTERM indicating exit request
+2024-08-19 10:31:39,015 INFO waiting for laravel-queues to die
+2024-08-19 10:31:40,016 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-19 10:31:49,989 WARN received SIGTERM indicating exit request
+2024-08-19 10:31:49,990 INFO waiting for laravel-webserver to die
+2024-08-19 10:31:50,583 WARN received SIGTERM indicating exit request
+2024-08-19 10:31:50,583 INFO waiting for laravel-webserver to die
+2024-08-19 10:31:50,991 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-19 10:31:51,584 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-19 10:34:50,805 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 10:34:50,806 INFO supervisord started with pid 1
+2024-08-19 10:34:50,934 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 10:34:51,069 INFO supervisord started with pid 1
+2024-08-19 10:34:51,808 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-19 10:34:51,809 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-19 10:34:52,070 INFO spawned: 'composer-install' with pid 7
+2024-08-19 10:34:52,071 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-19 10:34:52,072 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-19 10:34:53,413 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:34:53,413 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:34:53,417 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:34:53,417 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:34:53,417 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:34:53,891 INFO exited: composer-install (exit status 0; expected)
+2024-08-19 10:34:54,180 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-19 10:35:02,423 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 10:35:02,424 INFO supervisord started with pid 1
+2024-08-19 10:35:03,425 INFO spawned: 'laravel-queues' with pid 7
+2024-08-19 10:35:04,427 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 10:35:08,258 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-19 11:29:31,523 WARN received SIGTERM indicating exit request
+2024-08-19 11:29:31,523 INFO waiting for laravel-queues to die
+2024-08-19 11:29:32,524 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-19 11:29:39,750 WARN received SIGTERM indicating exit request
+2024-08-19 11:29:39,750 INFO waiting for laravel-webserver to die
+2024-08-19 11:29:40,037 WARN received SIGTERM indicating exit request
+2024-08-19 11:29:40,037 INFO waiting for laravel-webserver to die
+2024-08-19 11:29:40,751 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-19 11:29:41,037 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-19 11:33:10,501 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 11:33:10,502 INFO supervisord started with pid 1
+2024-08-19 11:33:10,957 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 11:33:10,958 INFO supervisord started with pid 1
+2024-08-19 11:33:11,504 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-19 11:33:11,505 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-19 11:33:11,960 INFO spawned: 'composer-install' with pid 7
+2024-08-19 11:33:11,961 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-19 11:33:11,961 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-19 11:33:12,334 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-19 11:33:13,327 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 11:33:13,327 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 11:33:13,563 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 11:33:13,564 INFO spawned: 'laravel-migrate' with pid 32
+2024-08-19 11:33:13,565 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 11:33:14,303 INFO exited: composer-install (exit status 0; expected)
+2024-08-19 11:33:15,304 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 11:33:15,345 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-19 11:33:22,979 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-19 11:33:22,985 INFO supervisord started with pid 1
+2024-08-19 11:33:23,987 INFO spawned: 'laravel-queues' with pid 7
+2024-08-19 11:33:24,988 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-19 11:33:27,911 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-19 15:49:02,797 WARN received SIGTERM indicating exit request
+2024-08-19 15:49:02,836 INFO waiting for laravel-webserver to die
+2024-08-19 15:49:03,361 WARN received SIGTERM indicating exit request
+2024-08-19 15:49:03,361 INFO waiting for laravel-webserver to die
+2024-08-19 15:49:03,480 WARN received SIGTERM indicating exit request
+2024-08-19 15:49:03,480 INFO waiting for laravel-queues to die
+2024-08-19 15:49:03,733 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-19 15:49:03,838 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-19 15:49:04,362 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-20 09:04:12,591 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:04:12,643 INFO supervisord started with pid 1
+2024-08-20 09:04:12,959 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:04:12,960 INFO supervisord started with pid 1
+2024-08-20 09:04:13,646 INFO spawned: 'composer-install' with pid 7
+2024-08-20 09:04:13,648 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-20 09:04:13,649 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-20 09:04:13,962 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-20 09:04:13,963 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-20 09:04:15,257 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:04:15,258 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:04:15,258 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:04:15,565 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:04:15,565 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:04:16,397 INFO exited: composer-install (exit status 0; expected)
+2024-08-20 09:04:17,993 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 09:04:18,153 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 09:04:22,626 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:04:24,647 INFO supervisord started with pid 1
+2024-08-20 09:04:25,652 INFO spawned: 'laravel-queues' with pid 13
+2024-08-20 09:04:26,654 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:34:07,563 WARN received SIGTERM indicating exit request
+2024-08-20 09:34:07,563 INFO waiting for laravel-queues to die
+2024-08-20 09:34:08,564 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-20 09:34:19,755 WARN received SIGTERM indicating exit request
+2024-08-20 09:34:19,755 INFO waiting for laravel-webserver to die
+2024-08-20 09:34:20,101 WARN received SIGTERM indicating exit request
+2024-08-20 09:34:20,101 INFO waiting for laravel-webserver to die
+2024-08-20 09:34:20,756 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-20 09:34:21,102 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-20 09:48:54,439 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:48:54,440 INFO supervisord started with pid 1
+2024-08-20 09:48:54,719 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:48:54,720 INFO supervisord started with pid 1
+2024-08-20 09:48:55,442 INFO spawned: 'composer-install' with pid 7
+2024-08-20 09:48:55,443 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-20 09:48:55,444 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-20 09:48:55,722 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-20 09:48:55,723 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-20 09:48:55,931 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 09:48:56,632 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:48:56,632 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:48:56,632 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:48:57,143 INFO exited: composer-install (exit status 0; expected)
+2024-08-20 09:48:57,327 INFO spawned: 'laravel-migrate' with pid 16
+2024-08-20 09:48:57,327 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:48:58,269 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 09:48:59,977 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:48:59,978 INFO supervisord started with pid 1
+2024-08-20 09:49:00,273 INFO spawned: 'laravel-migrate' with pid 26
+2024-08-20 09:49:00,980 INFO spawned: 'laravel-queues' with pid 7
+2024-08-20 09:49:01,391 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:49:01,924 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 09:49:01,981 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:49:09,043 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-20 09:54:34,293 WARN received SIGTERM indicating exit request
+2024-08-20 09:54:34,293 INFO waiting for laravel-queues to die
+2024-08-20 09:54:35,294 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-08-20 09:54:46,271 WARN received SIGTERM indicating exit request
+2024-08-20 09:54:46,271 INFO waiting for laravel-webserver to die
+2024-08-20 09:54:47,272 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-20 09:54:48,376 WARN received SIGTERM indicating exit request
+2024-08-20 09:54:48,376 INFO waiting for laravel-webserver to die
+2024-08-20 09:54:49,376 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-08-20 09:57:15,487 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:57:15,488 INFO supervisord started with pid 1
+2024-08-20 09:57:15,931 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:57:15,932 INFO supervisord started with pid 1
+2024-08-20 09:57:16,490 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-20 09:57:16,491 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-20 09:57:16,934 INFO spawned: 'composer-install' with pid 7
+2024-08-20 09:57:16,935 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-20 09:57:16,936 INFO spawned: 'laravel-webserver' with pid 9
+2024-08-20 09:57:18,096 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:57:18,138 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:57:18,138 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:57:18,138 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:57:18,138 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:57:18,563 INFO exited: composer-install (exit status 0; expected)
+2024-08-20 09:57:19,329 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 09:57:27,404 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 09:57:27,569 INFO supervisord started with pid 1
+2024-08-20 09:57:28,570 INFO spawned: 'laravel-queues' with pid 7
+2024-08-20 09:57:29,572 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 09:57:32,958 INFO exited: laravel-migrate (exit status 0; expected)
+2024-08-20 12:08:37,202 INFO reaped unknown pid 1623 (exit status 0)
+2024-08-20 12:09:17,239 INFO reaped unknown pid 1663 (exit status 0)
+2024-08-20 12:09:20,242 INFO reaped unknown pid 1694 (exit status 0)
+2024-08-20 14:12:32,663 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 14:12:32,664 INFO supervisord started with pid 1
+2024-08-20 14:12:32,729 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 14:12:32,730 INFO supervisord started with pid 1
+2024-08-20 14:12:33,666 INFO spawned: 'laravel-migrate' with pid 7
+2024-08-20 14:12:33,667 INFO spawned: 'laravel-webserver' with pid 8
+2024-08-20 14:12:33,732 INFO spawned: 'composer-install' with pid 7
+2024-08-20 14:12:33,734 INFO spawned: 'laravel-migrate' with pid 8
+2024-08-20 14:12:33,735 INFO spawned: 'laravel-webserver' with pid 10
+2024-08-20 14:12:34,646 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 14:12:35,442 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 14:12:35,442 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 14:12:35,588 INFO exited: composer-install (exit status 0; expected)
+2024-08-20 14:12:35,640 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 14:12:35,640 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 14:12:36,590 INFO spawned: 'laravel-migrate' with pid 39
+2024-08-20 14:12:36,909 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 14:12:38,912 INFO spawned: 'laravel-migrate' with pid 49
+2024-08-20 14:12:40,025 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 14:12:40,912 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-08-20 14:12:41,035 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-08-20 14:12:41,036 INFO supervisord started with pid 1
+2024-08-20 14:12:42,038 INFO spawned: 'laravel-queues' with pid 7
+2024-08-20 14:12:43,040 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-08-20 14:12:52,124 INFO exited: laravel-migrate (exit status 0; expected)

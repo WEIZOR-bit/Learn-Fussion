@@ -28,4 +28,34 @@ class CourseService
     {
         return $this->courseRepository->get(['name' => $name]);
     }
+
+    public function getById($id): ?Course
+    {
+        return $this->courseRepository->get(['id' => $id]);
+    }
+
+    public function getAllCourses()
+    {
+        return $this->courseRepository->all();
+    }
+
+    public function createCourse(array $data)
+    {
+        return $this->courseRepository->create($data);
+    }
+
+    public function getCourseById($id)
+    {
+        return $this->courseRepository->find($id);
+    }
+
+    public function updateCourse($id, array $data)
+    {
+        return $this->courseRepository->update($this->getById($id), $data);
+    }
+    public function deleteCourse($id)
+    {
+        return $this->courseRepository->delete($this->getById($id));
+    }
+
 }

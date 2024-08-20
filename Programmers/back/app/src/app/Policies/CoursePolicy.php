@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Course;
 use App\Models\User;
+use Couchbase\Role;
 use Illuminate\Auth\Access\Response;
 
 class CoursePolicy
@@ -37,6 +38,7 @@ class CoursePolicy
      */
     public function update(User $user, Course $course): bool
     {
+        // TODO The logic for updating articles by their authors and Super-Admin
         return ($user->can('update articles'));
     }
 
@@ -45,6 +47,7 @@ class CoursePolicy
      */
     public function delete(User $user, Course $course): bool
     {
+        // TODO The logic for delete articles by their authors and Super-Admin
         return ($user->can('delete articles'));
     }
 
@@ -53,7 +56,7 @@ class CoursePolicy
      */
     public function restore(User $user, Course $course): bool
     {
-         return $user->id === $course->user_id;
+         return $user->can('delete articles');
     }
 
     /**
@@ -61,6 +64,6 @@ class CoursePolicy
      */
     public function forceDelete(User $user, Course $course): bool
     {
-        return true;
+        return $user->hasRole('Super-Admin');
     }
 }
