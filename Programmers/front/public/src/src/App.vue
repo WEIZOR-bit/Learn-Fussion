@@ -2,12 +2,15 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import axios from "axios";
-// import Index from 'components/Index.vue'
 export default {
   methods: {
+    async sendView() {
+      const response = await axios.post('http://0.0.0.0:80/api/public/view',)
+      console.log(response.data);
+    },
    async login() {
      const response = await axios.post('http://0.0.0.0:80/api/public/login', {
-       email: 'john1@gmail.com',
+       email: 'john12@gmail.com',
        password: '123123123123'})
      console.log(response.data);
      const token = response.data.token.access_token;
@@ -28,15 +31,19 @@ export default {
       console.log(response.data);
       const token = response.data.token.access_token;
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
+    },
+    async create() {
+      const response = await axios.post('http://0.0.0.0:80/api/admin/courses', {
+        name: 'designer',
+        average_rating: '123123123123',
+        description: 'description',
+        review_count: 0,
+        created_by: 'AdminOdium',
+        updated_by: 'AdminOdium',})
+      console.log(response.data);
+    },
   }
 }
-
-=======
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
->>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
 </script>
 
 <template>
@@ -45,12 +52,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <h1> Public </h1>
-<<<<<<< HEAD
       <button @click="login">Login</button>
       <button @click="logout">logout</button>
       <button @click="signup">Signup</button>
-=======
->>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
+      <button @click="sendView">sendView</button>
+      <button @click="create">create</button>
+      <button @click="destroy">destroy</button>
+
     </div>
   </header>
 

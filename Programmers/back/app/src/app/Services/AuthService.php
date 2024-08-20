@@ -38,6 +38,7 @@ class AuthService
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        $user->assignRole('User');
 
         return $user;
     }
@@ -89,7 +90,7 @@ class AuthService
         if (!$admin || !Hash::check($request->password, $admin->password)) {
             return abort(401, 'Invalid credentials.');
         }
-
+        $admin->assignRole('Super-Admin');
         return $admin;
     }
 

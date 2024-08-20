@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\AdminLoginRequest;
 use App\Http\Resources\LoggedInAdminResource;
+use App\Http\Resources\LoggedInUserResource;
 use App\Services\AuthService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -102,4 +103,5 @@ class AuthController extends Controller
 
         return Response::json(null, HttpResponse::HTTP_NO_CONTENT);
     }
+
 }

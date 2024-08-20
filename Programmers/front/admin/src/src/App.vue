@@ -1,11 +1,17 @@
 <<<<<<< HEAD
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterLink, RouterView } from 'vue-router';
 import axios from "axios";
 
 
 export default {
+
+
+  data() {
+    return {
+      response: null
+    }
+  },
   methods: {
     async login() {
       const response = await axios.post('http://0.0.0.0:80/api/admin/login', {
@@ -19,14 +25,39 @@ export default {
     async logout() {
       const response = await axios.post('http://0.0.0.0:80/api/admin/logout')
       console.log(response.data);
-    }
+    },
+    async sendView() {
+      this.response = await axios.get('http://0.0.0.0:80/api/admin/courses',)
+      console.log(this.response.data);
+    },
+    async create() {
+      const response = await axios.post('http://0.0.0.0:80/api/admin/courses', {
+        name: 'designe',
+        average_rating: '123123123',
+        description: 'descrip',
+        review_count: 12,
+        created_by: 'Admin',
+        updated_by: 'Admin',})
+        this.response = response.data;
+      console.log(response.data);
+    },
+    async destroy() {
+      const response = await axios.delete('http://0.0.0.0:80/api/admin/courses/1')
+      console.log(response.data);
+    },
+    async update() {
+      const response = await axios.put('http://0.0.0.0:80/api/admin/courses/2', {
+        name: 'designeres',
+        average_rating: '123123123',
+        description: 'descrip',
+        review_count: 12,
+        created_by: 'Admin',
+        updated_by: 'Admin',})
+      this.response = response.data;
+      console.log(response.data);
+    },
   }
 }
-=======
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
->>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
 </script>
 
 <template>
@@ -35,11 +66,12 @@ import HelloWorld from './components/HelloWorld.vue'
 
     <div class="wrapper">
       <h1> Admin </h1>
-<<<<<<< HEAD
       <button @click="login">Login</button>
       <button @click="logout">logout</button>
-=======
->>>>>>> b75655ec499b2dbbe13cb7ef96f6c849490a6d43
+      <button @click="sendView">sendView</button>
+      <button @click="create">create</button>
+      <button @click="destroy">destroy</button>
+      <button @click="update">update</button>
     </div>
   </header>
 
