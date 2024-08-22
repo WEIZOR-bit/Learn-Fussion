@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lessons', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->unsignedTinyInteger('order');
             $table->string('name');

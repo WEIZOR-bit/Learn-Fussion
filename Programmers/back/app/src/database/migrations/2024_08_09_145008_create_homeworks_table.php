@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('homeworks', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('task')->nullable();
             $table->string('created_by');
