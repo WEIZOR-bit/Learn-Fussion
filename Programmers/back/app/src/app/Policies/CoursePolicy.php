@@ -14,7 +14,7 @@ class CoursePolicy
      */
     public function viewAny(User $user): bool
     {
-        return true;
+        return $user->hasPermissionTo('view articles');
     }
 
     /**
@@ -22,7 +22,7 @@ class CoursePolicy
      */
     public function view(User $user, Course $course): bool
     {
-        return ($user->can('view articles'));
+        return $user->hasPermissionTo('view articles');
     }
 
     /**
@@ -30,7 +30,7 @@ class CoursePolicy
      */
     public function create(User $user): bool
     {
-        return ($user->can('create articles'));
+        return $user->hasPermissionTo('create articles');
     }
 
     /**
@@ -39,7 +39,7 @@ class CoursePolicy
     public function update(User $user, Course $course): bool
     {
         // TODO The logic for updating articles by their authors and Super-Admin
-        return ($user->can('update articles'));
+        return $user->hasPermissionTo('update articles');
     }
 
     /**
@@ -48,7 +48,7 @@ class CoursePolicy
     public function delete(User $user, Course $course): bool
     {
         // TODO The logic for delete articles by their authors and Super-Admin
-        return ($user->can('delete articles'));
+        return $user->hasPermissionTo('delete articles');
     }
 
     /**
@@ -56,7 +56,7 @@ class CoursePolicy
      */
     public function restore(User $user, Course $course): bool
     {
-         return $user->can('delete articles');
+        return $user->hasPermissionTo('delete articles');
     }
 
     /**

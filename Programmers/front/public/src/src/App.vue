@@ -5,7 +5,7 @@ import axios from "axios";
 export default {
   methods: {
     async sendView() {
-      const response = await axios.post('http://0.0.0.0:80/api/public/view',)
+      const response = await axios.get('http://0.0.0.0:80/api/public/courses',)
       console.log(response.data);
     },
    async login() {
