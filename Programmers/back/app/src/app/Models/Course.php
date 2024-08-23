@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Course extends Model
 {
@@ -23,8 +24,33 @@ class Course extends Model
         'updated_by'
     ];
 
-    public function lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /**
+     * Get all lessons in this course.
+     *
+     * @return HasMany
+     */
+    public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class);
+    }
+
+    /**
+     * Get all reviews for this course.
+     *
+     * @return HasMany
+     */
+    public function course_reviews(): HasMany
+    {
+        return $this->hasMany(CourseReview::class);
+    }
+
+    /**
+     * Get history of people finishing the course.
+     *
+     * @return HasMany
+     */
+    public function courses_finished(): HasMany
+    {
+        return $this->hasMany(CourseFinished::class);
     }
 }

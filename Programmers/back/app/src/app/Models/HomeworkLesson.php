@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class HomeworkLesson extends Model
 {
@@ -14,13 +15,23 @@ class HomeworkLesson extends Model
         'lesson_id',
     ];
 
-    public function homework(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * Get the homework association.
+     *
+     * @return BelongsTo
+     */
+    public function homework(): BelongsTo
     {
-        return $this->belongsTo(Homework::class);
+        return $this->belongsTo(Homework::class, 'homework_id');
     }
 
-    public function lesson(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * Get the lesson association.
+     *
+     * @return BelongsTo
+     */
+    public function lesson(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(Lesson::class, 'lesson_id');
     }
 }

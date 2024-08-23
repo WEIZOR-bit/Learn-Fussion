@@ -2,15 +2,14 @@
 
 namespace database\factories;
 
-use App\Models\Lesson;
-use app\Models\LessonFinished;
-use App\Models\User;
+use app\Models\Subscription;
+use app\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<LessonFinished>
+ * @extends Factory<Subscription>
  */
-class LessonFinishedFactory extends Factory
+class SubscriptionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,9 +19,9 @@ class LessonFinishedFactory extends Factory
     public function definition(): array
     {
         return [
-            'lesson_id' => Lesson::factory(),
             'user_id' => User::factory(),
-            'finished_at' => now(),
+            'start_date' => now(),
+            'end_date' => now()->subDay(),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class LessonFinished extends Model
 {
@@ -12,15 +13,26 @@ class LessonFinished extends Model
     protected $fillable = [
         'user_id',
         'lesson_id',
+        'finished_at'
     ];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * Get the user who finished the lesson.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
-    public function lesson(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * Get the lesson that was finished.
+     *
+     * @return BelongsTo
+     */
+    public function lesson(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(Lesson::class,'lesson_id');
     }
 }

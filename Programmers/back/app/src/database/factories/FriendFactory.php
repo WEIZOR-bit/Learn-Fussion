@@ -2,15 +2,15 @@
 
 namespace database\factories;
 
-use App\Models\Lesson;
-use app\Models\LessonFinished;
+use app\Models\Friend;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+
 /**
- * @extends Factory<LessonFinished>
+ * @extends Factory<Friend>
  */
-class LessonFinishedFactory extends Factory
+class FriendFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,9 +20,8 @@ class LessonFinishedFactory extends Factory
     public function definition(): array
     {
         return [
-            'lesson_id' => Lesson::factory(),
-            'user_id' => User::factory(),
-            'finished_at' => now(),
+            'user_id_1' => User::factory(),
+            'user_id_2' => User::factory(),
         ];
     }
 }
