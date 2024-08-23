@@ -1,30 +1,33 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Question extends Model
+class LessonFinished extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'order',
-        'name',
-        'matter',
-        'answers',
+        'user_id',
         'lesson_id',
+        'finished_at'
     ];
 
     /**
-     * Get the lesson this question is in.
+     * Get the user who finished the lesson.
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    /**
+     * Get the lesson that was finished.
      *
      * @return BelongsTo
      */

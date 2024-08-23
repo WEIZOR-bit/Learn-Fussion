@@ -6,30 +6,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Question extends Model
+class HomeworkLesson extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
     protected $fillable = [
-        'order',
-        'name',
-        'matter',
-        'answers',
+        'homework_id',
         'lesson_id',
     ];
 
     /**
-     * Get the lesson this question is in.
+     * Get the homework association.
+     *
+     * @return BelongsTo
+     */
+    public function homework(): BelongsTo
+    {
+        return $this->belongsTo(Homework::class, 'homework_id');
+    }
+
+    /**
+     * Get the lesson association.
      *
      * @return BelongsTo
      */
     public function lesson(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class,'lesson_id');
+        return $this->belongsTo(Lesson::class, 'lesson_id');
     }
 }

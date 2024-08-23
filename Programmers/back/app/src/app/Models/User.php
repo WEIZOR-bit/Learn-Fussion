@@ -1,14 +1,20 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \Spatie\Permission\Traits\HasRoles;
 
+/**
+ * @property int mastery_level
+ * @property int hearts
+ * @property string|null $last_active_at
+ * @property string|null $started_streak_at
+ */
 class User extends Authenticatable
 {
     use HasRoles, HasApiTokens, HasFactory, Notifiable;
@@ -22,9 +28,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'friendliness_rating',
         'mastery_level',
-        'mastery_tag'
+        'hearts',
+        'mastery_tag',
+        'started_streak_at',
+        'last_active_at',
     ];
 
     /**
@@ -48,5 +56,65 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the subscriptions of this user.
+     *
+     * @return HasMany
+     */
+    public function subscriptions(): HasMany
+    {
+        return $this->hasMany(Subscription::class);
+    }
+
+    /**
+     * Get the lessons finished by this user.
+     *
+     * @return HasMany
+     */
+    public function lessons_finished(): HasMany
+    {
+        return $this->hasMany(LessonFinished::class);
+    }
+
+    /**
+     * Get the homeworks finished by this user.
+     *
+     * @return HasMany
+     */
+    public function homeworks_finished(): HasMany
+    {
+        return $this->hasMany(HomeworkFinished::class);
+    }
+
+    /**
+     * Get the reviews to courses written by this user.
+     *
+     * @return HasMany
+     */
+    public function course_reviews(): HasMany
+    {
+        return $this->hasMany(CourseReview::class);
+    }
+
+    /**
+     * Get the courses finished by this user.
+     *
+     * @return HasMany
+     */
+    public function courses_finished(): HasMany
+    {
+        return $this->hasMany(CourseFinished::class);
+    }
+
+    /**
+     * Get the friends of this user.
+     *
+     * @return HasMany
+     */
+    public function friends(): HasMany
+    {
+        return $this->hasMany(Friend::class);
     }
 }

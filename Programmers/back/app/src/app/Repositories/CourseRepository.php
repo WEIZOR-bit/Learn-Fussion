@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace app\Repositories;
 
 use App\Models\Course;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CourseRepository extends BaseRepository
 {

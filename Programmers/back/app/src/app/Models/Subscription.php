@@ -1,12 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
-class Question extends Model
+/**
+ * @property string|Carbon $start_date
+ * @property string|Carbon $end_date
+ */
+class Subscription extends Model
 {
     use HasFactory;
 
@@ -16,20 +21,18 @@ class Question extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'order',
-        'name',
-        'matter',
-        'answers',
-        'lesson_id',
+        'user_id',
+        'start_date',
+        'end_date',
     ];
 
     /**
-     * Get the lesson this question is in.
+     * Get the user subscribed.
      *
      * @return BelongsTo
      */
-    public function lesson(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class,'lesson_id');
+        return $this->belongsTo(User::class,'user_id');
     }
 }

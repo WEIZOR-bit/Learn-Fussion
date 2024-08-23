@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('homeworks', function (Blueprint $table) {
             $table->id();
             $table->string('task')->nullable();
-            $table->string('created_by');
-            $table->string('updated_by');
+
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+
+            $table->foreign('created_by')->references('id')->on('admins');
+            $table->foreign('updated_by')->references('id')->on('admins');
+
             $table->timestamps();
         });
     }
