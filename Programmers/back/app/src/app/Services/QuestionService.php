@@ -38,7 +38,7 @@ class QuestionService
      * @param array $columns
      * @return LengthAwarePaginator|Collection
      */
-    public function getAllQuestions(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
     {
         return $this->questionRepository->paginate($limit, $columns);
     }
@@ -49,7 +49,7 @@ class QuestionService
      * @param array $data
      * @return Question
      */
-    public function createQuestion(array $data): Question
+    public function create(array $data): Question
     {
         return $this->questionRepository->create($data);
     }
@@ -61,7 +61,7 @@ class QuestionService
      * @param array $data
      * @return bool
      */
-    public function updateQuestion(int $id, array $data): bool
+    public function update(int $id, array $data): bool
     {
         return $this->questionRepository->update($this->getById($id), $data);
     }
@@ -72,20 +72,8 @@ class QuestionService
      * @param int $id
      * @return bool
      */
-    public function deleteQuestion(int $id): bool
+    public function delete(int $id): bool
     {
         return $this->questionRepository->delete($this->getById($id));
-    }
-
-    /**
-     * Get the most recent questions.
-     *
-     * @param int|null $limit
-     * @param array $columns
-     * @return LengthAwarePaginator|Collection
-     */
-    public function getRecentQuestions(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
-    {
-        return $this->questionRepository->paginate($limit, $columns);
     }
 }

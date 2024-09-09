@@ -1,15 +1,15 @@
 <?php
 
-namespace Database\Factories;
+namespace database\factories;
 
 use App\Models\Admin;
-use App\Models\Course;
+use app\Models\Challenge;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Course>
+ * @extends Factory<Challenge>
  */
-class CourseFactory extends Factory
+class ChallengeFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,10 +19,9 @@ class CourseFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->unique()->name(),
-            'average_rating' => 0.0,
-            'description' => fake()->text(),
-            'review_count' => 0,
+            'name' => $this->faker->title(),
+            'description' => $this->faker->paragraph(),
+            'reward' => $this->faker->randomFloat(0,1,255),
             'created_by' => Admin::factory(),
             'updated_by' => Admin::factory(),
         ];

@@ -5,6 +5,7 @@ namespace app\Services;
 use app\Models\HomeworkFinished;
 use app\Repositories\HomeworkFinishedRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class HomeworkFinishedService
 {
@@ -31,12 +32,24 @@ class HomeworkFinishedService
     }
 
     /**
+     * Get all homeworks finished, optionally paginated.
+     *
+     * @param int|null $limit
+     * @param array $columns
+     * @return LengthAwarePaginator|Collection
+     */
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    {
+        return $this->homeworkFinishedRepository->paginate($limit, $columns);
+    }
+
+    /**
      * Create a new HomeworkFinished.
      *
      * @param array $data
      * @return HomeworkFinished
      */
-    public function createHomeworkFinished(array $data): HomeworkFinished
+    public function create(array $data): HomeworkFinished
     {
         return $this->homeworkFinishedRepository->create($data);
     }
@@ -48,7 +61,7 @@ class HomeworkFinishedService
      * @param array $data
      * @return bool
      */
-    public function updateHomeworkFinished(int $id, array $data): bool
+    public function update(int $id, array $data): bool
     {
         return $this->homeworkFinishedRepository->update($this->getById($id), $data);
     }
@@ -59,7 +72,7 @@ class HomeworkFinishedService
      * @param int $id
      * @return bool
      */
-    public function deleteHomeworkFinished(int $id): bool
+    public function delete(int $id): bool
     {
         return $this->homeworkFinishedRepository->delete($this->getById($id));
     }
@@ -70,7 +83,7 @@ class HomeworkFinishedService
      * @param int $userId
      * @return Collection|array
      */
-    public function getHomeworksFinishedByUser(int $userId): Collection|array
+    public function getByUserId(int $userId): Collection|array
     {
         return $this->homeworkFinishedRepository->getAllByUserId($userId);
     }

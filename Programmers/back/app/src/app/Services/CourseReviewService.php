@@ -5,6 +5,7 @@ namespace app\Services;
 use app\Models\CourseReview;
 use app\Repositories\CourseReviewRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CourseReviewService
 {
@@ -31,12 +32,24 @@ class CourseReviewService
     }
 
     /**
+     * Get all course reviews, optionally paginated.
+     *
+     * @param int|null $limit
+     * @param array $columns
+     * @return LengthAwarePaginator|Collection
+     */
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    {
+        return $this->courseReviewRepository->paginate($limit, $columns);
+    }
+
+    /**
      * Create a new CourseReview.
      *
      * @param array $data
      * @return CourseReview
      */
-    public function createCourseReview(array $data): CourseReview
+    public function create(array $data): CourseReview
     {
         return $this->courseReviewRepository->create($data);
     }
@@ -48,7 +61,7 @@ class CourseReviewService
      * @param array $data
      * @return bool
      */
-    public function updateCourseReview(int $id, array $data): bool
+    public function update(int $id, array $data): bool
     {
         return $this->courseReviewRepository->update($this->getById($id), $data);
     }
@@ -59,7 +72,7 @@ class CourseReviewService
      * @param int $id
      * @return bool
      */
-    public function deleteCourseReview(int $id): bool
+    public function delete(int $id): bool
     {
         return $this->courseReviewRepository->delete($this->getById($id));
     }
@@ -70,7 +83,7 @@ class CourseReviewService
      * @param int $userId
      * @return Collection|array
      */
-    public function getAllCourseReviewsByUser(int $userId): Collection|array
+    public function getByUserId(int $userId): Collection|array
     {
         return $this->courseReviewRepository->getAllByUserId($userId);
     }
@@ -81,7 +94,7 @@ class CourseReviewService
      * @param int $courseId
      * @return Collection|array
      */
-    public function getAllReviewsForCourse(int $courseId): Collection|array
+    public function getByCourseId(int $courseId): Collection|array
     {
         return $this->courseReviewRepository->getAllByCourseId($courseId);
     }
