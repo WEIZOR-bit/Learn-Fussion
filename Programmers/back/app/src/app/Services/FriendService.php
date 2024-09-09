@@ -13,11 +13,12 @@ class FriendService
         $this->friendRepository = $friendRepository;
     }
 
-    public function addFriend(int $userId1, int $userId2)
+    public function add(int $userId1, int $userId2)
     {
 
         if ($this->areFriends($userId1, $userId2)) {
-            return false; // Or throw an exception or return a specific response
+            return false;
+            // TODO handle differently perhaps
         }
 
         return $this->friendRepository->create([
@@ -26,7 +27,7 @@ class FriendService
         ]);
     }
 
-    public function removeFriend(int $userId1, int $userId2): bool
+    public function delete(int $userId1, int $userId2): bool
     {
         if (!$this->areFriends($userId1, $userId2)) {
             return false;

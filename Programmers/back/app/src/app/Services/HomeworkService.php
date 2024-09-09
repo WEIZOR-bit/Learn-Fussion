@@ -38,7 +38,7 @@ class HomeworkService
      * @param array $columns
      * @return LengthAwarePaginator|Collection
      */
-    public function getAllHomeworks(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
     {
         return $this->homeworkRepository->paginate($limit, $columns);
     }
@@ -51,7 +51,7 @@ class HomeworkService
      * @param array $columns
      * @return LengthAwarePaginator|Collection
      */
-    public function getHomeworksByCreator(int $adminId, ?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    public function getByAdminId(int $adminId, ?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
     {
         return $this->homeworkRepository->paginate($limit, $columns, [
             ['created_by', '=', $adminId]
@@ -64,7 +64,7 @@ class HomeworkService
      * @param array $data
      * @return Homework
      */
-    public function createHomework(array $data): Homework
+    public function create(array $data): Homework
     {
         return $this->homeworkRepository->create($data);
     }
@@ -76,7 +76,7 @@ class HomeworkService
      * @param array $data
      * @return bool
      */
-    public function updateHomework(int $id, array $data): bool
+    public function update(int $id, array $data): bool
     {
         return $this->homeworkRepository->update($this->getById($id), $data);
     }
@@ -87,20 +87,8 @@ class HomeworkService
      * @param int $id
      * @return bool
      */
-    public function deleteHomework(int $id): bool
+    public function delete(int $id): bool
     {
         return $this->homeworkRepository->delete($this->getById($id));
-    }
-
-    /**
-     * Get the most recent homeworks.
-     *
-     * @param int|null $limit
-     * @param array $columns
-     * @return LengthAwarePaginator|Collection
-     */
-    public function getRecentHomeworks(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
-    {
-        return $this->homeworkRepository->paginate($limit, $columns);
     }
 }

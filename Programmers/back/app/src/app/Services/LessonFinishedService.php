@@ -5,6 +5,7 @@ namespace app\Services;
 use app\Models\LessonFinished;
 use app\Repositories\LessonFinishedRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class LessonFinishedService
 {
@@ -31,12 +32,24 @@ class LessonFinishedService
     }
 
     /**
+     * Get all lessons finished, optionally paginated.
+     *
+     * @param int|null $limit
+     * @param array $columns
+     * @return LengthAwarePaginator|Collection
+     */
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    {
+        return $this->lessonFinishedRepository->paginate($limit, $columns);
+    }
+
+    /**
      * Create a new LessonFinished.
      *
      * @param array $data
      * @return LessonFinished
      */
-    public function createLessonFinished(array $data): LessonFinished
+    public function create(array $data): LessonFinished
     {
         return $this->lessonFinishedRepository->create($data);
     }
@@ -48,7 +61,7 @@ class LessonFinishedService
      * @param array $data
      * @return bool
      */
-    public function updateLessonFinished(int $id, array $data): bool
+    public function update(int $id, array $data): bool
     {
         return $this->lessonFinishedRepository->update($this->getById($id), $data);
     }
@@ -59,7 +72,7 @@ class LessonFinishedService
      * @param int $id
      * @return bool
      */
-    public function deleteLessonFinished(int $id): bool
+    public function delete(int $id): bool
     {
         return $this->lessonFinishedRepository->delete($this->getById($id));
     }
@@ -70,7 +83,7 @@ class LessonFinishedService
      * @param int $userId
      * @return Collection|array
      */
-    public function getLessonsFinishedByUser(int $userId): Collection|array
+    public function getByUserId(int $userId): Collection|array
     {
         return $this->lessonFinishedRepository->getAllByUserId($userId);
     }

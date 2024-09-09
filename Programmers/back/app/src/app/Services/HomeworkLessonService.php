@@ -4,6 +4,8 @@ namespace app\Services;
 
 use App\Models\HomeworkLesson;
 use app\Repositories\HomeworkLessonRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class HomeworkLessonService
 {
@@ -30,12 +32,24 @@ class HomeworkLessonService
     }
 
     /**
+     * Get all homework lessons, optionally paginated.
+     *
+     * @param int|null $limit
+     * @param array $columns
+     * @return LengthAwarePaginator|Collection
+     */
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    {
+        return $this->homeworkLessonRepository->paginate($limit, $columns);
+    }
+
+    /**
      * Create a new HomeworkLesson.
      *
      * @param array $data
      * @return HomeworkLesson
      */
-    public function createHomeworkLesson(array $data): HomeworkLesson
+    public function create(array $data): HomeworkLesson
     {
         return $this->homeworkLessonRepository->create($data);
     }
@@ -47,7 +61,7 @@ class HomeworkLessonService
      * @param array $data
      * @return bool
      */
-    public function updateHomeworkLesson(int $id, array $data): bool
+    public function update(int $id, array $data): bool
     {
         return $this->homeworkLessonRepository->update($this->getById($id), $data);
     }
@@ -58,7 +72,7 @@ class HomeworkLessonService
      * @param int $id
      * @return bool
      */
-    public function deleteHomeworkLesson(int $id): bool
+    public function delete(int $id): bool
     {
         return $this->homeworkLessonRepository->delete($this->getById($id));
     }

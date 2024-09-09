@@ -2,6 +2,7 @@
 
 namespace app\Services;
 
+use app\Models\League;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Date;
@@ -93,5 +94,28 @@ class UserService
         }
 
         return false;
+    }
+
+    /**
+     * Get the league of a user based on their mastery level.
+     *
+     * @param int $userId
+     * @return null|string
+     */
+    public function getUserLeague(int $userId): ?string
+    {
+        // Retrieve the user's mastery level
+        $user = $this->getById($userId);
+
+        if (!$user) {
+            return null; // User not found
+        }
+
+        $masteryLevel = $user->mastery_level;
+
+        // Find the highest league the user qualifies for
+        return League::query()->where('min_mastery_level', '<=', $masteryLevel)
+            ->orderByDesc('min_mastery_level')
+            ->first()->name;
     }
 }
