@@ -16,4 +16,19 @@ class ChallengeUncheckedRepository extends BaseRepository
     {
         $this->model = $challengeUnchecked;
     }
+
+    /**
+     * Delete an entry by user_id and challenge_id.
+     *
+     * @param int $userId
+     * @param int $challengeId
+     * @return bool
+     */
+    public function deleteByUserIdAndChallengeId(int $userId, int $challengeId): bool
+    {
+        return $this->model->newQuery()
+                ->where('user_id', $userId)
+                ->where('challenge_id', $challengeId)
+                ->delete() > 0;
+    }
 }

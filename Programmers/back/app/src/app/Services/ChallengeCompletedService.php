@@ -3,21 +3,25 @@
 namespace app\Services;
 
 use app\Models\ChallengeCompleted;
+use app\Models\ChallengeUnchecked;
 use app\Repositories\ChallengeCompletedRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ChallengeCompletedService
 {
+
     /**
      * Create a new service instance.
      *
      * @param  ChallengeCompletedRepository  $challengeCompletedRepository
+     * @param  ChallengeUncheckedService     $challengeUncheckedService
      * @return void
      */
-    public function __construct(private ChallengeCompletedRepository $challengeCompletedRepository)
-    {
-        //
+    public function __construct(
+        private ChallengeCompletedRepository $challengeCompletedRepository,
+        private ChallengeUncheckedService $challengeUncheckedService
+    ) {
     }
 
     /**
@@ -51,6 +55,15 @@ class ChallengeCompletedService
      */
     public function create(array $data): ChallengeCompleted
     {
+        $challengeId = $data['challenge_id'] ?? null;
+        $userId = $data['user_id'] ?? null;
+
+        if (!$challengeId || !$userId) {
+            throw new \InvalidArgumentException('challenge_id or user_id is missing.');
+        }
+
+        $this->challengeUncheckedService->deleteByUserIdAndChallengeId($userId, $challengeId);
+
         return $this->challengeCompletedRepository->create($data);
     }
 
