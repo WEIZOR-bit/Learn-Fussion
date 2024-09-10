@@ -76,4 +76,15 @@ class ChallengeUncheckedService
     {
         return $this->challengeUncheckedRepository->delete($this->getById($id));
     }
+
+    /**
+     * Delete an entry from challenges_unchecked by user_id and challenge_id.
+     *
+     * @param int $userId
+     * @param int $challengeId
+     * @return bool
+     */
+    public function deleteByUserIdAndChallengeId(int $userId, int $challengeId): bool {
+        return $this->challengeUncheckedRepository->deleteByUserIdAndChallengeId($userId,$challengeId);
+    }
 }
