@@ -34,7 +34,7 @@ pipeline {
 
         stage('Test Frontend') {
             steps {
-                // Запуск тестов для фронтенда (например, администраторов)
+                // Запуск тестов для фронтенда ( администраторов)
                 sh 'docker-compose -f $DOCKER_COMPOSE run --rm storage54.front.admin npm test'
                 
                 // Запуск тестов для фронтенда (публика)
