@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Log;
 
 class UserService
 {
@@ -38,5 +39,11 @@ class UserService
     public function getByEmail(string $email): ?User
     {
         return $this->userRepository->get(['email' => $email]);
+    }
+
+    public function getUserById($id)
+    {
+        Log::debug($id);
+        return $this->userRepository->findOrFail($id);
     }
 }

@@ -46,7 +46,7 @@ class CourseService
 
     public function getCourseById($id)
     {
-        return $this->courseRepository->find($id);
+        return $this->courseRepository->findOrFail($id);
     }
 
     public function updateCourse($id, array $data)

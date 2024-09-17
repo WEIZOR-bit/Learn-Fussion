@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\SignupRequest;
 use App\Models\Admin;
 use App\Models\User;
+use App\Notifications\EmailVerification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -40,7 +41,7 @@ class   AuthService
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole('User');
-        event(new Registered($user));
+        $user->notify(new EmailVerification());
 
         return $user;
     }

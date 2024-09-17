@@ -28,7 +28,7 @@ class LessonService
 
     public function getLessonById($id)
     {
-        return $this->lessonRepository->find($id);
+        return $this->lessonRepository->findOrFail($id);
     }
     public function updateLesson($id, array $data)
     {
