@@ -2,28 +2,33 @@
 
 namespace app\Models;
 
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use \Spatie\Permission\Traits\HasRoles;
 
+class User extends Authenticatable implements MustVerifyEmail
 /**
  * @property int mastery_level
  * @property int hearts
  * @property string|null $last_active_at
  * @property string|null $started_streak_at
  */
-class User extends Authenticatable
 {
-    use HasRoles, HasApiTokens, HasFactory, Notifiable;
+    use HasRoles, HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+    protected $guard_name = 'user';
+
     protected $fillable = [
         'name',
         'email',

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-<div>This is index component</div>
+<div>This is profile component</div>
 </template>
 
 <style scoped>

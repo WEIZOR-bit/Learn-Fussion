@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Course;
+use App\Models\Lesson;
 use App\Policies\CoursePolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -27,5 +28,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::policy(Course::class, CoursePolicy::class);
+        Gate::policy(Lesson::class, Lesson::class);
     }
 }

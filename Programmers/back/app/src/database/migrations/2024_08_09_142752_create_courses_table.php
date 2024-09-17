@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('courses', function (Blueprint $table) {
+            $table->softDeletes();
             $table->id();
             $table->string('name')->unique();
             $table->float('average_rating');
