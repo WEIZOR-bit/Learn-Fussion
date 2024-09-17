@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('leagues', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();           // League name
-            $table->unsignedInteger('min_mastery_level'); // Minimum mastery level required for the league
+            $table->string('name')->unique();
+            $table->unsignedInteger('min_mastery_level');
             $table->timestamps();
         });
     }

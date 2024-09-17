@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('forum_posts', function (Blueprint $table) {
             $table->id();
             $table->string('content');
-            $table->unsignedBigInteger('user_id)');
+            $table->unsignedBigInteger('user_id');
             $table->boolean('is_premium')->default(false);
             $table->timestamps();
 
