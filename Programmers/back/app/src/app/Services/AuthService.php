@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace app\Services;
 
 use App\Http\Requests\Auth\AdminLoginRequest;
 use App\Http\Requests\Auth\LoginRequest;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class   AuthService
+class AuthService
 {
     /**
      * Create a new service instance.

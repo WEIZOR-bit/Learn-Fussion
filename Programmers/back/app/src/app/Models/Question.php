@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Question extends Model
 {
@@ -23,8 +24,13 @@ class Question extends Model
         'lesson_id',
     ];
 
-    public function lesson(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * Get the lesson this question is in.
+     *
+     * @return BelongsTo
+     */
+    public function lesson(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class);
+        return $this->belongsTo(Lesson::class,'lesson_id');
     }
 }

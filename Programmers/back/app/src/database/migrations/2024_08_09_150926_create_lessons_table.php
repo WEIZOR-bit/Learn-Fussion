@@ -21,8 +21,15 @@ return new class extends Migration
             $table->float('average_rating');
             $table->unsignedBigInteger('review_count');
             $table->unsignedTinyInteger('question_count');
-            $table->string('created_by');
-            $table->string('updated_by');
+
+            $table->unsignedBigInteger('course_id')->after('id');
+            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('updated_by');
+
+            $table->foreign('created_by')->references('id')->on('admins');
+            $table->foreign('updated_by')->references('id')->on('admins');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -32,6 +39,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('lessons', function (Blueprint $table) {
+            $table->dropForeign(['course_id']);
+            $table->dropColumn('course_id');
+        });
         Schema::dropIfExists('lessons');
     }
 };

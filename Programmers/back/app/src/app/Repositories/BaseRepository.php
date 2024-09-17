@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
 
 class BaseRepository
@@ -34,15 +35,22 @@ class BaseRepository
     }
 
     /**
-     * Retrieve all data of repository, paginated.
+     * Retrieve all data of repository, paginated, with optional filters.
      *
      * @param  null  $limit
-     * @param  array  $columns
+     * @param array $columns
+     * @param  array  $filters
      * @return mixed
      */
-    public function paginate($limit = null, $columns = ['*']): mixed
+    public function paginate($limit = null, array $columns = ['*'], array $filters = []): mixed
     {
-        return $this->model->select($columns)->latest()->paginate($limit);
+        $query = $this->model->select($columns);
+
+        foreach ($filters as $filter) {
+            $query->where($filter[0], $filter[1], $filter[2]);
+        }
+
+        return $query->latest()->paginate($limit);
     }
 
     /**
@@ -118,5 +126,23 @@ class BaseRepository
         }
 
         return $result->get();
+    }
+
+    /**
+     * Get courses based on specific criteria.
+     *
+     * @param array $criteria
+     * @param int|null $limit
+     * @return LengthAwarePaginator
+     */
+    public function getCoursesByCriteria(array $criteria = [], ?int $limit = null): LengthAwarePaginator
+    {
+        $query = $this->model->newQuery();
+
+        if (!empty($criteria)) {
+            $query->where($criteria[0], $criteria[1], $criteria[2]);
+        }
+
+        return $query->latest()->paginate($limit);
     }
 }

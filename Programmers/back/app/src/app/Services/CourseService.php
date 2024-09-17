@@ -19,17 +19,12 @@ class CourseService
     }
 
     /**
-     * Get a course by name.
+     * Get a course by id.
      *
-     * @param  string $name
+     * @param non-negative-int $id
      * @return null|Course
      */
-    public function getByName(string $name): ?Course
-    {
-        return $this->courseRepository->get(['name' => $name]);
-    }
-
-    public function getById($id): ?Course
+    public function getById(int $id): ?Course
     {
         return $this->courseRepository->get(['id' => $id]);
     }
@@ -39,21 +34,16 @@ class CourseService
         return $this->courseRepository->all();
     }
 
-    public function createCourse(array $data)
+    public function createCourse(array $data): mixed
     {
         return $this->courseRepository->create($data);
     }
 
-    public function getCourseById($id)
-    {
-        return $this->courseRepository->findOrFail($id);
-    }
-
-    public function updateCourse($id, array $data)
+    public function updateCourse($id, array $data): bool
     {
         return $this->courseRepository->update($this->getById($id), $data);
     }
-    public function deleteCourse($id)
+    public function deleteCourse($id): ?bool
     {
         return $this->courseRepository->delete($this->getById($id));
     }

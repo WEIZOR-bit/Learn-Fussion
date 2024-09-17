@@ -14,6 +14,6 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:user
 
 
 
-Route::patch('/users/api/v1/users/verify/{id}/{hash}', [EmailVerifyController::class, 'verify'])->name('verification.verify');
+Route::patch('/verify/{id}/{hash}', [EmailVerifyController::class, 'verify'])->name('verification.verify');
 
 

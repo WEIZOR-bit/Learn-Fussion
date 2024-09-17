@@ -21,7 +21,7 @@ class EmailVerifyController extends Controller
 
         Log::debug($id);
         // Находим пользователя по ID
-        $user =  $this->userService->getUserById($id);
+        $user =  $this->userService->getById($id);
 
         // Проверяем, что hash соответствует email пользователя
         if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {

@@ -29,9 +29,9 @@ export const useUserStore = defineStore ('userStore', {
 
         async apiUserVerification() {
             const query = this.emailVerifyQuery;
-            console.log(`/users/api/v1/users/verify/${query.id}/${query.hash}?expires=${query.expires}&signature=${query.signature}`);
+            console.log(`/verify/${query.id}/${query.hash}?expires=${query.expires}&signature=${query.signature}`);
             const response = await services.patch(
-                `/users/api/v1/users/verify/${query.id}/${query.hash}?expires=${query.expires}&signature=${query.signature}`,
+                `/verify/${query.id}/${query.hash}?expires=${query.expires}&signature=${query.signature}`,
                 {
                     headers: {
                         'Accept': 'application/json',

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Lesson extends Model
 {
@@ -28,18 +30,43 @@ class Lesson extends Model
         'course_id',
     ];
 
-    public function course(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    /**
+     * Get the course this lesson is in.
+     *
+     * @return BelongsTo
+     */
+    public function course(): BelongsTo
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class, 'course_id');
     }
 
-    public function homework_lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany(Homework_Lesson::class);
-    }
-
-    public function questions(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /**
+     * Get the questions in this lesson
+     *
+     * @return HasMany
+     */
+    public function questions(): HasMany
     {
         return $this->hasMany(Question::class);
+    }
+
+    /**
+     * Get history of people finishing the lesson.
+     *
+     * @return HasMany
+     */
+    public function lessons_finished(): HasMany
+    {
+        return $this->hasMany(LessonFinished::class);
+    }
+
+    /**
+     * Get the links to homeworks in this lesson.
+     *
+     * @return HasMany
+     */
+    public function homework_lessons(): HasMany
+    {
+        return $this->hasMany(HomeworkLesson::class);
     }
 }

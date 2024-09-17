@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace app\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Homework extends Model
 {
@@ -21,8 +22,23 @@ class Homework extends Model
         'updated_by'
     ];
 
-    public function homework_lessons(): \Illuminate\Database\Eloquent\Relations\HasMany
+    /**
+     * Get the lessons that have this homework.
+     *
+     * @return HasMany
+     */
+    public function homework_lessons(): HasMany
     {
-        return $this->hasMany(Homework_Lesson::class);
+        return $this->hasMany(HomeworkLesson::class);
+    }
+
+    /**
+     * Get history of people finishing this homework.
+     *
+     * @return HasMany
+     */
+    public function homeworks_finished(): HasMany
+    {
+        return $this->hasMany(HomeworkFinished::class);
     }
 }
