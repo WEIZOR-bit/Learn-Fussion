@@ -2,6 +2,25 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import axios from "axios";
+import { io } from 'socket.io-client';
+
+let socket = io('/', {
+  autoConnect: true
+});
+
+socket.on('connect', (data) => {
+  console.log('connect')
+})
+
+socket.on('disconnect', (data) => {
+  console.log('disconnect')
+  console.log(data)
+})
+
+socket.on ('socket.ping', (data) => {
+  console.log("Pinged");
+})
+
 export default {
   methods: {
     async sendView() {
@@ -42,7 +61,7 @@ export default {
         updated_by: 'AdminOdium',})
       console.log(response.data);
     },
-  }
+  },
 }
 </script>
 
