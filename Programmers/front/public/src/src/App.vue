@@ -66,84 +66,95 @@ export default {
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+  <div id="app">
+    <header>
+      <img alt="Vue logo" class="logo" src="@/assets/logo.png" />
 
-    <div class="wrapper">
-      <h1> Public </h1>
-      <button @click="login">Login</button>
-      <button @click="logout">logout</button>
-      <button @click="signup">Signup</button>
-      <button @click="sendView">sendView</button>
-      <button @click="create">create</button>
-      <button @click="destroy">destroy</button>
+      <div class="wrapper">
+        <h1> Public </h1>
+        <button @click="login">Login</button>
+        <button @click="logout">Logout</button>
+        <button @click="signup">Signup</button>
+        <button @click="sendView">Send View</button>
+        <button @click="create">Create</button>
+        <button @click="destroy">Destroy</button>
+      </div>
+    </header>
 
-    </div>
-  </header>
-
-  <RouterView />
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>
+
+#app {
+  min-height: 100vh; /* Ensures it covers the full viewport height */
+  width: 100vw; /* Full width of the viewport */
+  display: flex;
+  flex-direction: column;
+}
+
 header {
-  line-height: 1.5;
-  max-height: 100vh;
+  width: 100%;
+  height: 5vh; /* Using vh for consistency with the rest of the layout */
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  color: black;
+  box-sizing: border-box;
+}
+
+.wrapper {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button {
+  background-color: #0f6674;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0a4650;
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  height: 80%;
+  width: auto;
+  max-height: 80%;
+  max-width: 125px;
 }
 
-nav {
+h1 {
+  margin: 0;
+}
+
+</style>
+
+<!-- Global styles to affect the entire page -->
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
   width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  height: 100%;
+  background: linear-gradient(90deg, #fff 0%, #fff 70%,#fcd4fc 100%);
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+body {
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
 }
 </style>
+
+
