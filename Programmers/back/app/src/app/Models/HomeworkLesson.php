@@ -15,6 +15,8 @@ class HomeworkLesson extends Model
         'lesson_id',
     ];
 
+    protected $table = 'homeworks_lessons';
+
     /**
      * Get the homework association.
      *

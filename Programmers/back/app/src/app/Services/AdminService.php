@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
 use App\Models\Admin;
 use App\Repositories\AdminRepository;

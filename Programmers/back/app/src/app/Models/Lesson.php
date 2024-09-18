@@ -29,6 +29,8 @@ class Lesson extends Model
         'updated_by',
         'course_id',
     ];
+    protected $table = 'lessons';
+
 
     /**
      * Get the course this lesson is in.

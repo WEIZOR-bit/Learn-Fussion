@@ -38,7 +38,7 @@ class LessonService
      * @param array $data
      * @return Lesson
      */
-    public function create(array $data)
+    public function create(array $data): Lesson
     {
         return $this->lessonRepository->create($data);
     }

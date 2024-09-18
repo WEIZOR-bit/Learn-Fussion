@@ -21,6 +21,7 @@ class ForumPost extends Model
         'is_premium',
         'user_id',
     ];
+    protected $table = 'forum_posts';
 
     /**
      * Get the comments to this post.

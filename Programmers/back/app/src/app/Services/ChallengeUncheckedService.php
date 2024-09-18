@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
 use app\Models\ChallengeUnchecked;
 use app\Repositories\ChallengeUncheckedRepository;

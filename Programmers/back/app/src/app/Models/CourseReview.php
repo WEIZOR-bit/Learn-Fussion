@@ -17,6 +17,8 @@ class CourseReview extends Model
         'rating'
     ];
 
+    protected $table = 'courses_reviews';
+
     /**
      * Get the user who wrote the review.
      *

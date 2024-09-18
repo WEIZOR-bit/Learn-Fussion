@@ -5,6 +5,8 @@ namespace app\Services;
 use app\Models\League;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Date;
 
@@ -19,6 +21,19 @@ class UserService
     public function __construct(private UserRepository $userRepository)
     {
         //
+    }
+
+
+    /**
+     * Get all users, optionally paginated.
+     *
+     * @param int|null $limit
+     * @param array $columns
+     * @return LengthAwarePaginator|Collection
+     */
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    {
+        return $this->userRepository->paginate($limit, $columns);
     }
 
     /**
@@ -52,6 +67,29 @@ class UserService
     public function getById($id): ?User
     {
         return $this->userRepository->get(['id' => $id]);
+    }
+
+    /**
+     * Update an existing user by ID.
+     *
+     * @param int $id
+     * @param array $data
+     * @return bool
+     */
+    public function update(int $id, array $data): bool
+    {
+        return $this->userRepository->update($this->getById($id), $data);
+    }
+
+    /**
+     * Delete a user by ID.
+     *
+     * @param int $id
+     * @return bool
+     */
+    public function delete(int $id): bool
+    {
+        return $this->userRepository->delete($this->getById($id));
     }
 
     /**

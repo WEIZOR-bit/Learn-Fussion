@@ -2,9 +2,18 @@
 
 namespace App\Providers;
 
+use app\Models\Challenge;
 use App\Models\Course;
+use app\Models\Homework;
 use App\Models\Lesson;
+use App\Models\Question;
+use app\Models\User;
+use App\Policies\ChallengePolicy;
 use App\Policies\CoursePolicy;
+use App\Policies\HomeworkPolicy;
+use App\Policies\LessonPolicy;
+use App\Policies\QuestionPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -28,6 +37,11 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::policy(Course::class, CoursePolicy::class);
-        Gate::policy(Lesson::class, Lesson::class);
+        Gate::policy(Lesson::class, LessonPolicy::class);
+        Gate::policy(Challenge::class, ChallengePolicy::class);
+        Gate::policy(Homework::class, HomeworkPolicy::class);
+        Gate::policy(Question::class, QuestionPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
+
     }
 }

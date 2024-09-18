@@ -21,6 +21,8 @@ class ForumLike extends Model
         'user_id',
     ];
 
+    protected $table = 'forum_likes';
+
     /**
      * Get the post the like refers to.
      *

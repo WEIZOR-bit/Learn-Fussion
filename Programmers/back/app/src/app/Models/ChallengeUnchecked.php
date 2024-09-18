@@ -17,6 +17,8 @@ class ChallengeUnchecked extends Model
         'challenge_id',
         'user_id',
     ];
+    protected $table = 'challenge_unchecked';
+
 
     /**
      * Get the challenge to be checked.

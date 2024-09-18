@@ -16,6 +16,8 @@ class LessonFinished extends Model
         'finished_at'
     ];
 
+    protected $table = 'lessons_finished';
+
     /**
      * Get the user who finished the lesson.
      *

@@ -19,6 +19,7 @@ class Admin extends Authenticatable
      * @var array<int, string>
      */
     protected $guard_name = 'admin';
+    protected $table = 'admins';
 
     protected $fillable = [
         'name',

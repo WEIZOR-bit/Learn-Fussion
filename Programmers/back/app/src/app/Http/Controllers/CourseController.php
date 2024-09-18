@@ -38,7 +38,7 @@ class CourseController extends Controller
     public function show(string $id)
     {
         $this->authorize('view', Course::class);
-        return $this->courseService->getCourseById($id);
+        return $this->courseService->getById($id);
     }
 
 

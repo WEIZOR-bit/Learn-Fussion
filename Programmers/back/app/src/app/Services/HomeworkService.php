@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
 use App\Models\Homework;
 use App\Repositories\HomeworkRepository;
