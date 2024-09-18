@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('lesson_id');
             $table->timestamps();
 
-            $table->foreign('homework_id')->references('id')->on('homework')->onDelete('cascade');
+            $table->foreign('homework_id')->references('id')->on('homeworks')->onDelete('cascade');
             $table->foreign('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
 
             $table->unique(['homework_id', 'lesson_id']);

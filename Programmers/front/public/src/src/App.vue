@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <script>
 import { RouterLink, RouterView } from 'vue-router'
 import axios from "axios";
@@ -24,7 +24,7 @@ socket.on ('socket.ping', (data) => {
 export default {
   methods: {
     async sendView() {
-      const response = await axios.post('http://0.0.0.0:80/api/public/view',)
+      const response = await axios.get('http://0.0.0.0:80/api/public/courses',)
       console.log(response.data);
     },
    async login() {

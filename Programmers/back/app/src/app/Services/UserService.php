@@ -5,6 +5,7 @@ namespace app\Services;
 use app\Models\League;
 use App\Models\User;
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Date;
 
 class UserService
