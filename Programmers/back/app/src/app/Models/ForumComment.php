@@ -21,6 +21,7 @@ class ForumComment extends Model
         'post_id',
         'user_id',
     ];
+    protected $table = 'forum_comments';
 
     /**
      * Get the post the comment refers to.

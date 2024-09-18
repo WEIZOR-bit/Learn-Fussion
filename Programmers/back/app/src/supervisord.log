@@ -2332,3 +2332,63 @@
 2024-09-17 15:34:15,748 INFO spawned: 'laravel-queues' with pid 1267
 2024-09-17 15:34:15,871 WARN exited: laravel-queues (exit status 1; not expected)
 2024-09-17 15:34:16,872 INFO gave up: laravel-queues entered FATAL state, too many start retries too quickly
+2024-09-18 09:19:46,255 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-09-18 09:19:46,291 INFO supervisord started with pid 1
+2024-09-18 09:19:46,463 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-09-18 09:19:46,464 INFO supervisord started with pid 1
+2024-09-18 09:19:47,327 INFO spawned: 'composer-install' with pid 7
+2024-09-18 09:19:47,328 INFO spawned: 'laravel-migrate' with pid 8
+2024-09-18 09:19:47,329 INFO spawned: 'laravel-webserver' with pid 9
+2024-09-18 09:19:47,466 INFO spawned: 'laravel-migrate' with pid 7
+2024-09-18 09:19:47,467 INFO spawned: 'laravel-webserver' with pid 8
+2024-09-18 09:19:48,714 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 09:19:48,714 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 09:19:48,714 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 09:19:48,911 INFO exited: composer-install (exit status 0; expected)
+2024-09-18 09:19:49,072 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 09:19:49,072 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 09:19:54,128 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-09-18 09:19:54,130 INFO supervisord started with pid 1
+2024-09-18 09:19:55,132 INFO spawned: 'laravel-queues' with pid 13
+2024-09-18 09:19:55,156 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-09-18 09:19:55,492 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-09-18 09:19:56,133 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:45:41,402 WARN received SIGTERM indicating exit request
+2024-09-18 14:45:41,402 INFO waiting for laravel-queues to die
+2024-09-18 14:45:42,403 WARN stopped: laravel-queues (terminated by SIGTERM)
+2024-09-18 14:45:49,074 WARN received SIGTERM indicating exit request
+2024-09-18 14:45:49,186 INFO waiting for laravel-webserver to die
+2024-09-18 14:45:49,806 WARN received SIGTERM indicating exit request
+2024-09-18 14:45:49,806 INFO waiting for laravel-webserver to die
+2024-09-18 14:45:50,187 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-09-18 14:45:50,807 WARN stopped: laravel-webserver (terminated by SIGTERM)
+2024-09-18 14:49:09,882 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-09-18 14:49:09,883 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-09-18 14:49:10,168 INFO supervisord started with pid 1
+2024-09-18 14:49:10,465 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-09-18 14:49:10,673 INFO supervisord started with pid 1
+2024-09-18 14:49:10,892 INFO supervisord started with pid 1
+2024-09-18 14:49:11,170 INFO spawned: 'composer-install' with pid 13
+2024-09-18 14:49:11,171 INFO spawned: 'laravel-migrate' with pid 14
+2024-09-18 14:49:11,172 INFO spawned: 'laravel-webserver' with pid 16
+2024-09-18 14:49:11,675 INFO spawned: 'laravel-migrate' with pid 13
+2024-09-18 14:49:11,676 INFO spawned: 'laravel-webserver' with pid 14
+2024-09-18 14:49:11,895 INFO spawned: 'laravel-queues' with pid 13
+2024-09-18 14:49:12,174 INFO success: composer-install entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:12,174 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:12,174 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:12,678 INFO success: laravel-migrate entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:12,678 INFO success: laravel-webserver entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:12,896 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:13,481 WARN exited: laravel-queues (exit status 1; not expected)
+2024-09-18 14:49:14,482 INFO spawned: 'laravel-queues' with pid 19
+2024-09-18 14:49:14,640 WARN exited: laravel-queues (exit status 1; not expected)
+2024-09-18 14:49:15,642 INFO spawned: 'laravel-queues' with pid 25
+2024-09-18 14:49:15,783 WARN exited: laravel-queues (exit status 1; not expected)
+2024-09-18 14:49:16,096 WARN exited: laravel-migrate (exit status 1; not expected)
+2024-09-18 14:49:17,786 INFO spawned: 'laravel-queues' with pid 31
+2024-09-18 14:49:18,062 WARN exited: laravel-queues (exit status 1; not expected)
+2024-09-18 14:49:18,333 INFO exited: composer-install (exit status 0; expected)
+2024-09-18 14:49:21,065 INFO spawned: 'laravel-queues' with pid 37
+2024-09-18 14:49:22,067 INFO success: laravel-queues entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-09-18 14:49:34,219 INFO exited: laravel-migrate (exit status 0; expected)

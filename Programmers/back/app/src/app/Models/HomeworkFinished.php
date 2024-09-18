@@ -15,6 +15,8 @@ class HomeworkFinished extends Model
         'homework_id',
     ];
 
+    protected $table = 'homeworks_finished';
+
     /**
      * Get the user who finished the homework.
      *

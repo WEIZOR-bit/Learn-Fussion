@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Lesson;
+use App\Models\Question;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class LessonPolicy
+class QuestionPolicy
 {
     /**
      * Determine whether the user can view any models.

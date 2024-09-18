@@ -19,4 +19,6 @@ class League extends Model
         'name',
         'min_mastery_level'
     ];
+
+    protected $table = 'leagues';
 }

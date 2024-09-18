@@ -24,6 +24,8 @@ class Question extends Model
         'lesson_id',
     ];
 
+    protected $table = 'questions';
+
     /**
      * Get the lesson this question is in.
      *

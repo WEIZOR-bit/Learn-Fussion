@@ -18,6 +18,8 @@ class ChallengeCompleted extends Model
         'user_id',
         'checked_by',
     ];
+    protected $table = 'challenge_completed';
+
 
     /**
      * Get the challenge completed.

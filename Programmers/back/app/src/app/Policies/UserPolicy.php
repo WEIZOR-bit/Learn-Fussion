@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Lesson;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
 
-class LessonPolicy
+class UserPolicy
 {
     /**
      * Determine whether the user can view any models.
@@ -29,7 +28,7 @@ class LessonPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasPermissionTo('create articles');
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -37,7 +36,7 @@ class LessonPolicy
      */
     public function update(User $user): bool
     {
-        return $user->hasPermissionTo('update articles');
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -45,7 +44,7 @@ class LessonPolicy
      */
     public function delete(User $user): bool
     {
-        return $user->hasPermissionTo('delete articles');
+        return $user->hasRole('Super-Admin');
     }
 
     /**
@@ -53,7 +52,7 @@ class LessonPolicy
      */
     public function restore(User $user): bool
     {
-        return $user->hasPermissionTo('delete articles');
+        return $user->hasRole('Super-Admin');
     }
 
     /**

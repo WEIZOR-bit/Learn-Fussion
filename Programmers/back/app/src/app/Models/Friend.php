@@ -20,6 +20,8 @@ class Friend extends Model
         'user_id_2',
     ];
 
+    protected $table = 'friends';
+
     /**
      * Get the first user in the friendship.
      *

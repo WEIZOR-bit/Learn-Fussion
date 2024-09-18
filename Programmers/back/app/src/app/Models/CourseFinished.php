@@ -15,6 +15,8 @@ class CourseFinished extends Model
         'course_id',
         'finished_at'
     ];
+    protected $table = 'courses_finished';
+
 
     /**
      * Get the user who finished the course.

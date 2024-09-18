@@ -22,6 +22,8 @@ class Homework extends Model
         'updated_by'
     ];
 
+    protected $table = 'homeworks';
+
     /**
      * Get the lessons that have this homework.
      *

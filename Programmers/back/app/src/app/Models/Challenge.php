@@ -10,6 +10,8 @@ class Challenge extends Model
 {
     use HasFactory;
 
+    protected $table = 'challenges';
+
     /**
      * The attributes that are mass assignable.
      *

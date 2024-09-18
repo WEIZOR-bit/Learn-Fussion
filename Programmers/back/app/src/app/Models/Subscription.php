@@ -26,6 +26,8 @@ class Subscription extends Model
         'end_date',
     ];
 
+    protected $table = 'subscriptions';
+
     /**
      * Get the user subscribed.
      *
