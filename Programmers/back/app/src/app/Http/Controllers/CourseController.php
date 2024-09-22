@@ -19,7 +19,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', Course::class);
+        //$this->authorize('viewAny', Course::class);
         return $this->courseService->getAllCourses();
     }
 

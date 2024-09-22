@@ -3,42 +3,59 @@ import { ref } from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import axios from 'axios';
 
-// Add icons to the library
 library.add(faEye, faEyeSlash);
 
-// Refs to toggle visibility
 const showPassword = ref(false);
+const email = ref('');
+const password = ref('');
 
-// Toggle password visibility
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
+const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  try {
+    const response = await axios.post('http://0.0.0.0:80/api/public/login', {
+      email: email.value,
+      password: password.value
+    });
+
+    console.log(response.data);
+    const token = response.data.token.access_token;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    // Perform any additional actions (e.g., redirect)
+  } catch (error) {
+    console.error('Login failed', error);
+  }
+};
 </script>
 
 <template>
-  <div class="register-container">
+  <div class="container-wrapper">
     <div class="left-section">
       <img alt="filler image" class="logo" src="@/assets/login_circle.svg" />
     </div>
     <div class="right-section">
       <img alt="Project logo" class="logo" src="@/assets/logo.png" />
-      <form class="register-form">
+      <form class="form-wrapper" @submit="handleSubmit">
+
+        <h3>Login</h3>
 
         <div class="input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" placeholder="JohnDoe" />
+          <label for="email">E-mail</label>
+          <input type="email" id="email" v-model="email" placeholder="name@gmail.com"/>
         </div>
 
         <div class="input-group">
           <label for="password">Password</label>
           <div class="input-with-icon">
-            <input
-                :type="showPassword ? 'text' : 'password'"
-                id="password"
-                placeholder="12345678"
-            />
+            <input :type="showPassword ? 'text' : 'password'"
+                   id="password" v-model="password" placeholder="12345678" />
             <button
                 type="button"
                 class="toggle-button"
@@ -51,35 +68,18 @@ const togglePasswordVisibility = () => {
           </div>
         </div>
 
-        <div class="input-group">
-          <label for="confirm_password">Confirm Password</label>
-          <div class="input-with-icon">
-            <input
-                :type="showPassword ? 'text' : 'password'"
-                id="confirm_password"
-                placeholder="12345678"
-            />
-            <button
-                type="button"
-                class="toggle-button"
-                @click="togglePasswordVisibility"
-            >
-              <font-awesome-icon
-                  :icon="showPassword ? 'eye-slash' : 'eye'"
-              />
-            </button>
+        <div class="options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember"/>
+            <label for="remember">Remember me</label>
           </div>
+          <a href="#" class="forgot-link">Forgot?</a>
         </div>
 
-        <div class="user-agreement">
-          <input type="checkbox" id="agreement" />
-          <label for="agreement">I accept the <span>User Agreement</span></label>
-        </div>
+        <button type="submit" class="action-button">Log in</button>
 
-        <button type="submit" class="register-button">Sign up</button>
-
-        <p class="signin-text">
-          Already have an account? <a href="/login">Sign in</a>
+        <p class="signup-text">
+          Don't have an account? <a href="/register">Sign up</a>
         </p>
       </form>
     </div>
@@ -88,7 +88,7 @@ const togglePasswordVisibility = () => {
 
 <style scoped>
 
-.register-container {
+.container-wrapper {
   display: flex;
   height: 100%;
   overflow: hidden;
@@ -115,14 +115,19 @@ const togglePasswordVisibility = () => {
 
 .logo {
   max-width: 150px;
-  margin-bottom: 2rem;
 }
 
-.register-form {
+.form-wrapper {
   width: 100%;
   max-width: 400px;
   padding: 2rem;
   color:black;
+}
+
+.form-wrapper h3{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .input-group {
@@ -148,21 +153,37 @@ const togglePasswordVisibility = () => {
   color: #b1b1b1;
 }
 
-.user-agreement {
+.options {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.user-agreement input {
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input {
   margin-right: 0.5rem;
 }
 
-.user-agreement span {
-  color: #9b64e5;
+#remember {
+  stroke: #7d57f5;
 }
 
-.register-button {
+.forgot-link {
+  color: #9b64e5;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+  background: none;
+}
+
+.action-button {
   width: 100%;
   padding: 0.75rem;
   background-color: #7d57f5;
@@ -173,21 +194,21 @@ const togglePasswordVisibility = () => {
   cursor: pointer;
 }
 
-.register-button:hover {
+.action-button:hover {
   background-color: #6c48d3;
 }
 
-.signin-text {
+.signup-text {
   margin-top: 1.5rem;
   text-align: center;
 }
 
-.signin-text a {
+.signup-text a {
   color: #9b64e5;
   text-decoration: none;
 }
 
-.signin-text a:hover {
+.signup-text a:hover {
   text-decoration: underline;
   background: none;
 }

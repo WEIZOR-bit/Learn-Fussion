@@ -18,17 +18,19 @@ const togglePasswordVisibility = () => {
 </script>
 
 <template>
-  <div class="login-container">
+  <div class="container-wrapper">
     <div class="left-section">
       <img alt="filler image" class="logo" src="@/assets/login_circle.svg" />
     </div>
     <div class="right-section">
       <img alt="Project logo" class="logo" src="@/assets/logo.png" />
-      <form class="login-form">
+      <form class="form-wrapper">
+
+        <h3>Register</h3>
 
         <div class="input-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" placeholder="name@gmail.com"/>
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="JohnDoe" />
         </div>
 
         <div class="input-group">
@@ -51,18 +53,35 @@ const togglePasswordVisibility = () => {
           </div>
         </div>
 
-        <div class="options">
-          <div class="remember-me">
-            <input type="checkbox" id="remember"/>
-            <label for="remember">Remember me</label>
+        <div class="input-group">
+          <label for="confirm_password">Confirm password</label>
+          <div class="input-with-icon">
+            <input
+                :type="showPassword ? 'text' : 'password'"
+                id="confirm_password"
+                placeholder="12345678"
+            />
+            <button
+                type="button"
+                class="toggle-button"
+                @click="togglePasswordVisibility"
+            >
+              <font-awesome-icon
+                  :icon="showPassword ? 'eye-slash' : 'eye'"
+              />
+            </button>
           </div>
-          <a href="#" class="forgot-link">Forgot?</a>
         </div>
 
-        <button type="submit" class="login-button">Log in</button>
+        <div class="user-agreement">
+          <input type="checkbox" id="agreement" />
+          <label for="agreement">I accept the <span>User Agreement</span></label>
+        </div>
 
-        <p class="signup-text">
-          Don't have an account? <a href="/register">Sign up</a>
+        <button type="submit" class="action-button">Sign up</button>
+
+        <p class="signin-text">
+          Already have an account? <a href="/login">Sign in</a>
         </p>
       </form>
     </div>
@@ -71,7 +90,7 @@ const togglePasswordVisibility = () => {
 
 <style scoped>
 
-.login-container {
+.container-wrapper {
   display: flex;
   height: 100%;
   overflow: hidden;
@@ -98,14 +117,19 @@ const togglePasswordVisibility = () => {
 
 .logo {
   max-width: 150px;
-  margin-bottom: 2rem;
 }
 
-.login-form {
+.form-wrapper {
   width: 100%;
   max-width: 400px;
   padding: 2rem;
   color:black;
+}
+
+.form-wrapper h3{
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
 .input-group {
@@ -131,37 +155,21 @@ const togglePasswordVisibility = () => {
   color: #b1b1b1;
 }
 
-.options {
+.user-agreement {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
 }
 
-.remember-me {
-  display: flex;
-  align-items: center;
-}
-
-.remember-me input {
+.user-agreement input {
   margin-right: 0.5rem;
 }
 
-#remember {
-  stroke: #7d57f5;
-}
-
-.forgot-link {
+.user-agreement span {
   color: #9b64e5;
-  text-decoration: none;
 }
 
-.forgot-link:hover {
-  text-decoration: underline;
-  background: none;
-}
-
-.login-button {
+.action-button {
   width: 100%;
   padding: 0.75rem;
   background-color: #7d57f5;
@@ -172,21 +180,21 @@ const togglePasswordVisibility = () => {
   cursor: pointer;
 }
 
-.login-button:hover {
+.action-button:hover {
   background-color: #6c48d3;
 }
 
-.signup-text {
+.signin-text {
   margin-top: 1.5rem;
   text-align: center;
 }
 
-.signup-text a {
+.signin-text a {
   color: #9b64e5;
   text-decoration: none;
 }
 
-.signup-text a:hover {
+.signin-text a:hover {
   text-decoration: underline;
   background: none;
 }

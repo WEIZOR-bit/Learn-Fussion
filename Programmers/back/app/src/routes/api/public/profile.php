@@ -8,4 +8,4 @@ Route::get('/profile', function () {
     Route::post('/view', [\App\Http\Controllers\CourseController::class, 'index'])->middleware('auth:user');
 })->middleware(['auth', 'verified']);
 
-Route::resource('courses', CourseController::class)->middleware('auth:user');
+Route::resource('courses', CourseController::class);
