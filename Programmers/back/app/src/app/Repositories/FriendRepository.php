@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\Friend;
+use App\Models\Friend;
 
 class FriendRepository extends BaseRepository
 {

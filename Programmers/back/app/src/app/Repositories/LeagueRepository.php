@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\League;
+use App\Models\League;
 
 class LeagueRepository extends BaseRepository
 {

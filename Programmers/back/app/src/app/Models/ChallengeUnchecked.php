@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +17,7 @@ class ChallengeUnchecked extends Model
         'challenge_id',
         'user_id',
     ];
-    protected $table = 'challenge_unchecked';
+    protected $table = 'challenges_unchecked';
 
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\ForumLike;
-use app\Repositories\ForumLikeRepository;
+use App\Models\ForumLike;
+use App\Repositories\ForumLikeRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

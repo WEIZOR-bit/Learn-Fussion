@@ -25,10 +25,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['guard_name' => 'admin', 'name' => 'view articles']);
 
         Permission::create(['guard_name' => 'user', 'name' => 'view articles']);
+        Permission::create(['guard_name' => 'user', 'name' => 'take courses']);
 
         // create roles and assign existing permissions
         $role1 = Role::create(['guard_name' => 'user', 'name' => 'User']);
         $role1->givePermissionTo('view articles');
+        $role1->givePermissionTo('take courses');
 
         $role2 = Role::create(['guard_name' => 'admin', 'name' => 'Teacher']);
         $role2->givePermissionTo('create articles');

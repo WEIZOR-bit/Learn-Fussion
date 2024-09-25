@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\HomeworkLesson;
+use App\Models\HomeworkLesson;
 use Illuminate\Database\Eloquent\Collection;
 
 class HomeworkLessonRepository extends BaseRepository

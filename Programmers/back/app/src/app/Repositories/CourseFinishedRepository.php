@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\CourseFinished;
+use App\Models\CourseFinished;
 use Illuminate\Database\Eloquent\Collection;
 
 class CourseFinishedRepository extends BaseRepository

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\ForumComment;
+use App\Models\ForumComment;
 
 class ForumCommentRepository extends BaseRepository
 {

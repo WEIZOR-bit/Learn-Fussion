@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\Subscription;
+use App\Models\Subscription;
 
 class SubscriptionRepository extends BaseRepository
 {

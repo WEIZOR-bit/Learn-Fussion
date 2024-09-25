@@ -4,12 +4,16 @@ namespace App\Providers;
 
 use app\Models\Challenge;
 use App\Models\Course;
+use app\Models\CourseFinished;
+use app\Models\CourseReview;
 use app\Models\Homework;
 use App\Models\Lesson;
 use App\Models\Question;
 use app\Models\User;
 use App\Policies\ChallengePolicy;
+use App\Policies\CourseFinishedPolicy;
 use App\Policies\CoursePolicy;
+use App\Policies\CourseReviewPolicy;
 use App\Policies\HomeworkPolicy;
 use App\Policies\LessonPolicy;
 use App\Policies\QuestionPolicy;
@@ -37,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Gate::policy(Course::class, CoursePolicy::class);
+        Gate::policy(CourseFinished::class, CourseFinishedPolicy::class);
+        Gate::policy(CourseReview::class, CourseReviewPolicy::class);
         Gate::policy(Lesson::class, LessonPolicy::class);
         Gate::policy(Challenge::class, ChallengePolicy::class);
         Gate::policy(Homework::class, HomeworkPolicy::class);

@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ChallengeCompletedController;
 use App\Http\Controllers\ChallengeController;
+use App\Http\Controllers\ChallengeUncheckedController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\LessonController;
@@ -23,5 +25,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::resource('questions', QuestionController::class)->except(['create', 'edit']);
     Route::resource('homeworks', HomeworkController::class)->except(['create', 'edit']);
     Route::resource('challenges', ChallengeController::class)->except(['create', 'edit']);
+    Route::resource('challenges-completed', ChallengeCompletedController::class)->except(['create', 'edit']);
+    Route::resource('challenges-unchecked', ChallengeUncheckedController::class)->except(['create', 'edit']);
 });
 

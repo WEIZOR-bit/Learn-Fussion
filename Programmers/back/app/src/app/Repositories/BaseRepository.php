@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class BaseRepository
 {
@@ -144,5 +145,12 @@ class BaseRepository
         }
 
         return $query->latest()->paginate($limit);
+    }
+
+
+    public function exists(array $conditions): bool
+    {
+        Log::debug((string)$conditions);
+        return $this->model->where($conditions)->exists();
     }
 }

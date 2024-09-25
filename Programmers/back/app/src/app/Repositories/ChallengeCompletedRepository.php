@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\ChallengeCompleted;
+use App\Models\ChallengeCompleted;
 
 class ChallengeCompletedRepository extends BaseRepository
 {

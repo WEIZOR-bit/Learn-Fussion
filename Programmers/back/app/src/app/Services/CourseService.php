@@ -48,4 +48,9 @@ class CourseService
         return $this->courseRepository->delete($this->getById($id));
     }
 
+    public function exists(array $conditions): bool
+    {
+        return $this->courseRepository->exists($conditions);
+    }
+
 }
