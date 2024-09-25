@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\ForumPost;
-use app\Repositories\ForumPostRepository;
+use App\Models\ForumPost;
+use App\Repositories\ForumPostRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

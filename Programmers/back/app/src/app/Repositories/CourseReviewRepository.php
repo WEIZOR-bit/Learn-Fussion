@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\CourseReview;
+use App\Models\CourseReview;
 use Illuminate\Database\Eloquent\Collection;
 
 class CourseReviewRepository extends BaseRepository

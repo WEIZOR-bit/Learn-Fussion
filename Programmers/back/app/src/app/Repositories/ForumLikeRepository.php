@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\ForumLike;
+use App\Models\ForumLike;
 
 class ForumLikeRepository extends BaseRepository
 {

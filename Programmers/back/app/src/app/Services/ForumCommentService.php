@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\ForumComment;
-use app\Repositories\ForumCommentRepository;
+use App\Models\ForumComment;
+use App\Repositories\ForumCommentRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\ForumPost;
+use App\Models\ForumPost;
 
 class ForumPostRepository extends BaseRepository
 {

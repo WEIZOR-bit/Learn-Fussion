@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Repositories\FriendRepository;
+use App\Repositories\FriendRepository;
 
 class FriendService
 {

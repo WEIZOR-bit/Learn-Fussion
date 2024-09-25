@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('challenge_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('checked_by');
+            $table->timestamps();
 
             $table->foreign('challenge_id')->references('id')->on('challenges');
             $table->foreign('user_id')->references('id')->on('users');

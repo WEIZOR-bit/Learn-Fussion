@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\ChallengeUnchecked;
+use App\Models\ChallengeUnchecked;
 
 class ChallengeUncheckedRepository extends BaseRepository
 {

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Homework;
-use app\Services\HomeworkService;
+use App\Services\HomeworkService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -37,7 +37,7 @@ class HomeworkController extends Controller
      */
     public function show(string $id): ?Homework
     {
-        $this->authorize('create', Homework::class);
+        $this->authorize('view', Homework::class);
         return $this->homeworkService->getById($id);
     }
 

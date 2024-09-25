@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use app\Models\Challenge;
-use app\Repositories\ChallengeRepository;
+use App\Models\Challenge;
+use App\Repositories\ChallengeRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

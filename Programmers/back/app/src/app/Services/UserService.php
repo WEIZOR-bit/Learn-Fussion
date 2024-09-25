@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\League;
+use App\Models\League;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;

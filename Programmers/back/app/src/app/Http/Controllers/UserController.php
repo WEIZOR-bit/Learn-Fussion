@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use app\Services\UserService;
+use App\Services\UserService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -18,85 +20,120 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+    /**
+     * @return Collection|LengthAwarePaginator
+     */
     public function index(): Collection|LengthAwarePaginator
     {
-        $this->authorize('viewAny', User::class);
         return $this->userService->all();
     }
 
 
     /**
      * Store a newly created resource in storage.
+     * @param UserRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request): User
+    public function store(UserRequest $request): JsonResponse
     {
-        $this->authorize('create', User::class);
-        return $this->userService->storeUser($request->all());
+        $createdUser =  $this->userService->storeUser($request->validated());
+         if (!$createdUser) {
+             return response()->json(['error' => 'User not created'], 500);
+         }
+         return response()->json(['createdUser' => $createdUser], 200);
     }
 
     /**
      * Display the specified resource.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function show(string $id): User
+    public function show(string $id): JsonResponse
     {
-        $this->authorize('create', User::class);
-        return $this->userService->getById($id);
+        $user =$this->userService->getById($id);
+        if(!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        return response()->json(['user' => $user], 200);
     }
-
 
 
     /**
      * Update the specified resource in storage.
+     * @param UserRequest $request
+     * @param string $id
+     * @return JsonResponse
      */
-    public function update(Request $request, string $id):bool
+    public function update(UserRequest $request, string $id): JsonResponse
     {
-        $this->authorize('update', User::class);
-        return $this->userService->update($id, $request->all());
+        $user =$this->userService->getById($id);
+        if(!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        $user = $this->userService->update($id, $request->validated());
+        if(!$user) {
+            return response()->json(['error' => 'User not created'], 500);
+        }
+        return response()->json(['updatedUser' => $user], 200);
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function destroy(string $id): bool
+    public function destroy(string $id): JsonResponse
     {
-        $this->authorize('delete', User::class);
-        return $this->userService->delete($id);
+        $user =$this->userService->getById($id);
+        if(!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        $user = $this->userService->delete($id);
+        if(!$user) {
+            return response()->json(['error' => 'User not deleted'], 500);
+        }
+        return response()->json(['deletedUser' => $user], 200);
 
     }
 
     /**
      * Get the mastery level of the user.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function getMasteryLevel(string $id):mixed
+    public function getMasteryLevel(string $id): JsonResponse
     {
-        $this->authorize('view', User::class);
-        return $this->userService->getById($id)->mastery_level;
+
+        return response()->json($this->userService->getById($id)->mastery_level);
     }
 
     /**
      * Get the league of the user.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function getLeague(string $id): null|string
+    public function getLeague(string $id): JsonResponse
     {
-        $this->authorize('view', User::class);
-        return $this->userService->getUserLeague($id);
+        return response()->json($this->userService->getUserLeague($id));
     }
 
     /**
      * Get the number of streak days.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function getStreakDays(string $id): int
+    public function getStreakDays(string $id): JsonResponse
     {
-        $this->authorize('view', User::class);
-        return $this->userService->getStreakDays($id);
+        return response()->json($this->userService->getStreakDays($id));
     }
 
     /**
      * Update user's last activity and reset hearts.
+     * @param string $id
+     * @return JsonResponse
      */
-    public function updateActivity(string $id):bool
+    public function updateActivity(string $id): JsonResponse
     {
-        $this->authorize('update', User::class);
-        return $this->userService->updateActivity($id);
+        return response()->json($this->userService->updateActivity($id));
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use app\Models\ChallengeUnchecked;
-use app\Repositories\ChallengeUncheckedRepository;
+use App\Models\ChallengeUnchecked;
+use App\Repositories\ChallengeUncheckedRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

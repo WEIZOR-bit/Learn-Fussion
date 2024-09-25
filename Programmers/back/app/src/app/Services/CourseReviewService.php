@@ -1,10 +1,11 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\CourseReview;
-use app\Repositories\CourseReviewRepository;
+use App\Models\CourseReview;
+use App\Repositories\CourseReviewRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CourseReviewService
@@ -25,11 +26,18 @@ class CourseReviewService
      *
      * @param int $id
      * @return null|CourseReview
+     * @throws ModelNotFoundException If the course review is not found.
      */
     public function getById(int $id): ?CourseReview
     {
-        return $this->courseReviewRepository->get(['id' => $id]);
+        $courseReview = $this->courseReviewRepository->get(['id' => $id]);
+        if (!$courseReview) {
+            throw new ModelNotFoundException("Course review not found.");
+        }
+
+        return $courseReview;
     }
+
 
     /**
      * Get all course reviews, optionally paginated.
@@ -96,6 +104,7 @@ class CourseReviewService
      */
     public function getByCourseId(int $courseId): Collection|array
     {
+
         return $this->courseReviewRepository->getAllByCourseId($courseId);
     }
 }

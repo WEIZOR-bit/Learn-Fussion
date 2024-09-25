@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\Subscription;
-use app\Repositories\SubscriptionRepository;
+use App\Models\Subscription;
+use App\Repositories\SubscriptionRepository;
 use Carbon\Carbon;
 
 class SubscriptionService

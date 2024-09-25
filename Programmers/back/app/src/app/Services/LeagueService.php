@@ -1,8 +1,8 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Repositories\LeagueRepository;
+use App\Repositories\LeagueRepository;
 
 class LeagueService
 {

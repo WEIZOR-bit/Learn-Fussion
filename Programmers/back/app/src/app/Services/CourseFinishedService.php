@@ -1,9 +1,9 @@
 <?php
 
-namespace app\Services;
+namespace App\Services;
 
-use app\Models\CourseFinished;
-use app\Repositories\CourseFinishedRepository;
+use App\Models\CourseFinished;
+use App\Repositories\CourseFinishedRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

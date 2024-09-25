@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use app\Models\Challenge;
+use App\Models\Challenge;
 
 class ChallengeRepository extends BaseRepository
 {

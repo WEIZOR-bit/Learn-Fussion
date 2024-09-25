@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
-use app\Models\ChallengeCompleted;
-use app\Models\ChallengeUnchecked;
-use app\Repositories\ChallengeCompletedRepository;
+use App\Models\ChallengeCompleted;
+use App\Models\ChallengeUnchecked;
+use App\Repositories\ChallengeCompletedRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -18,7 +18,7 @@ class ChallengeCompleted extends Model
         'user_id',
         'checked_by',
     ];
-    protected $table = 'challenge_completed';
+    protected $table = 'challenges_completed';
 
 
     /**
