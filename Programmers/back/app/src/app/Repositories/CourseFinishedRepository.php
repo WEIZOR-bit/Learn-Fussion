@@ -30,4 +30,17 @@ class CourseFinishedRepository extends BaseRepository
             ->where('user_id', $userId)
             ->get();
     }
+
+    /**
+     * Get the count of all courses finished by a specific user.
+     *
+     * @param int $userId
+     * @return int
+     */
+    public function countAllByUserId(int $userId): int
+    {
+        return $this->model->newQuery()
+            ->where('user_id', $userId)
+            ->count();
+    }
 }

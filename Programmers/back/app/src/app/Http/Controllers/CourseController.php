@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\CourseDetailedDTO;
+use app\DTOs\CourseShortDTO;
+use app\DTOs\LessonShortDTO;
 use App\Http\Requests\CourseRequest;
+use App\Models\Admin;
 use App\Models\Course;
+use App\Models\User;
 use App\Services\CourseService;
-use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -28,7 +28,29 @@ class CourseController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json($this->courseService->getAllCourses());
+        $courses = Course::query()->paginate(10);
+
+        $coursesDTO = $courses->getCollection()->map(function ($course) {
+            return new CourseShortDTO(
+                $course->id,
+                $course->name,
+                $course->category,
+                Admin::query()->find($course->created_by)->name,
+            );
+        });
+
+        // Return the paginated list as JSON
+        return response()->json([
+            'data' => $coursesDTO,
+            'pagination' => [
+                'total' => $courses->total(),
+                'per_page' => $courses->perPage(),
+                'current_page' => $courses->currentPage(),
+                'last_page' => $courses->lastPage(),
+                'from' => $courses->firstItem(),
+                'to' => $courses->lastItem(),
+            ],
+        ]);
     }
 
 
@@ -53,16 +75,69 @@ class CourseController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $courses = $this->courseService->getById($id);
-        if(!$courses) {
+        $course = $this->courseService->getById($id);
+        $lessons = $course->lessons();
+        if(!$course) {
             return response()->json([
                 'message' => 'Course not found',
                 404
             ]);
         }
-        return response()->json($courses, 200);
+        return response()->json($course);
     }
 
+    /**
+     * Display the course for a user.
+     * @param string $id
+     * @param string $userId
+     * @return JsonResponse
+     */
+    public function showForUser(string $id, string $userId): JsonResponse
+    {
+        // Fetch course by ID
+        $course = $this->courseService->getById($id);
+        if (!$course) {
+            return response()->json([
+                'message' => 'Course not found',
+            ], 404);
+        }
+
+        // Fetch the user
+        $user = User::query()->where('id', $userId)->first();
+        if (!$user) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        // Get the lessons for the course
+        $lessons = $course->lessons()->get();
+
+        // Get lessons finished by the user
+        $lessonsFinishedByUser = $user->lessons_finished()->pluck('lesson_id')->toArray(); // Fetch finished lesson IDs
+
+        // Map each lesson to a LessonShortDTO, marking it as finished if the user has completed it
+        $lessonsDTOs = $lessons->map(function ($lesson) use ($lessonsFinishedByUser) {
+            return new LessonShortDTO(
+                $lesson->id,
+                $lesson->name,
+                in_array($lesson->id, $lessonsFinishedByUser) // Check if the user has finished the lesson
+            );
+        })->toArray(); // Convert the collection to an array
+
+        // Create the CourseDetailedDTO
+        $courseDTO = new CourseDetailedDTO(
+            $course->id,
+            $course->name,
+            $course->description,
+            $course->category,
+            $course->created_by, // Assuming 'created_by' is the author
+            $lessonsDTOs // Pass the lessons mapped to DTOs
+        );
+
+        // Return the course data as JSON
+        return response()->json($courseDTO->toArray());
+    }
 
     /**
      * Update the specified resource in storage.

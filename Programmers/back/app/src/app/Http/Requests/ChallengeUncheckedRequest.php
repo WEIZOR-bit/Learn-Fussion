@@ -40,7 +40,7 @@ class ChallengeUncheckedRequest extends FormRequest
         return [
             'challenge_id' => 'required|exists:challenges,id',
             'user_id' => 'required|exists:users,id',
-            'link_to_homework' => 'required|string|max:255',
+            'submission_link' => 'required|string|max:255',
         ];
     }
 
@@ -53,9 +53,9 @@ class ChallengeUncheckedRequest extends FormRequest
             'user_id.required' => 'The user ID field is required.',
             'user_id.exists' => 'The selected user ID does not exist.',
 
-            'link_to_homework.required' => 'The link to homework is required.',
-            'link_to_homework.string' => 'The link to homework must be a valid string.',
-            'link_to_homework.max' => 'The link to homework may not be greater than 255 characters.',
+            'submission_link.required' => 'The link to submission is required.',
+            'submission_link.string' => 'The link to submission must be a valid string.',
+            'submission_link.max' => 'The link to submission may not be greater than 255 characters.',
         ];
     }
 }

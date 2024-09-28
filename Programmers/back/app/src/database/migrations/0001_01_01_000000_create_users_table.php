@@ -21,7 +21,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->unsignedInteger('mastery_level')->default(0);
             $table->unsignedInteger('hearts')->default(10);
-            $table->string('mastery_tag')->default(0);
+            $table->string('mastery_tag')->default('');
             $table->timestamp('started_streak_at')->default(now());
             $table->timestamp('last_active_at')->default(now());
             $table->timestamps();

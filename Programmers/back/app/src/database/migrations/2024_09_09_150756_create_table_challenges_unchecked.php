@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('challenge_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('link_to_homework');
+            $table->string('submission_link');
 
             $table->foreign('challenge_id')->references('id')->on('challenges');
             $table->foreign('user_id')->references('id')->on('users');
