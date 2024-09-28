@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('challenges_unchecked', function (Blueprint $table) {
+        Schema::create('homeworks_unchecked', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('challenge_id');
+            $table->unsignedBigInteger('homework_id');
             $table->unsignedBigInteger('user_id');
             $table->string('submission_link');
 
-            $table->foreign('challenge_id')->references('id')->on('challenges');
+            $table->foreign('homework_id')->references('id')->on('homeworks');
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('challenges_unchecked');
+        Schema::dropIfExists('homeworks_unchecked');
     }
 };

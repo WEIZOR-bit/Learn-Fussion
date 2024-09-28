@@ -7,24 +7,24 @@ use App\Services\ChallengeUncheckedService;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\App;
 
-class ChallengeUncheckedRequest extends FormRequest
+class HomeworkUncheckedRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        $challengeUncheckedService = App::make(ChallengeUncheckedService::class);
-        $challengeUnchecked = null;
+        $homeworkUncheckedService = App::make(ChallengeUncheckedService::class);
+        $homeworkUnchecked = null;
 
         if ($this->isMethod('post')) {
             return $this->user()->can('create', new ChallengeUnchecked($this->only('challenge_id')));
         } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
-            $challengeUnchecked = $challengeUncheckedService->getById($this->route('challenges_unchecked'));
-            return $this->user()->can('update', $challengeUnchecked);
+            $homeworkUnchecked = $homeworkUncheckedService->getById($this->route('homeworks_unchecked'));
+            return $this->user()->can('update', $homeworkUnchecked);
         } elseif ($this->isMethod('delete')) {
-            $challengeUnchecked = $challengeUncheckedService->getById($this->route('challenges_unchecked'));
-            return $this->user()->can('forceDelete', $challengeUnchecked);
+            $homeworkUnchecked = $homeworkUncheckedService->getById($this->route('homeworks_unchecked'));
+            return $this->user()->can('forceDelete', $homeworkUnchecked);
         }
 
         return true;
@@ -38,7 +38,7 @@ class ChallengeUncheckedRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'challenge_id' => 'required|exists:challenges,id',
+            'homework_id' => 'required|exists:homeworks,id',
             'user_id' => 'required|exists:users,id',
             'submission_link' => 'required|string|max:255',
         ];
@@ -47,8 +47,8 @@ class ChallengeUncheckedRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'challenge_id.required' => 'The challenge ID field is required.',
-            'challenge_id.exists' => 'The selected challenge ID does not exist.',
+            'homework_id.required' => 'The homework ID field is required.',
+            'homework_id.exists' => 'The selected homework ID does not exist.',
 
             'user_id.required' => 'The user ID field is required.',
             'user_id.exists' => 'The selected user ID does not exist.',

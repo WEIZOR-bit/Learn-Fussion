@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ProfileView from "@/views/ProfileView.vue";
 import LoginView from "@/views/auth/LoginView.vue";
-import RegisterView from "@/views/auth/RegisterView.vue";
+import SignupView from "@/views/auth/SignupView.vue";
 import PasswordResetView from "@/views/auth/PasswordResetView.vue";
 
 const router = createRouter({
@@ -15,7 +15,7 @@ const router = createRouter({
     {
       path: '/verify-email',
       name: 'EmailVerify',
-      component: () => import('@/components/EmailVerify.vue'), // Загружаем компонент для верификации
+      component: () => import('@/components/EmailVerify.vue'),
       props: route => ({
         id: route.query.id,
         expires: route.query.expires,
@@ -28,9 +28,9 @@ const router = createRouter({
       component: LoginView
     },
     {
-      path: '/register',
-      name: 'register',
-      component: RegisterView
+      path: '/signup',
+      name: 'signup',
+      component: SignupView
     },
     {
       path: '/password-reset',

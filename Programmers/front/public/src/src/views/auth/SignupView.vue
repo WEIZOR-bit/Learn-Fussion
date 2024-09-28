@@ -26,7 +26,7 @@ const togglePasswordVisibility = () => {
       <img alt="Project logo" class="logo" src="@/assets/logo.png" />
       <form class="form-wrapper">
 
-        <h3>Register</h3>
+        <h3>Sign Up</h3>
 
         <div class="input-group">
           <label for="username">Username</label>

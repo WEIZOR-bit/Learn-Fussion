@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class ChallengeUnchecked extends Model
+class HomeworkUnchecked extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -14,24 +14,24 @@ class ChallengeUnchecked extends Model
      */
     protected $fillable = [
         'submission_link',
-        'challenge_id',
+        'homework_id',
         'user_id',
     ];
-    protected $table = 'challenges_unchecked';
+    protected $table = 'homeworks_unchecked';
 
 
     /**
-     * Get the challenge to be checked.
+     * Get the homework to be checked.
      *
      * @return BelongsTo
      */
-    public function challenge(): BelongsTo
+    public function homework(): BelongsTo
     {
-        return $this->belongsTo(Challenge::class, 'challenge_id');
+        return $this->belongsTo(Challenge::class, 'homework_id');
     }
 
     /**
-     * Get the user who sent the answer.
+     * Get the user who sent the homework.
      *
      * @return BelongsTo
      */
