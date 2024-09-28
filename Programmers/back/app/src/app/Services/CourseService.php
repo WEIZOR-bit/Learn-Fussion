@@ -29,7 +29,7 @@ class CourseService
         return $this->courseRepository->get(['id' => $id]);
     }
 
-    public function getAllCourses()
+    public function getAllCourses(): mixed
     {
         return $this->courseRepository->getAllCourses();
     }

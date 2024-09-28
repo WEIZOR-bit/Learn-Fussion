@@ -11,6 +11,8 @@ use App\Services\CourseService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response as HttpResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use OpenApi\Attributes as OAT;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -42,7 +44,7 @@ class AuthController extends Controller
     {
         $user = $this->authService->signupUser($request);
 
-        UserSignedUp::dispatch($user);
+        //UserSignedUp::dispatch($user);
 
         return Response::json(new LoggedInUserResource($user), HttpResponse::HTTP_CREATED);
     }
@@ -75,5 +77,31 @@ class AuthController extends Controller
         $this->authService->logoutUser($request->user());
 
         return Response::json(null, HttpResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Validate user's token.
+     *
+     * @return JsonResponse
+     */
+    public function validateToken(): JsonResponse
+    {
+        return response()->json(['valid' => auth()->check()]);
+    }
+
+    /**
+     * Get the authenticated user.
+     *
+     * @return JsonResponse
+     */
+    public function me(): JsonResponse
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        return response()->json($user);
     }
 }

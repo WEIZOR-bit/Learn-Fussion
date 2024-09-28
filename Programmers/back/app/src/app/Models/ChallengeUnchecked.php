@@ -13,7 +13,7 @@ class ChallengeUnchecked extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'link_to_homework',
+        'submission_link',
         'challenge_id',
         'user_id',
     ];

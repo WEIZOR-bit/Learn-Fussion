@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\UserStatsDTO;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -108,6 +109,17 @@ class UserController extends Controller
     }
 
     /**
+     * Get the mastery level of the user.
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function getHearts(string $id): JsonResponse
+    {
+
+        return response()->json($this->userService->getById($id)->hearts);
+    }
+
+    /**
      * Get the league of the user.
      * @param string $id
      * @return JsonResponse
@@ -135,5 +147,20 @@ class UserController extends Controller
     public function updateActivity(string $id): JsonResponse
     {
         return response()->json($this->userService->updateActivity($id));
+    }
+
+    /**
+     * Update user's last activity and reset hearts.
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function getUserStats(string $id): JsonResponse
+    {
+        $userStatsDTO = new UserStatsDTO(
+            $this->userService->getById($id)->hearts,
+            $this->userService->getStreakDays($id),
+            $this->userService->getById($id)->mastery_level
+        );
+        return response()->json($userStatsDTO->toArray());
     }
 }

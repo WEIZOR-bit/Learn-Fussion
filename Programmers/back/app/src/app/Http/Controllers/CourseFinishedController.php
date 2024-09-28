@@ -90,8 +90,26 @@ class CourseFinishedController extends Controller
         }
         return response()->json(['message' => "Course Finished wss deleted"], 200);
     }
+
+    /**
+     * Get all courses finished by a specific user.
+     *
+     * @param int $userId
+     * @return Collection|array
+     */
     public function getByUserId(int $userId): Collection|array
     {
         return $this->courseFinishedService->getByUserId($userId);
+    }
+
+    /**
+     * Get number of courses finished by a specific user.
+     *
+     * @param int $userId
+     * @return JsonResponse
+     */
+    public function countByUserId(int $userId): JsonResponse
+    {
+        return response()->json($this->courseFinishedService->countByUserId($userId));
     }
 }

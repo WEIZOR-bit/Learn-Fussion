@@ -18,6 +18,7 @@ class Course extends Model
      */
     protected $fillable = [
         'name',
+        'category',
         'average_rating',
         'description',
         'review_count',

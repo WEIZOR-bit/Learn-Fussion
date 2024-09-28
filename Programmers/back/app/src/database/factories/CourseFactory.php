@@ -20,6 +20,7 @@ class CourseFactory extends Factory
     {
         return [
             'name' => fake()->unique()->name(),
+            'category' => fake()->title(),
             'average_rating' => 0.0,
             'description' => fake()->text(),
             'review_count' => 0,

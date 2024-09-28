@@ -1,18 +1,53 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import axios from "axios";
+import {toast} from "vue3-toastify";
 
-// Add icons to the library
 library.add(faEye, faEyeSlash);
 
-// Refs to toggle visibility
 const showPassword = ref(false);
+const username = ref('');
+const email = ref('');
+const password = ref('');
+const password_confirmation = ref('');
+const isAgreementChecked = ref(false);
+const isButtonDisabled = ref(false);
+const signupButtonText = ref('Sign up');
 
-// Toggle password visibility
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
+};
+
+if (axios.defaults.headers.common['Authorization']) {
+  window.location.href='/';
+}
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  isButtonDisabled.value = true;
+
+  try {
+    const response = await axios.post('http://localhost:8000/api/public/signup', {
+      name: username.value,
+      email: email.value,
+      password: password.value,
+      password_confirmation: password_confirmation.value
+    });
+
+    const token = response.data.token.access_token;
+    localStorage.setItem('jwt_token', token);
+    window.location.href = '/';
+
+  } catch (error) {
+    console.log(error);
+    toast.error(error.response.data.message, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+    isButtonDisabled.value = false;
+  }
 };
 
 </script>
@@ -24,13 +59,28 @@ const togglePasswordVisibility = () => {
     </div>
     <div class="right-section">
       <img alt="Project logo" class="logo" src="@/assets/logo.png" />
-      <form class="form-wrapper">
+      <form class="form-wrapper" @submit="handleSubmit">
 
-        <h3>Register</h3>
+        <h3>Sign Up</h3>
 
         <div class="input-group">
           <label for="username">Username</label>
-          <input type="text" id="username" placeholder="JohnDoe" />
+          <input
+              type="text"
+              id="username"
+              placeholder="JohnDoe"
+              v-model="username"
+          />
+        </div>
+
+        <div class="input-group">
+          <label for="email">E-mail</label>
+          <input
+              type="email"
+              id="email"
+              placeholder="name@gmail.com"
+              v-model="email"
+          />
         </div>
 
         <div class="input-group">
@@ -40,6 +90,7 @@ const togglePasswordVisibility = () => {
                 :type="showPassword ? 'text' : 'password'"
                 id="password"
                 placeholder="12345678"
+                v-model="password"
             />
             <button
                 type="button"
@@ -60,6 +111,7 @@ const togglePasswordVisibility = () => {
                 :type="showPassword ? 'text' : 'password'"
                 id="confirm_password"
                 placeholder="12345678"
+                v-model="password_confirmation"
             />
             <button
                 type="button"
@@ -74,11 +126,11 @@ const togglePasswordVisibility = () => {
         </div>
 
         <div class="user-agreement">
-          <input type="checkbox" id="agreement" />
+          <input type="checkbox" id="agreement" v-model="isAgreementChecked"/>
           <label for="agreement">I accept the <span>User Agreement</span></label>
         </div>
 
-        <button type="submit" class="action-button">Sign up</button>
+        <button type="submit" class="action-button" :disabled="!isAgreementChecked || isButtonDisabled">{{signupButtonText}}</button>
 
         <p class="signin-text">
           Already have an account? <a href="/login">Sign in</a>
@@ -178,10 +230,17 @@ const togglePasswordVisibility = () => {
   border: none;
   border-radius: 30px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 .action-button:hover {
   background-color: #6c48d3;
+}
+
+.action-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .signin-text {
