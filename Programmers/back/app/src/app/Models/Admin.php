@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -36,4 +37,12 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function createdCourses()
+    {
+        return $this->hasMany(Course::class, 'created_by');
+    }
 }

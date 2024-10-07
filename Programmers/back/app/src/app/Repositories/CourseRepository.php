@@ -17,4 +17,8 @@ class CourseRepository extends BaseRepository
     {
         $this->model = $course;
     }
+
+    public function getAllCourses() {
+        return Course::with(['creator'])->get();
+    }
 }

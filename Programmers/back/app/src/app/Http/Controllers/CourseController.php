@@ -28,7 +28,8 @@ class CourseController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json($this->courseService->getAllCourses());
+        $response = response()->json($this->courseService->getAllCourses());
+        return response()->json($response, 200);
     }
 
 

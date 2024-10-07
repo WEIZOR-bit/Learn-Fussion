@@ -41,7 +41,12 @@ class UserRequest extends FormRequest
         $userId = $this->route()->parameter('user');
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $userId,
+            'email' => [
+                'required',
+                'email',
+                'max:255',
+                $userId ? 'unique:users,email,' . $userId : 'unique:users,email',
+            ],
             'password' => $this->isMethod('post') ? 'required|string|min:8' : 'nullable|string|min:8',
             'mastery_level' => 'nullable|integer|min:0',
             'hearts' => 'nullable|integer|min:0',
