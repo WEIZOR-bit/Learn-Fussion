@@ -1,8 +1,10 @@
 <script setup>
-import { ref } from 'vue';
+import {ref} from 'vue';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 import axios from 'axios';
 
 library.add(faEye, faEyeSlash);
@@ -10,27 +12,37 @@ library.add(faEye, faEyeSlash);
 const showPassword = ref(false);
 const email = ref('');
 const password = ref('');
+const isButtonDisabled = ref(false);
+const loginButtonText = ref('Log in');
 
 const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
+if (axios.defaults.headers.common['Authorization']) {
+  window.location.href='/';
+}
+
 const handleSubmit = async (event) => {
   event.preventDefault();
+  isButtonDisabled.value = true;
 
   try {
-    const response = await axios.post('http://0.0.0.0:80/api/public/login', {
+    const response = await axios.post('http://localhost:8000/api/public/login', {
       email: email.value,
-      password: password.value
+      password: password.value,
     });
 
-    console.log(response.data);
     const token = response.data.token.access_token;
-    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    localStorage.setItem('jwt_token', token);
+    window.location.href = '/';
 
-    // Perform any additional actions (e.g., redirect)
   } catch (error) {
-    console.error('Login failed', error);
+    console.log(error);
+    toast.error(error.response.data.message, {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
+    isButtonDisabled.value = false;
   }
 };
 </script>
@@ -73,13 +85,13 @@ const handleSubmit = async (event) => {
             <input type="checkbox" id="remember"/>
             <label for="remember">Remember me</label>
           </div>
-          <a href="#" class="forgot-link">Forgot?</a>
+          <a href="/password-reset" class="forgot-link">Forgot?</a>
         </div>
 
-        <button type="submit" class="action-button">Log in</button>
+        <button type="submit" class="action-button" :disabled="isButtonDisabled">{{ loginButtonText }}</button>
 
         <p class="signup-text">
-          Don't have an account? <a href="/register">Sign up</a>
+          Don't have an account? <a href="/signup">Sign up</a>
         </p>
       </form>
     </div>
@@ -196,6 +208,12 @@ const handleSubmit = async (event) => {
 
 .action-button:hover {
   background-color: #6c48d3;
+}
+
+.action-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .signup-text {

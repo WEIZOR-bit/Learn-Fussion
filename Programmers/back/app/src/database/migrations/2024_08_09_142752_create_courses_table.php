@@ -15,6 +15,7 @@ return new class extends Migration
             $table->softDeletes();
             $table->id();
             $table->string('name')->unique();
+            $table->string('category');
             $table->float('average_rating');
             $table->string('description')->nullable();
             $table->unsignedBigInteger('review_count');

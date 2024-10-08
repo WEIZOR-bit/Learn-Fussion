@@ -17,12 +17,8 @@ class ForceJsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        // Пропускаем запрос дальше в приложение
-        $response = $next($request);
+        $request->headers->set('Accept', 'application/json');
 
-        // Принудительно устанавливаем заголовок Content-Type в application/json
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $next($request);
     }
 }

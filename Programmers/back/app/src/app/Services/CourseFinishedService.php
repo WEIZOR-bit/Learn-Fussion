@@ -87,4 +87,15 @@ class CourseFinishedService
     {
         return $this->courseFinishedRepository->getAllByUserId($userId);
     }
+
+    /**
+     * Get number of courses finished by a specific user.
+     *
+     * @param int $userId
+     * @return int
+     */
+    public function countByUserId(int $userId): int
+    {
+        return $this->courseFinishedRepository->countAllByUserId($userId);
+    }
 }

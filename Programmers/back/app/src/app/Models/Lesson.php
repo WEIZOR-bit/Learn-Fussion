@@ -47,9 +47,9 @@ class Lesson extends Model
      *
      * @return HasMany
      */
-    public function questions(): HasMany
+    public function lesson_questions(): HasMany
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(LessonQuestion::class);
     }
 
     /**

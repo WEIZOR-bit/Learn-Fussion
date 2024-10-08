@@ -18,8 +18,10 @@ use Illuminate\Support\Facades\Route;
 //Route::middleware(['auth:user', 'verified'])->group(function () {
 Route::group(['prefix' => 'profile'], function () {
     Route::resource('courses', CourseController::class)->except(['create', 'edit']);
+    Route::get('courses/{id}/user/{userId}', [CourseController::class, 'showForUser']);
     Route::resource('courses-finished', CourseFinishedController::class)->except(['create', 'edit']);
     Route::get('courses-finished/user/{id}', [CourseFinishedController::class, 'getByUserId']);
+    Route::get('courses-finished/user/{id}/count', [CourseFinishedController::class, 'countByUserId']);
     Route::resource('courses-reviews', CourseReviewController::class)->except(['create', 'edit']);
     Route::get('courses-reviews/user/{id}', [CourseReviewController::class, 'getByUserId']);
     Route::get('courses-reviews/course/{id}', [CourseReviewController::class, 'getByCourseId']);
@@ -37,5 +39,7 @@ Route::group(['prefix' => 'profile'], function () {
     Route::get('users/{id}/league', [UserController::class, 'getLeague']);
     Route::get('users/{id}/streak', [UserController::class, 'getStreakDays']);
     Route::patch('users/{id}/activity', [UserController::class, 'updateActivity']);
+    Route::get('users/{id}/hearts', [UserController::class, 'getHearts']);
+    Route::get('users/{id}/stats', [UserController::class, 'getUserStats']);
 });
 

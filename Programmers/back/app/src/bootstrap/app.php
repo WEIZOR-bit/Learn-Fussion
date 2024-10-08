@@ -39,10 +39,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => RoleOrPermissionMiddleware::class,
         ]);
     })
+    ->withMiddleware(function (Middleware $middleware) {
+        $middleware->append(ForceJsonResponse::class);
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
 
-//->withMiddleware(function (Middleware $middleware) {
-//    $middleware->append(ForceJsonResponse::class);
-//})
+
