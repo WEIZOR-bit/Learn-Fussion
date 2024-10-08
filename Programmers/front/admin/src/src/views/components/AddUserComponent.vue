@@ -15,17 +15,11 @@ const userStore = useUserStore();
 
 
 const addUser = async () => {
-  try {
     await userStore.addUser(user.value);
-    // Логируем перед перенаправлением
+
     console.log('Redirecting to Users page...');
 
-    // Переходим обратно к списку пользователей
-    await router.push({ name: 'Users' });
-  } catch (error) {
-    alert('Error adding user: ' + error.message);
-  }
-
+    await router.push({name: 'Users'});
 };
 </script>
 

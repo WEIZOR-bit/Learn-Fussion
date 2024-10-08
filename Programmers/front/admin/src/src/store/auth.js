@@ -21,6 +21,8 @@ export const useAuthStore = defineStore('auth', {
 
                 // Сохраняем токен в localStorage
                 localStorage.setItem('token', this.token);
+                //сохор юзера
+                localStorage.setItem('user', JSON.stringify(this.user));
 
                 // После успешного логина, axiosInstance автоматически добавит заголовок авторизации через интерцептор
             } catch (error) {
@@ -33,19 +35,18 @@ export const useAuthStore = defineStore('auth', {
             this.token = '';
 
             // Удаляем токен из localStorage
+            localStorage.removeItem('user');
             localStorage.removeItem('token');
         },
-        async fetchUser() {
-            try {
-                if (this.token) {
-                    // Запрос для получения данных о текущем пользователе
-                    const response = await axiosService.get('/user');
-                    this.user = response.data;
-                }
-            } catch (error) {
-                console.error('Ошибка при получении данных пользователя:', error);
-                this.logout(); // Если токен недействителен, выходим
+        loadUserFromStorage() {
+            const user = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            if (user && token) {
+                this.$patch({
+                    user: JSON.parse(user),
+                    token: token,
+                });
             }
-        },
+        }
     },
 });

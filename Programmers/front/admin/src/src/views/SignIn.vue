@@ -13,9 +13,9 @@
                 <div class="card-body">
                   <form role="form" class="text-start" @submit.prevent="login">
                     <label>Email</label>
-                    <vsud-input v-model="email" type="email" placeholder="Email" name="email" id="email" />
+                    <vsud-input v-model="email" type="email" placeholder="admin@gmail.com" name="email" id="email" />
                     <label>Password</label>
-                    <vsud-input v-model="password" type="password" placeholder="Password" name="password" id="password" />
+                    <vsud-input v-model="password" type="password" placeholder="123123123123" name="password" id="password" />
                     <div class="text-center">
                       <vsud-button
                           type="submit"
