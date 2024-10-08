@@ -57,4 +57,9 @@ class Course extends Model
     {
         return $this->hasMany(CourseFinished::class);
     }
+
+    public function creator()
+    {
+        return $this->belongsTo(Admin::class, 'created_by');
+    }
 }

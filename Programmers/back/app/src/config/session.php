@@ -95,7 +95,7 @@ return [
     |
     | When using one of the framework's cache driven session backends, you may
     | define the cache store which should be used to store the session data
-    | between requests. This must match one of your defined cache stores.
+    | between requests. This must match one of your defined cache store.
     |
     | Affects: "apc", "dynamodb", "memcached", "redis"
     |

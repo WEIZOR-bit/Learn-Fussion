@@ -1,143 +1,65 @@
-<<<<<<< HEAD
+<template>
+  <sidenav
+      v-if="$store.state.showSidenav"
+      :custom_class="$store.state.mcolor"
+      :class="[
+      $store.state.isTransparent,
+      $store.state.isRTL ? 'fixed-end' : 'fixed-start',
+    ]"
+  />
+  <main
+      class="main-content position-relative max-height-vh-100 h-100 border-radius-lg"
+      :style="$store.state.isRTL ? 'overflow-x: hidden' : ''"
+  >
+    <!-- nav -->
+    <navbar
+        v-if="$store.state.showNavbar"
+        :class="[navClasses]"
+        :text-white="$store.state.isAbsolute ? 'text-white opacity-8' : ''"
+        :min-nav="navbarMinimize"
+    />
+    <router-view />
+    <app-footer v-show="$store.state.showFooter" />
+    <configurator
+        :toggle="toggleConfigurator"
+        :class="[
+        $store.state.showConfig ? 'show' : '',
+        $store.state.hideConfigButton ? 'd-none' : '',
+      ]"
+    />
+  </main>
+</template>
 <script>
-import { RouterLink, RouterView } from 'vue-router';
-import axios from "axios";
-
-
+import Sidenav from "./examples/Sidenav/index.vue";
+import Configurator from "@/examples/Configurator.vue";
+import Navbar from "@/examples/Navbars/Navbar.vue";
+import AppFooter from "@/examples/Footer.vue";
+import { mapMutations } from "vuex";
 export default {
+  name: "App",
+  components: {
+    Sidenav,
+    Configurator,
+    Navbar,
+    AppFooter,
+  },
 
-
-  data() {
-    return {
-      response: null
-    }
+  computed: {
+    navClasses() {
+      return {
+        "position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky":
+        this.$store.state.isNavFixed,
+        "position-absolute px-4 mx-0 w-100 z-index-2":
+        this.$store.state.isAbsolute,
+        "px-0 mx-4 mt-4": !this.$store.state.isAbsolute,
+      };
+    },
+  },
+  beforeMount() {
+    this.$store.state.isTransparent = "bg-transparent";
   },
   methods: {
-    async login() {
-      const response = await axios.post('http://0.0.0.0:80/api/admin/login', {
-        email: 'admin@gmail.com',
-        password: '123123123123'})
-      console.log(response.data);
-      const token = response.data.token.access_token;
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    },
-
-    async logout() {
-      const response = await axios.post('http://0.0.0.0:80/api/admin/logout')
-      console.log(response.data);
-    },
-    async sendView() {
-      this.response = await axios.get('http://0.0.0.0:80/api/admin/courses',)
-      console.log(this.response.data);
-    },
-    async create() {
-      const response = await axios.post('http://0.0.0.0:80/api/admin/courses', {
-        name: 'designe',
-        average_rating: '123123123',
-        description: 'descrip',
-        review_count: 12,
-        created_by: 'Admin',
-        updated_by: 'Admin',})
-        this.response = response.data;
-      console.log(response.data);
-    },
-    async destroy() {
-      const response = await axios.delete('http://0.0.0.0:80/api/admin/courses/1')
-      console.log(response.data);
-    },
-    async update() {
-      const response = await axios.put('http://0.0.0.0:80/api/admin/courses/2', {
-        name: 'designeres',
-        average_rating: '123123123',
-        description: 'descrip',
-        review_count: 12,
-        created_by: 'Admin',
-        updated_by: 'Admin',})
-      this.response = response.data;
-      console.log(response.data);
-    },
-  }
-}
+    ...mapMutations(["toggleConfigurator", "navbarMinimize"]),
+  },
+};
 </script>
-
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <h1> Admin </h1>
-      <button @click="login">Login</button>
-      <button @click="logout">logout</button>
-      <button @click="sendView">sendView</button>
-      <button @click="create">create</button>
-      <button @click="destroy">destroy</button>
-      <button @click="update">update</button>
-    </div>
-  </header>
-
-  <RouterView />
-</template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>

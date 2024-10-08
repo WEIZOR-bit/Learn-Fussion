@@ -31,7 +31,7 @@ class CourseService
 
     public function getAllCourses(): mixed
     {
-        return $this->courseRepository->all();
+        return $this->courseRepository->getAllCourses();
     }
 
     public function createCourse(array $data): mixed
