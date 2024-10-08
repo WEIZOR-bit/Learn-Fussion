@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\CourseDetailedDTO;
-use app\DTOs\CourseShortDTO;
-use app\DTOs\LessonShortDTO;
+use App\DTOs\CourseShortDTO;
+use App\DTOs\LessonShortDTO;
 use App\Http\Requests\CourseRequest;
 use App\Models\Admin;
 use App\Models\Course;
@@ -39,7 +39,6 @@ class CourseController extends Controller
             );
         });
 
-        // Return the paginated list as JSON
         return response()->json([
             'data' => $coursesDTO,
             'pagination' => [
