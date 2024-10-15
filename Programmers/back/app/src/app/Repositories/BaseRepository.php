@@ -85,7 +85,11 @@ class BaseRepository
      */
     public function update(Model $entity, array $data): bool
     {
-        return $entity->update($data);
+        Log::debug($entity->update($data));
+            $entity->update($data);
+
+        return  $entity->save();
+
     }
 
     /**

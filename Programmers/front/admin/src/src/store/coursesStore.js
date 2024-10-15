@@ -6,8 +6,17 @@ import {reactive} from "vue";
 
 export const useCoursesStore = defineStore('coursesStore', {
     state: () => ({
-        courses: reactive([]),
-        course: null,
+        courses: reactive({
+            current_page: 1,
+            data: [],
+            total: 0,
+            per_page: 10,
+            last_page: 1,
+        }),
+        categories: reactive({
+           category: []
+        }),
+        course: [],
         isLoading: false,
         error: null,
     }),
@@ -17,9 +26,13 @@ export const useCoursesStore = defineStore('coursesStore', {
             this.error = null;
             console.log("перед траем");
             try {
-                const response = await axiosService.get("/courses");
+                const response = await coursesService.getCourses();
                 console.log(response.data);
-                this.courses = response.data.original;
+                this.courses.current_page = response.data.current_page;
+                this.courses.total = response.data.total;
+                this.courses.per_page = response.data.per_page;
+                this.courses.last_page = response.data.last_page;
+                this.courses.data = response.data.data;
                 console.log(this.courses);
 
             } catch (error) {
@@ -34,10 +47,24 @@ export const useCoursesStore = defineStore('coursesStore', {
             this.isLoading = true;
             this.error = null;
             try {
-                const response = await axios.get(`/api/courses/${id}`);
+                const response = await coursesService.getCourse(id);
                 this.course = response.data;
+                console.log(response.data);
             } catch (error) {
                 this.error = error.response?.data?.message || 'Error fetching course';
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async publishCourse(id) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const response = await coursesService.publishCourse(id);
+                this.course = response.data;
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Error publishing course';
             } finally {
                 this.isLoading = false;
             }
@@ -47,8 +74,20 @@ export const useCoursesStore = defineStore('coursesStore', {
             this.isLoading = true;
             this.error = null;
             try {
-                const response = await axios.post('/api/courses', courseData);
-                this.courses.push(response.data);
+                const response = await coursesService.createCourse(courseData);
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Error adding course';
+            } finally {
+                this.isLoading = false;
+            }
+        },
+        async addLesson(lessonData, id) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                console.log('Lesson data', lessonData);
+                const response = await coursesService.createLesson(lessonData, id);
+
             } catch (error) {
                 this.error = error.response?.data?.message || 'Error adding course';
             } finally {
@@ -84,5 +123,20 @@ export const useCoursesStore = defineStore('coursesStore', {
                 this.isLoading = false;
             }
         },
+
+        async getCategories() {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const response = await coursesService.getCategories();
+                console.log(response.data);
+                this.categories.category = response.data;
+
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Error fetching courses';
+            } finally {
+                this.isLoading = false;
+            }
+        }
     },
 });

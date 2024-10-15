@@ -44,6 +44,7 @@ const axiosService = {
         return axiosInstance.get(url, { params });
     },
     post(url, data) {
+        console.log(data);
         return axiosInstance.post(url, data);
     },
     put(url, data) {

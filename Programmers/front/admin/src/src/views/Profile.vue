@@ -133,19 +133,19 @@ export default {
     },
 
     async fetchCourses() {
-      this.isLoading = true; // убираем .value
+      this.isLoading = true;
       try {
         await this.coursesStore.fetchCourses();
         console.log("Courses loaded:", this.courses);
       } catch (err) {
         console.error(err);
       } finally {
-        this.isLoading = false; // убираем .value
+        this.isLoading = false;
       }
     },
 
     viewDetails(id) {
-      router.push({ name: "CourseDetails", params: { id } });
+      router.push({ name: "Course Details", params: { id } });
     }
   }
 };

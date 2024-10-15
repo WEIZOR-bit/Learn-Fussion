@@ -2,11 +2,6 @@
   <div class="mb-4 card">
     <div class="p-3 card-body">
       <div class="d-flex" :class="directionReverse ? reverseDirection : ''">
-        <div>
-          <div class="text-center shadow icon icon-shape border-radius-md" :class="iconBackground">
-            <i class="text-lg opacity-10" :class="iconClass" aria-hidden="true"></i>
-          </div>
-        </div>
         <div :class="contentClass">
           <div class="numbers">
             <p class="mb-0 text-sm text-capitalize font-weight-bold" :class="titleColor">{{ title }}</p>
@@ -48,10 +43,6 @@ export default {
     percentage: {
       type: String,
       default: ""
-    },
-    iconClass: {
-      type: String,
-      required: true,
     },
     percentageColor: {
       type: String,

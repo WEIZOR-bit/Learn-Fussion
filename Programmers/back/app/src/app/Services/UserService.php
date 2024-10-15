@@ -157,4 +157,9 @@ class UserService
             ->orderByDesc('min_mastery_level')
             ->first()->name;
     }
+
+    public function search(string $query) {
+        return $this->userRepository->search($query);
+
+    }
 }

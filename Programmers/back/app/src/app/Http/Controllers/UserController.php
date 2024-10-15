@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -162,5 +163,12 @@ class UserController extends Controller
             $this->userService->getById($id)->mastery_level
         );
         return response()->json($userStatsDTO->toArray());
+    }
+
+    public function search(Request $request): Collection|LengthAwarePaginator
+    {
+        $query = $request->input('query');
+        Log::debug( $query);
+        return $this->userService->search($query);
     }
 }

@@ -85,7 +85,7 @@ export default {
         console.log("Логин успешен, перенаправляем на dashboard");
         console.log("Токен пользователя:", authStore.token);
         console.log("Пользователь:", authStore.user);
-        await router.push('/');
+        await router.push({name: 'Dashboard'});
       } catch (error) {
         console.error("Ошибка при авторизации:", error);
       }

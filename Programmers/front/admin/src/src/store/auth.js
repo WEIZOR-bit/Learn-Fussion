@@ -12,19 +12,20 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async login(email, password) {
             try {
-                // Пример запроса на авторизацию
                 const response = await axiosService.post('/login', { email, password });
                 console.log(response);
-                // Получаем токен из ответа
+
                 this.token = response.data.token.access_token; // Извлечение токена
                 this.user = response.data.admin; // Извлечение данных пользователя
 
-                // Сохраняем токен в localStorage
+
                 localStorage.setItem('token', this.token);
                 //сохор юзера
                 localStorage.setItem('user', JSON.stringify(this.user));
+                //срок токена
 
-                // После успешного логина, axiosInstance автоматически добавит заголовок авторизации через интерцептор
+
+
             } catch (error) {
                 console.error('Ошибка при входе:', error);
                 throw error;
@@ -46,6 +47,8 @@ export const useAuthStore = defineStore('auth', {
                     user: JSON.parse(user),
                     token: token,
                 });
+
+
             }
         }
     },

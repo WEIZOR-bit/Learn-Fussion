@@ -1,130 +1,92 @@
 <template>
-<!--  <div class="py-4 container-fluid">-->
-<!--    <div class="card mb-4">-->
-<!--      <div class="card-header">-->
-<!--        <h6>Add New Course</h6>-->
-<!--      </div>-->
-<!--      <div class="card-body pb-2">-->
-<!--        <form @submit.prevent="submitForm">-->
-<!--          &lt;!&ndash; Course Title &ndash;&gt;-->
-<!--          <div class="mb-3">-->
-<!--            <label for="title" class="form-label">Course Title</label>-->
-<!--            <input-->
-<!--              v-model="course.title"-->
-<!--              type="text"-->
-<!--              class="form-control"-->
-<!--              id="title"-->
-<!--              placeholder="Enter course title"-->
-<!--              required-->
-<!--            />-->
-<!--          </div>-->
+  <div class="py-4 container-fluid">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h6>Add New Course</h6>
+      </div>
+      <div class="card-body pb-2">
+        <form @submit.prevent="submitForm">
+          <!-- Course Title -->
+          <div class="mb-3">
+            <label for="title" class="form-label">Course Name</label>
+            <input
+              v-model="course.name"
+              type="text"
+              class="form-control"
+              id="title"
+              placeholder="Enter course title"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select v-model="course.category_id" id="category" class="form-control" required>
+              <option disabled value="">Select a category</option>
+              <option v-for="category in categories.category" :key="category.id" :value="category.id">
+                {{ category.name }}
+              </option>
+            </select>
+          </div>
 
-<!--          &lt;!&ndash; Course Description &ndash;&gt;-->
-<!--          <div class="mb-3">-->
-<!--            <label for="description" class="form-label">Description</label>-->
-<!--            <textarea-->
-<!--              v-model="course.description"-->
-<!--              class="form-control"-->
-<!--              id="description"-->
-<!--              rows="3"-->
-<!--              placeholder="Enter course description"-->
-<!--            ></textarea>-->
-<!--          </div>-->
+          <!-- Course Description -->
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              v-model="course.description"
+              class="form-control"
+              id="description"
+              rows="3"
+              placeholder="Enter course description"
+            ></textarea>
+          </div>
 
-<!--          &lt;!&ndash; Average Rating &ndash;&gt;-->
-<!--          <div class="mb-3">-->
-<!--            <label for="average-rating" class="form-label">Average Rating</label>-->
-<!--            <input-->
-<!--              v-model="course.averageRating"-->
-<!--              type="number"-->
-<!--              class="form-control"-->
-<!--              id="average-rating"-->
-<!--              placeholder="Enter average rating (0 to 5)"-->
-<!--              min="0"-->
-<!--              max="5"-->
-<!--              step="0.1"-->
-<!--              required-->
-<!--            />-->
-<!--          </div>-->
+          <!-- Average Rating -->
+          <div class="mb-3">
+            <label for="average-rating" class="form-label">Average Rating</label>
+            <input
+              v-model="course.average_rating"
+              type="number"
+              class="form-control"
+              id="average-rating"
+              placeholder="Enter average rating (0 to 5)"
+              min="0"
+              max="5"
+              step="0.1"
+              required
+            />
+          </div>
 
-<!--          &lt;!&ndash; Button to Add Lessons &ndash;&gt;-->
-<!--          <button @click="showLessonModal = true" type="button" class="btn btn-primary">Add Lessons</button>-->
+          <!-- Submit Course -->
+          <button @click="submitCourse" type="submit" class="btn btn-success mt-4">Submit Course</button>
+        </form>
+      </div>
+    </div>
 
-<!--          &lt;!&ndash; List of Added Lessons &ndash;&gt;-->
-<!--          <div class="mt-4">-->
-<!--            <h6>Added Lessons</h6>-->
-<!--            <ul>-->
-<!--              <li v-for="(lesson, index) in course.lessons" :key="index">-->
-<!--                {{ lesson.title }} - {{ lesson.description }}-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
-
-<!--          &lt;!&ndash; Submit Course &ndash;&gt;-->
-<!--          <button type="submit" class="btn btn-success mt-4">Submit Course</button>-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash; Modal for Adding Lessons &ndash;&gt;-->
-<!--    <div v-if="showLessonModal" class="modal-backdrop">-->
-<!--      <div class="modal">-->
-<!--        <h3>Add new lesson</h3>-->
-
-<!--        &lt;!&ndash; Fields for Adding Lessons &ndash;&gt;-->
-<!--        <div class="mb-3">-->
-<!--          <input v-model="newLesson.title" class="form-control" placeholder="Lesson name" />-->
-<!--        </div>-->
-<!--        <div class="mb-3">-->
-<!--          <input v-model="newLesson.description" class="form-control" placeholder="Lesson description" />-->
-<!--        </div>-->
-<!--        <div class="mb-3">-->
-<!--          <input v-model="newLesson.tutorial_link" class="form-control" placeholder="Lesson tutorial link" />-->
-<!--        </div>-->
-<!--        <div class="mb-3">-->
-<!--          <input v-model="newLesson.average_rating" class="form-control" placeholder="Lesson average rating" />-->
-<!--        </div>-->
-<!--        <div class="mb-3">-->
-<!--          <input v-model="newLesson.task" class="form-control" placeholder="Lesson task" />-->
-<!--        </div>-->
-
-<!--        &lt;!&ndash; Add Lesson Button &ndash;&gt;-->
-<!--        <button @click="addLesson" class="btn btn-primary">Add lesson</button>-->
-
-<!--        &lt;!&ndash; Close Modal &ndash;&gt;-->
-<!--        <button @click="showLessonModal = false" class="btn btn-secondary mt-3">End</button>-->
-
-<!--        &lt;!&ndash; List of Added Lessons in Modal &ndash;&gt;-->
-<!--        <div class="mt-4">-->
-<!--          <h6>Lessons:</h6>-->
-<!--          <ul>-->
-<!--            <li v-for="(lesson, index) in course.lessons" :key="index">-->
-<!--              {{ lesson.title }} - {{ lesson.description }}-->
-<!--            </li>-->
-<!--          </ul>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
-
-
-  <div>
-    add course component
   </div>
 </template>
 
 <script>
+
+import {useCoursesStore} from "@/store/coursesStore.js";
+import { useAuthStore } from '@/store/auth.js';
+import {computed} from "vue";
+import router from "@/router/index.js";
+
 export default {
   data() {
     return {
-      showLessonModal: false,  // Управляет видимостью модального окна
+      showLessonModal: false,
+      user: computed(() => useAuthStore().user),
       course: {
-        title: '',
+        name: '',
+        category_id: '',
+        created_by: '',
+        updated_by: '',
         description: '',
-        averageRating: null,
-        lessons: []  // Список уроков
+        average_rating: null,
       },
+      categories: [],
+
       newLesson: {
         title: '',
         description: '',
@@ -134,18 +96,22 @@ export default {
       },
     };
   },
+
+  mounted() {
+    const coursesStore = useCoursesStore();
+    coursesStore.getCategories().then(() => {
+      this.categories = coursesStore.categories;
+      console.log('categories', coursesStore.categories);
+    });
+    useAuthStore().loadUserFromStorage();
+  },
   methods: {
-    addLesson() {
-      // Добавление нового урока в массив уроков
-      if (this.newLesson.title && this.newLesson.description) {
-        this.course.lessons.push({ ...this.newLesson });
-        this.newLesson = { title: '', description: '' };  // Очистка полей для нового урока
-      }
-    },
-    submitCourse() {
-      // Логика для отправки данных курса на сервер
-      console.log("Course submitted:", this.course, this.course.lessons);
-      // Здесь можно реализовать отправку данных на сервер через API
+    async submitCourse() {
+      console.log('Попытка добавить курс с данными:', this.course)
+      this.course.created_by = this.user.id;
+      this.course.updated_by = this.user.id;
+      await useCoursesStore().addCourse(this.course);
+      await router.push({ name: 'Courses' });
     },
   },
 };
@@ -178,11 +144,11 @@ export default {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Затемненный фон */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 20000; /* Высокий z-index для перекрытия остальных элементов */
+  z-index: 20000;
 }
 
   .modal {
@@ -191,7 +157,10 @@ export default {
     border-radius: 10px;
     width: 400px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 20001; /* Выше, чем у backdrop */
+    z-index: 20001;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
   }
 
 .btn-success {

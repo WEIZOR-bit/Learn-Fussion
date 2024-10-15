@@ -13,6 +13,7 @@ import EditCourse from "@/views/components/EditCourse.vue";
 import DeleteCourse from "@/views/components/DeleteCourse.vue";
 import { useAuthStore } from "@/store/auth";
 import AddUserComponent from "@/views/components/AddUserComponent.vue";
+import AddLessonComponent from "@/views/components/AddLessonComponent.vue";
 
 const routes = [
   {
@@ -42,7 +43,7 @@ const routes = [
 
   {
     path: '/courses/:id',
-    name: 'CourseDetails',
+    name: 'Course Details',
     component: CourseDetails,
     meta: { requiresAuth: true },
   },
@@ -56,6 +57,13 @@ const routes = [
     path: '/courses/:id/delete',
     name: 'DeleteCourse',
     component: DeleteCourse,
+    meta: { requiresAuth: true },
+  },
+
+  {
+    path: '/courses/:id/lesson/add',
+    name: 'Add Lesson',
+    component: AddLessonComponent,
     meta: { requiresAuth: true },
   },
   {
@@ -103,24 +111,23 @@ const router = createRouter({
   linkActiveClass: "active",
 });
 
-// Глобальный гвард для проверки аутентификации
-router.beforeEach((to, from, next) => {
-  const authStore = useAuthStore(); // Получаем экземпляр хранилища
 
-  // Проверяем, требует ли маршрут авторизации
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    // Проверяем, аутентифицирован ли пользователь
-    const isAuthenticated = authStore.isAuthenticated; // Используем состояние из Pinia
+
+    const isAuthenticated = authStore.isAuthenticated;
 
     if (!isAuthenticated) {
-      // Если не аутентифицирован, перенаправляем на страницу входа
       next({ name: "Sign In" });
     } else {
-      // Если аутентифицирован, продолжаем навигацию
       next();
     }
+  } else if (to.path === '/') {
+    next({ path: '/admin/sign-in' });
   } else {
-    // Если маршрут не требует авторизации, продолжаем навигацию
     next();
   }
 });

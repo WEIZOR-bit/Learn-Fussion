@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -49,7 +50,7 @@ class Lesson extends Model
      */
     public function lesson_questions(): HasMany
     {
-        return $this->hasMany(LessonQuestion::class);
+        return $this->hasMany(Question::class, 'lesson_id');
     }
 
     /**
