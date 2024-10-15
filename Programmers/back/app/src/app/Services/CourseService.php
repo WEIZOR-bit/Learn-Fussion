@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Course;
 use App\Repositories\CourseRepository;
+use Illuminate\Support\Facades\Log;
 
 class CourseService
 {

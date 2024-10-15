@@ -7,10 +7,16 @@ use App\DTOs\CourseShortDTO;
 use App\DTOs\LessonShortDTO;
 use App\Http\Requests\CourseRequest;
 use App\Models\Admin;
+use App\Models\Answer;
 use App\Models\Course;
+use App\Models\Lesson;
+use App\Models\Question;
 use App\Models\User;
 use App\Services\CourseService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CourseController extends Controller
 {
@@ -36,6 +42,7 @@ class CourseController extends Controller
                 $course->name,
                 $course->category,
                 Admin::query()->find($course->created_by)->name,
+                $course->published,
             );
         });
 
@@ -58,14 +65,70 @@ class CourseController extends Controller
      * @param CourseRequest $request
      * @return JsonResponse
      */
-    public function store(CourseRequest $request)
+    public function store(CourseRequest $request): JsonResponse
     {
         $validatedData = $request->validated();
-
         $course = $this->courseService->createCourse($validatedData);
 
         return response()->json($course, 201);
     }
+
+
+    /**
+     * Add lesson to course
+     * @param CourseRequest $request
+     * @param Course $course
+     * @return JsonResponse
+     */
+    public function addLessons(Request $request, Course $course): JsonResponse
+    {
+        DB::beginTransaction();
+        try {
+            foreach ($request['lessons'] as $lessonData) {
+                Log::debug('Lessons data:', $lessonData);
+                $lesson = Lesson::create([
+                    'order' => $lessonData['order'],
+                    'name' => $lessonData['name'],
+                    'description' => $lessonData['description'] ?? null,
+                    'tutorial_link' => $lessonData['tutorial_link'] ?? null,
+                    'average_rating' => $lessonData['average_rating'] ?? null,
+                    'review_count' => $lessonData['review_count'] ?? null,
+                    'question_count' => $lessonData['question_count'] ?? null,
+                    'created_by' => $lessonData['created_by'],
+                    'updated_by' => $lessonData['updated_by'],
+                    'course_id' => $course->id,
+                ]);
+
+                foreach ($lessonData['questions'] as $questionData) {
+//                    Log::debug('second foreach',$request['questions']);
+                    $question = Question::create([
+                        'name' => $questionData['name'],
+                        'matter' => $questionData['matter'],
+                        'lesson_id' => $lesson->id,
+                    ]);
+
+                    foreach ($questionData['answers'] as $answerData) {
+//                        Log::debug($request['answers']);
+                        $answer = Answer::create([
+                            'text' => $answerData['text'],
+                            'correct' => $answerData['correct'],
+                        ]);
+
+                        $question->questions_answers()->attach($answer['id']);
+                    }
+
+                }
+            }
+
+
+            DB::commit();
+            return response()->json(['message' => 'Course created successfully'], 201);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Failed to create course', 'details' => $e->getMessage()], 500);
+        }
+    }
+
 
     /**
      * Display the specified resource.
@@ -75,13 +138,31 @@ class CourseController extends Controller
     public function show(string $id): JsonResponse
     {
         $course = $this->courseService->getById($id);
-        $lessons = $course->lessons();
         if(!$course) {
             return response()->json([
                 'message' => 'Course not found',
                 404
             ]);
         }
+        $course->load('lessons.lesson_questions.questions_answers', 'creator');
+        return response()->json($course);
+    }
+
+    public function publish(int $id): JsonResponse
+    {
+        Log::debug($id);
+        if(!$course = $this->courseService->getById($id)) {
+            return response()->json(['message' => 'Course not found'], 404);
+        }
+        $courseUpdated = $this->courseService->updateCourse($id, ['published' => true]);
+        $course = $this->courseService->getById($id);
+
+
+
+        if (!$courseUpdated) {
+            return response()->json(['message' => 'Course not updated'], 500);
+        }
+
         return response()->json($course);
     }
 
@@ -137,6 +218,8 @@ class CourseController extends Controller
         // Return the course data as JSON
         return response()->json($courseDTO->toArray());
     }
+
+
 
     /**
      * Update the specified resource in storage.
