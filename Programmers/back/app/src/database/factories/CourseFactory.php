@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Admin;
 use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,8 +23,8 @@ class CourseFactory extends Factory
             'average_rating' => 0.0,
             'description' => fake()->text(),
             'review_count' => 0,
-            'created_by' => Admin::factory(),
-            'updated_by' => Admin::factory(),
+            'created_by' => 1,
+            'updated_by' => 1,
         ];
     }
 }

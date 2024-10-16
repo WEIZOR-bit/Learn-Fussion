@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'mastery_level' => 0,
-            'hearts' => 10,
+            'hearts' => 5,
             'started_streak_at' => now(),
             'last_active_at' => now(),
             'mastery_tag' => 'none',

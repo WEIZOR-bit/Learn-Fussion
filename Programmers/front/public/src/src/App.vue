@@ -59,6 +59,7 @@ import {onMounted} from "vue";
 
 <template>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;500;700&display=swap" rel="stylesheet">
   <div id="app">
     <RouterView />
   </div>
