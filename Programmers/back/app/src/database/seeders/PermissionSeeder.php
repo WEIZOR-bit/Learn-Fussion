@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
@@ -42,7 +43,7 @@ class PermissionSeeder extends Seeder
         // gets all permissions via Gate::before rule; see AuthServiceProvider
 
 
-        $user = \App\Models\Admin::factory()->create([
+        $user = Admin::factory()->create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123123123123'),

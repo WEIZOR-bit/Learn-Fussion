@@ -128,7 +128,7 @@ class UserService
 
         if ($user) {
             $user->last_active_at = Date::now();
-            $user->hearts = 10;
+            $user->hearts = 5;
             return $user->save();
         }
 

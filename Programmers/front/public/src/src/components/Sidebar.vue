@@ -64,7 +64,7 @@ export default {
     },
     async logout() {
       try {
-        if (axios.defaults.headers.common['Authorization'] === '') {
+        if (!axios.defaults.headers.common['Authorization']) {
           toast.error('Please log in first.', {
             position: toast.POSITION.BOTTOM_RIGHT,
           });
