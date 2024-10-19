@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth:admin'])->group(function () {
+//Route::middleware(['auth:admin'])->group(function () {
     Route::get('users/search', [UserController::class, 'search']);
     Route::resource('users', UserController::class)->except(['create', 'edit']);
 
@@ -39,5 +39,5 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::resource('challenges', ChallengeController::class)->except(['create', 'edit']);
     Route::resource('challenges-completed', ChallengeCompletedController::class)->except(['create', 'edit']);
     Route::resource('challenges-unchecked', ChallengeUncheckedController::class)->except(['create', 'edit']);
-});
+//});
 

@@ -55,7 +55,7 @@ import VsudInput from "@/components/VsudInput.vue";
 import VsudSwitch from "@/components/VsudSwitch.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved9.jpg";
-import { useAuthStore } from "@/store/auth"; // Импортируем хранилище Pinia для аутентификации
+import { useAuthStore } from "@/store/auth.js"; // Импортируем хранилище Pinia для аутентификации
 import {ref} from "vue"; // Для реактивных данных
 import {useRouter} from "vue-router"; // Для перенаправления после логина
 

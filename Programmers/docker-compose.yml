@@ -214,7 +214,8 @@ services:
             - "9009:9009"
         env_file:
             - .env
-        command: server --console-address :9009 /data
+        networks:
+            - storage54
 
 
 networks:

@@ -27,13 +27,14 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
+        console.log(response.data);
         return response;
     },
     (error) => {
         if (error.response && error.response.status === 401) {
             const authStore = useAuthStore();
             authStore.logout();
-            window.location.href = '/sign-in';
+            // window.location.href = 'admin/sign-in';
         }
         return Promise.reject(error);
     }
