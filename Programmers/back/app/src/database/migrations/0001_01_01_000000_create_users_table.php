@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('mastery_tag')->default('');
             $table->timestamp('started_streak_at')->default(now());
             $table->timestamp('last_active_at')->default(now());
+            $table->string('avatar_url')->default('');
             $table->timestamps();
         });
 

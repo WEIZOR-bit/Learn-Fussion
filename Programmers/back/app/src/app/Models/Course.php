@@ -25,7 +25,8 @@ class Course extends Model
         'description',
         'review_count',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'cover_url',
     ];
 
     protected $table = 'courses';

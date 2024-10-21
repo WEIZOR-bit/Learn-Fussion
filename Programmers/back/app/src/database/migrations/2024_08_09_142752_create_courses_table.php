@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->unsignedBigInteger('review_count')->nullable();
             $table->boolean('published')->default(false);
+            $table->string('cover_url')->default('');
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');

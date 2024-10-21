@@ -28,4 +28,8 @@ class AdminService
     {
         return $this->adminRepository->get(['email' => $email]);
     }
+
+    public function getById(int $id): ?Admin {
+        return $this->adminRepository->get(['id' => $id]);
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\UserStatsDTO;
+use App\Http\Requests\AvatarRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -11,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -148,6 +150,28 @@ class UserController extends Controller
     public function updateActivity(string $id): JsonResponse
     {
         return response()->json($this->userService->updateActivity($id));
+    }
+
+
+    public function updateAvatar(AvatarRequest $request, string $id): JsonResponse
+    {
+            $request->validated();
+        $user =$this->userService->getById($id);
+
+        if ($user->avatar_url) {
+            Storage::disk('minio_avatars')->delete($user->avatar_url);
+        }
+
+        $path = $request->file('avatar')->store('avatars', 'minio_avatars');
+
+        $user->update([
+            'avatar_url' => $path
+        ]);
+
+        return response()->json([
+            'message' => 'Avatar uploaded successfully',
+            'avatar' => $user->avatar_url,
+        ]);
     }
 
     /**

@@ -34,6 +34,7 @@ Route::group(['prefix' => 'profile'], function () {
     Route::resource('challenges-unchecked', ChallengeUncheckedController::class)->except(['create', 'edit']);
 
     Route::resource('users', UserController::class)->except(['create', 'edit']);
+    Route::post('users/{id}/avatar', [UserController::class, 'updateAvatar']);
 
     Route::get('users/{id}/mastery-level', [UserController::class, 'getMasteryLevel']);
     Route::get('users/{id}/league', [UserController::class, 'getLeague']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChallengeCompletedController;
 use App\Http\Controllers\ChallengeController;
@@ -12,7 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-//Route::middleware(['auth:admin'])->group(function () {
+Route::middleware(['auth:admin'])->group(function () {
     Route::get('users/search', [UserController::class, 'search']);
     Route::resource('users', UserController::class)->except(['create', 'edit']);
 
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
     Route::get('users/{id}/league', [UserController::class, 'getLeague']);
     Route::get('users/{id}/streak', [UserController::class, 'getStreakDays']);
     Route::patch('users/{id}/activity', [UserController::class, 'updateActivity']);
+
+    Route::post('admin/{id}/avatar', [AdminController::class, 'updateAvatar']);
+    Route::get('admin/{id}', [AdminController::class, 'getAdmin']);
 
 
 
@@ -39,5 +43,5 @@ use Illuminate\Support\Facades\Route;
     Route::resource('challenges', ChallengeController::class)->except(['create', 'edit']);
     Route::resource('challenges-completed', ChallengeCompletedController::class)->except(['create', 'edit']);
     Route::resource('challenges-unchecked', ChallengeUncheckedController::class)->except(['create', 'edit']);
-//});
+});
 

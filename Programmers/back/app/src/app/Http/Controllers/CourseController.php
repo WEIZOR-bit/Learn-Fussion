@@ -152,13 +152,7 @@ class CourseController extends Controller
 
     public function publish(int $id): JsonResponse
     {
-        try {
-            Storage::disk('minio_public')->put('public-file.txt', 'Public');
-            Storage::disk('minio_private')->put('private-file.txt', 'Private');}
-        catch (\Exception $e) {
-            Log::error($e);
-        }
-        Log::debug($id);
+
         if(!$course = $this->courseService->getById($id)) {
             return response()->json(['message' => 'Course not found'], 404);
         }

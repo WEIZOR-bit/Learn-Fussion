@@ -97,7 +97,7 @@ class AuthService
         }
 
         if (!Hash::check($request->password, $admin->password)) {
-            throw new HttpException(401, 'Invalid credentialsssssss.');
+            throw new HttpException(401, 'Invalid credentials.');
         }
         if (!$admin->hasRole('Super-Admin')) {
             $admin->assignRole('Super-Admin');

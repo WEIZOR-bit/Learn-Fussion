@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import axiosService from '@/services/AxiosService.js';
 
+
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: null,
@@ -50,6 +51,25 @@ export const useAuthStore = defineStore('auth', {
 
 
             }
-        }
+        },
+        async uploadAvatar(formData, id) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const response = await axiosService.post(`admin/${id}/avatar`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                this.user.avatar_url = response.data.avatar_url;
+                localStorage.setItem('user', JSON.stringify(this.user));
+                return response;
+
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Error uploading avatar';
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+
     },
 });
