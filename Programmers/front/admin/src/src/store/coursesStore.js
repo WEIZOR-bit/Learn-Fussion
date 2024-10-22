@@ -99,11 +99,14 @@ export const useCoursesStore = defineStore('coursesStore', {
             this.isLoading = true;
             this.error = null;
             try {
-                await axios.put(`/api/courses/${id}`, courseData);
+                const response = await axiosService.post(`/courses/${id}?_method=PUT`, courseData);
+
                 const index = this.courses.findIndex(course => course.id === id);
                 if (index !== -1) {
                     this.courses[index] = { ...this.courses[index], ...courseData };
                 }
+                console.log(response.data)
+                return response.data;
             } catch (error) {
                 this.error = error.response?.data?.message || 'Error updating course';
             } finally {
@@ -133,6 +136,19 @@ export const useCoursesStore = defineStore('coursesStore', {
                 this.categories.category = response.data;
 
             } catch (error) {
+                this.error = error.response?.data?.message || 'Error fetching courses';
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+        async deleteCover(id) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const response = await coursesService.deleteCover(id);
+                console.log('from delete',response);
+            }  catch (error) {
                 this.error = error.response?.data?.message || 'Error fetching courses';
             } finally {
                 this.isLoading = false;

@@ -7,7 +7,7 @@
       <div class="row gx-4 align-items-center">
         <div class="col-auto">
           <div class="avatar avatar-xl position-relative">
-            <img v-if="user && user?.avatar_url" :src="user.avatar_url" alt="User Avatar" />
+            <img :src="user && user.avatar_url ? user.avatar_url : 'empty_avatar.png'" alt="User Avatar" />
           </div>
         </div>
 
@@ -40,10 +40,8 @@
                 <projects-card
                     :description="course?.description"
                     :title="course?.name"
-                    :img="course?.cover_url"/>
-                <button class="btn btn-sm btn-success" @click="viewDetails(course.id)">
-                  View Details
-                </button>
+                    :img="course?.cover_url"
+                    :id="course?.id"/>
               </div>
 
               <div class="mb-4 col-xl-3 col-md-6 mb-xl-0">
@@ -180,9 +178,6 @@ export default {
       }
     },
 
-    viewDetails(id) {
-      router.push({ name: "Course Details", params: { id } });
-    }
   }
 };
 </script>

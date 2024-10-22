@@ -29,6 +29,10 @@ const coursesService = {
     },
     async getCategories() {
         return axiosService.get('/categories');
+    },
+
+    async deleteCover(id) {
+        return axiosService.delete(`courses/${id}/cover`);
     }
 };
 

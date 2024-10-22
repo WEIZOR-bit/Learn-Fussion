@@ -44,6 +44,7 @@ class CourseController extends Controller
                 $course->category,
                 Admin::query()->find($course->created_by)->name,
                 $course->published,
+                $course->cover_url
             );
         });
 
@@ -139,6 +140,7 @@ class CourseController extends Controller
      */
     public function show(string $id): JsonResponse
     {
+
         $course = $this->courseService->getById($id);
         if(!$course) {
             return response()->json([
@@ -229,8 +231,9 @@ class CourseController extends Controller
      * @param string $id
      * @return JsonResponse
      */
-    public function update(CourseRequest $request, string $id)
+    public function update(CourseRequest $request, string $id): JsonResponse
     {
+        $validatedData = $request->validated();
         $course = $this->courseService->getById($id);
         if(!$course) {
             return response()->json([
@@ -238,7 +241,7 @@ class CourseController extends Controller
                 404
             ]);
         }
-        $updatedCourse = $this->courseService->updateCourse($id, $request->validated());
+        $updatedCourse = $this->courseService->updateCourse($id, $validatedData);
         if(!$updatedCourse) {
             return response()->json(['message' => 'Course not updated'], 500);
         }
@@ -265,6 +268,14 @@ class CourseController extends Controller
         }
         return response()->json(['message' => 'Course deleted'], 204);
 
+    }
+
+    public function deleteCover(string $id): JsonResponse
+    {
+        if(! $this->courseService->deleteCover($id)) {
+            return response()->json(['message' => 'Cover not deleted'], 500);
+        }
+        return response()->json(['message' => 'Cover deleted'], 204);
     }
 
 }
