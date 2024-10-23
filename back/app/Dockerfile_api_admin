@@ -20,7 +20,7 @@ RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
 # Устанавливаем рабочую директорию
 WORKDIR /var/www/html
 # Копирование и установка зависимостей PHP
-COPY ../src /var/www/html
+COPY ./src /var/www/html
 RUN composer install
 
 # Healthcheck to verify that vendor/autoload.php exists
