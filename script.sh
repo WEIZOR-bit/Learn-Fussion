@@ -4,7 +4,7 @@ echo "$services"
 
 for service in $services; do
   # Задаем имя образа
-  image_tag="braunbad/${service}:latest"
+  image_tag="weizor0/${service}:latest"
 
   # Тегируем собранный образ
  docker tag ${service} ${image_tag}
