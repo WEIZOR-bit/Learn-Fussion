@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\UserRatingDTO;
 use App\DTOs\UserStatsDTO;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
@@ -165,10 +166,37 @@ class UserController extends Controller
         return response()->json($userStatsDTO->toArray());
     }
 
+    /**
+     * Update user's last activity and reset hearts.
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function decreaseHearts(string $id): JsonResponse
+    {
+        $user = $this->userService->getById($id);
+        if ($user->hearts > 0) {
+            $this->userService->update($id, ['hearts' => $user->hearts - 1]);
+        }
+        $user = $this->userService->getById($id);
+        return response()->json($user);
+    }
+
     public function search(Request $request): Collection|LengthAwarePaginator
     {
         $query = $request->input('query');
         Log::debug( $query);
         return $this->userService->search($query);
+    }
+
+    public function rating(): JsonResponse
+    {
+        $topUsers = $this->userService->rating();
+
+        $userRatings = $topUsers->map(function($user) {
+            $dto = new UserRatingDTO($user->name, $user->mastery_level);
+            return $dto->toArray();
+        });
+
+        return response()->json($userRatings);
     }
 }

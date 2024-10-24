@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\LessonFinished;
 use Illuminate\Database\Eloquent\Collection;
 
 class LessonFinishedRepository extends BaseRepository
@@ -9,10 +10,10 @@ class LessonFinishedRepository extends BaseRepository
     /**
      * Create a new repository instance.
      *
-     * @param  LessonFinishedRepository  $lessonFinished
+     * @param  LessonFinished  $courseFinished
      * @return void
      */
-    public function __construct(LessonFinishedRepository $lessonFinished)
+    public function __construct(LessonFinished $lessonFinished)
     {
         $this->model = $lessonFinished;
     }

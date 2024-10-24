@@ -5,8 +5,11 @@ import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import axios from "axios";
 import {toast} from "vue3-toastify";
+import {useUserStore} from "@/stores/userStore.js";
 
 library.add(faEye, faEyeSlash);
+
+const userStore = useUserStore();
 
 const showPassword = ref(false);
 const username = ref('');
@@ -21,7 +24,7 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-if (axios.defaults.headers.common['Authorization']) {
+if (userStore.isAuthenticated) {
   window.location.href='/';
 }
 
@@ -38,7 +41,7 @@ const handleSubmit = async (event) => {
     });
 
     const token = response.data.token.access_token;
-    localStorage.setItem('jwt_token', token);
+    userStore.setToken(token);
     window.location.href = '/';
 
   } catch (error) {

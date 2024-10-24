@@ -22,7 +22,6 @@ class Question extends Model
         'order',
         'name',
         'matter',
-        'answers',
         'lesson_id',
     ];
 
@@ -35,13 +34,15 @@ class Question extends Model
      */
     public function lesson(): BelongsTo
     {
-        return $this->belongsTo(Lesson::class,'lesson_id');
+        return $this->belongsTo(Lesson::class, 'lesson_id');
     }
 
     /**
+     * Define the many-to-many relationship with Answer.
+     *
      * @return BelongsToMany
      */
-    public function questions_answers(): BelongsToMany
+    public function answers(): BelongsToMany
     {
         return $this->belongsToMany(Answer::class, 'questions_answers', 'question_id', 'answer_id');
     }

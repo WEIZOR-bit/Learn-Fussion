@@ -8,6 +8,7 @@ use App\DTOs\LessonShortDTO;
 use App\Http\Requests\CourseRequest;
 use App\Models\Admin;
 use App\Models\Answer;
+use App\Models\Category;
 use App\Models\Course;
 use App\Models\Lesson;
 use App\Models\Question;
@@ -40,7 +41,7 @@ class CourseController extends Controller
             return new CourseShortDTO(
                 $course->id,
                 $course->name,
-                $course->category,
+                Category::query()->find($course->category_id)->name,
                 Admin::query()->find($course->created_by)->name,
                 $course->published,
             );
@@ -76,7 +77,7 @@ class CourseController extends Controller
 
     /**
      * Add lesson to course
-     * @param CourseRequest $request
+     * @param Request $request
      * @param Course $course
      * @return JsonResponse
      */
@@ -138,30 +139,33 @@ class CourseController extends Controller
     public function show(string $id): JsonResponse
     {
         $course = $this->courseService->getById($id);
-        if(!$course) {
+        if(!$course || !$course->published) {
             return response()->json([
-                'message' => 'Course not found',
-                404
-            ]);
+                'message' => 'Course not found'
+            ],404);
         }
-        $course->load('lessons.lesson_questions.questions_answers', 'creator');
+        //$course->load('lessons.lesson_questions.questions_answers', 'creator');
+        $course->load('lessons', 'creator');
         return response()->json($course);
     }
 
-    public function publish(int $id): JsonResponse
+    /**
+     * Publish the course.
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function publish(string $id): JsonResponse
     {
-        Log::debug($id);
-        if(!$course = $this->courseService->getById($id)) {
+        if(!$this->courseService->getById($id)) {
             return response()->json(['message' => 'Course not found'], 404);
         }
         $courseUpdated = $this->courseService->updateCourse($id, ['published' => true]);
-        $course = $this->courseService->getById($id);
-
-
 
         if (!$courseUpdated) {
             return response()->json(['message' => 'Course not updated'], 500);
         }
+
+        $course = $this->courseService->getById($id);
 
         return response()->json($course);
     }
@@ -174,7 +178,6 @@ class CourseController extends Controller
      */
     public function showForUser(string $id, string $userId): JsonResponse
     {
-        // Fetch course by ID
         $course = $this->courseService->getById($id);
         if (!$course) {
             return response()->json([
@@ -182,7 +185,6 @@ class CourseController extends Controller
             ], 404);
         }
 
-        // Fetch the user
         $user = User::query()->where('id', $userId)->first();
         if (!$user) {
             return response()->json([
@@ -190,32 +192,29 @@ class CourseController extends Controller
             ], 404);
         }
 
-        // Get the lessons for the course
         $lessons = $course->lessons()->get();
 
-        // Get lessons finished by the user
-        $lessonsFinishedByUser = $user->lessons_finished()->pluck('lesson_id')->toArray(); // Fetch finished lesson IDs
+        $lessonsFinishedByUser = $user->lessons_finished()->pluck('lesson_id')->toArray();
 
-        // Map each lesson to a LessonShortDTO, marking it as finished if the user has completed it
         $lessonsDTOs = $lessons->map(function ($lesson) use ($lessonsFinishedByUser) {
             return new LessonShortDTO(
                 $lesson->id,
+                $lesson->order,
                 $lesson->name,
-                in_array($lesson->id, $lessonsFinishedByUser) // Check if the user has finished the lesson
+                $lesson->question_count,
+                in_array($lesson->id, $lessonsFinishedByUser)
             );
-        })->toArray(); // Convert the collection to an array
+        })->toArray();
 
-        // Create the CourseDetailedDTO
         $courseDTO = new CourseDetailedDTO(
             $course->id,
             $course->name,
             $course->description,
             $course->category,
-            $course->created_by, // Assuming 'created_by' is the author
-            $lessonsDTOs // Pass the lessons mapped to DTOs
+            $course->created_by,
+            $lessonsDTOs
         );
 
-        // Return the course data as JSON
         return response()->json($courseDTO->toArray());
     }
 
@@ -227,7 +226,7 @@ class CourseController extends Controller
      * @param string $id
      * @return JsonResponse
      */
-    public function update(CourseRequest $request, string $id)
+    public function update(CourseRequest $request, string $id): JsonResponse
     {
         $course = $this->courseService->getById($id);
         if(!$course) {

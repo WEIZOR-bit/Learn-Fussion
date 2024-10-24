@@ -162,4 +162,8 @@ class UserService
         return $this->userRepository->search($query);
 
     }
+
+    public function rating() {
+        return $this->userRepository->rating();
+    }
 }

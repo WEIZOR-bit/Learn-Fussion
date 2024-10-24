@@ -17,15 +17,15 @@ class CategorySeeder extends Seeder
             'name' => 'IT',
         ]);
         DB::table('categories')->insert([
-            'name' => 'Design',
+            'name' => 'UI/UX Design',
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'cybersecurity',
+            'name' => 'Cybersecurity',
         ]);
 
         DB::table('categories')->insert([
-            'name' => 'marketing',
+            'name' => 'Marketing',
         ]);
 
     }

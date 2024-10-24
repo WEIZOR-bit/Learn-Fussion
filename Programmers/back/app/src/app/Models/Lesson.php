@@ -23,8 +23,6 @@ class Lesson extends Model
         'name',
         'description',
         'tutorial_link',
-        'average_rating',
-        'review_count',
         'question_count',
         'created_by',
         'updated_by',
@@ -48,7 +46,7 @@ class Lesson extends Model
      *
      * @return HasMany
      */
-    public function lesson_questions(): HasMany
+    public function questions(): HasMany
     {
         return $this->hasMany(Question::class, 'lesson_id');
     }
