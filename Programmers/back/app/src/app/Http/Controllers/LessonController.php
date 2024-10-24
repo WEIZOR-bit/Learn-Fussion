@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Services\LessonService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -37,10 +38,12 @@ class LessonController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id): ?Lesson
+    public function show(string $id): ?JsonResponse
     {
         $this->authorize('view', Lesson::class);
-        return $this->lessonService->getById($id);
+        $lesson = $this->lessonService->getById($id);
+        $lesson->load('questions.answers');
+        return response()->json($lesson);
     }
 
     /**

@@ -24,8 +24,6 @@ class LessonFactory extends Factory
             'name' => fake()->unique()->name(),
             'description' => fake()->text(),
             'tutorial_link' => fake()->url(),
-            'average_rating' => 0.0,
-            'review_count' => 0,
             'question_count' => 0,
             'created_by' => Admin::factory(),
             'updated_by' => Admin::factory(),

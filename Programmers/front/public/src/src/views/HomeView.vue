@@ -99,7 +99,7 @@ export default {
             <LoadingCircle v-if="loadingCourses"/>
 
             <div class="courses-grid">
-              <div class="course-card" v-for="course in recommendedCourses" :key="course.id + '-recommended'">
+              <router-link :to="`/courses/${course.id}`" class="course-card" v-for="course in recommendedCourses" :key="course.id + '-recommended'">
                 <div class="course-info">
                   <div class="author-info">
                     <img src="@/assets/user.png" class="author-avatar" alt="Author" />
@@ -111,7 +111,7 @@ export default {
                   <img :src="course.image" alt="Course Image" class="course-image" />
                 </div>
                 <h3 class="course-title">{{ course.title }}</h3>
-              </div>
+              </router-link>
             </div>
           </section>
 
@@ -124,7 +124,7 @@ export default {
             <LoadingCircle v-if="loadingCourses"/>
 
             <div class="courses-grid">
-              <div class="course-card" v-for="course in popularCourses" :key="course.id + '-popular'">
+              <router-link :to="`/courses/${course.id}`" class="course-card" v-for="course in popularCourses" :key="course.id + '-popular'">
                 <div class="course-info">
                   <div class="author-info">
                     <img src="@/assets/user.png" class="author-avatar" alt="Author" />
@@ -136,7 +136,7 @@ export default {
                   <img :src="course.image" alt="Course Image" class="course-image" />
                 </div>
                 <h3 class="course-title">{{ course.title }}</h3>
-              </div>
+              </router-link>
             </div>
           </section>
         </div>
@@ -288,19 +288,18 @@ export default {
   }
 
   .courses-grid {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
 
   .course-card {
-    flex: 1 1 calc(33.333% - 20px);
-    width: 320px;
+    width: 100%;
     background-color: white;
     border-radius: 20px;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
     padding: 10px;
+    color: black;
   }
 
   .course-info {

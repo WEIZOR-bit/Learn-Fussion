@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('tutorial_link')->nullable();
-            $table->float('average_rating');
-            $table->unsignedBigInteger('review_count');
             $table->unsignedTinyInteger('question_count');
 
             $table->unsignedBigInteger('course_id')->after('id');

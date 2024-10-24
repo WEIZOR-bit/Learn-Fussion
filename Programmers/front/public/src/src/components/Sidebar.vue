@@ -36,16 +36,12 @@ library.add(faHome, faBook, faStar, faTrophy, faComments, faSignOutAlt,faAddress
       <li @click="navigateTo('profile')">
         <font-awesome-icon :icon="'fa-user'" class="font-icon" /> Profile
       </li>
-      <li @click="logout">
-        <font-awesome-icon :icon="'fa-sign-out-alt'" class="font-icon" /> Logout
-      </li>
     </ul>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import {toast} from "vue3-toastify";
+import {useUserStore} from "@/stores/userStore.js";
 
 export default {
   data() {
@@ -54,7 +50,8 @@ export default {
     };
   },
   mounted() {
-    if (axios.defaults.headers.common['Authorization']) {
+    const userStore = useUserStore();
+    if (userStore.isAuthenticated) {
       this.userLoggedIn = true;
     }
   },
@@ -62,36 +59,6 @@ export default {
     navigateTo(page) {
       this.$router.push({ name: page });
     },
-    async logout() {
-      try {
-        if (!axios.defaults.headers.common['Authorization']) {
-          toast.error('Please log in first.', {
-            position: toast.POSITION.BOTTOM_RIGHT,
-          });
-          return;
-        }
-
-        const response = await axios.post('http://localhost:8000/api/public/logout', {}, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('jwt_token')}`
-          }
-        });
-
-        console.log(response.data);
-
-        axios.defaults.headers.common['Authorization'] = '';
-        localStorage.removeItem('jwt_token');
-
-        this.$router.push({name: 'home'});
-        this.userLoggedIn = false;
-
-      } catch (error) {
-        console.log(error);
-        toast.error(error.response.data.message, {
-          position: toast.POSITION.BOTTOM_RIGHT,
-        });
-      }
-    }
   }
 }
 </script>

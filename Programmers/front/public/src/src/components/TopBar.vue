@@ -56,6 +56,7 @@ library.add(faSearch,faFire,faHeart,faHeartBroken,faBolt);
 
 <script>
 import axios from "axios";
+import {useUserStore} from "@/stores/userStore.js";
 
 export default {
   data() {
@@ -77,17 +78,15 @@ export default {
       this.$router.push({ name: page });
     },
     async fetchUserStats() {
+      const userStore = useUserStore();
       try {
-        const response_user = await axios.get('http://localhost:8000/api/public/me');
 
-        this.user.id = response_user.data.id;
+        this.user = await userStore.getUser();
 
-        let response_stats = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/stats`);
-
+        let response_streak = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/streak`);
         this.user = {
-          streakDays: response_stats.data.streakDays,
-          mastery_level: response_stats.data.masteryLevel,
-          hearts: response_stats.data.hearts,
+          ...this.user,
+          streakDays: response_streak.data,
         };
 
         this.statsLoaded = true;

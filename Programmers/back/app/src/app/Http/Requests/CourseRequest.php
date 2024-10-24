@@ -45,7 +45,7 @@ class CourseRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:courses,name',
             'average_rating' => 'nullable|numeric|min:0',
-            'category' => 'required|string|max:30',
+            'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string|max:1000',
             'review_count' => 'nullable|integer|min:0',
             'created_by' => 'required|exists:admins,id',
