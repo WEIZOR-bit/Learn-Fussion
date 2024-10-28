@@ -13,19 +13,34 @@ export const useUserStore = defineStore ('userStore', {
             button: '',
             routeTo: '',
         },
+        user: null,
+        token: null,
+        isLoading: false,
     }),
 
     actions: {
         setEmailVerifyQuery(query) {
             this.emailVerifyQuery = query;
         },
-        // setGlobalPreloaderStore(value) {
-        //     this.globalPreloader = value;
-        // },
-        // setGlobalModeMessageObject(payload) {
-        //     this.globalModeMessageObject = payload;
-        // },
 
+        setUser(userData) {
+            this.user = userData;
+        },
+
+        async getUser() {
+            await this.fetchUser();
+            console.log(this.user);
+            return this.user;
+        },
+
+        setToken(tokenData) {
+            this.token = tokenData;
+        },
+
+        logout() {
+            this.user = null;
+            this.token = null;
+        },
 
         async apiUserVerification() {
             const query = this.emailVerifyQuery;
@@ -39,6 +54,31 @@ export const useUserStore = defineStore ('userStore', {
                 }
             );
             return Promise.resolve();
+        },
+
+        async fetchUser() {
+            this.isLoading = true;
+            if (!this.token) {
+                this.token = localStorage.getItem('jwt_token');
+            }
+            try {
+                const response = await axios.get('http://localhost/api/public/me', {
+                    headers: {
+                        Authorization: `Bearer ${this.token}`
+                    }
+                });
+                this.user = response.data;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+            }
+            catch (error) {
+                console.error('Failed to fetch user:', error);
+            }
+            finally {
+                this.isLoading = false;
+            }
         }
-    }
+    },
+    getters: {
+        isAuthenticated: (state) => !!state.token,
+    },
 })

@@ -2,8 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Answer;
-use App\Repositories\AnswerRepository;
+use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -23,18 +22,18 @@ class CategoryService
     }
 
     /**
-     * Get an Answer by ID.
+     * Get a Category by ID.
      *
      * @param int $id
-     * @return null|Answer
+     * @return null|Category
      */
-    public function getById(int $id): ?Answer
+    public function getById(int $id): ?Category
     {
         return $this->categoryRepository->get(['id' => $id]);
     }
 
     /**
-     * Get all answers, optionally paginated.
+     * Get all categories, optionally paginated.
      *
      * @return LengthAwarePaginator|Collection
      */
@@ -45,18 +44,18 @@ class CategoryService
     }
 
     /**
-     * Create a new Answer.
+     * Create a new Category.
      *
      * @param array $data
-     * @return Answer
+     * @return Category
      */
-    public function create(array $data): Answer
+    public function create(array $data): Category
     {
         return $this->categoryRepository->create($data);
     }
 
     /**
-     * Update an existing Answer by ID.
+     * Update an existing Category by ID.
      *
      * @param int $id
      * @param array $data
@@ -68,7 +67,7 @@ class CategoryService
     }
 
     /**
-     * Delete an Answer by ID.
+     * Delete a Category by ID.
      *
      * @param int $id
      * @return bool

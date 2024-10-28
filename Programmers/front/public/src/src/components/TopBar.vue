@@ -2,6 +2,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faSearch,faFire,faHeart,faHeartBroken,faBolt} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import LoadingCircle from "@/components/LoadingCircle.vue";
 library.add(faSearch,faFire,faHeart,faHeartBroken,faBolt);
 </script>
 
@@ -16,7 +17,9 @@ library.add(faSearch,faFire,faHeart,faHeartBroken,faBolt);
       <input type="text" placeholder="Search..." />
     </div>
 
-    <div v-if="statsLoaded" class="badges">
+    <LoadingCircle v-if="loading"/>
+
+    <div v-if="statsLoaded && !loading" class="badges">
       <div class="badge">
         <font-awesome-icon
             :icon="'fa-fire'"
@@ -39,11 +42,21 @@ library.add(faSearch,faFire,faHeart,faHeartBroken,faBolt);
         /> <span>{{ user.mastery_level }}</span>
       </div>
     </div>
+
+    <div v-if="!statsLoaded && !loading" class="auth-buttons">
+      <button class="register-btn" @click="navigateTo('signup')">
+        Registration
+      </button>
+      <button class="login-btn" @click="navigateTo('login')">
+        Login
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import {useUserStore} from "@/stores/userStore.js";
 
 export default {
   data() {
@@ -54,31 +67,35 @@ export default {
         hearts: ''
       },
       statsLoaded: false,
+      loading: true,
     };
   },
   async mounted() {
     await this.fetchUserStats();
   },
   methods: {
+    navigateTo(page) {
+      this.$router.push({ name: page });
+    },
     async fetchUserStats() {
+      const userStore = useUserStore();
       try {
-        const response_user = await axios.get('http://localhost:8000/api/public/me');
 
-        this.user.id = response_user.data.id;
+        this.user = await userStore.getUser();
 
-        let response_stats = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/stats`);
-
+        let response_streak = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/streak`);
         this.user = {
-          streakDays: response_stats.data.streakDays,
-          mastery_level: response_stats.data.masteryLevel,
-          hearts: response_stats.data.hearts,
+          ...this.user,
+          streakDays: response_streak.data,
         };
 
         this.statsLoaded = true;
+        this.loading = false;
 
       } catch (error) {
         console.error('Error fetching user data:', error);
         this.statsLoaded = false;
+        this.loading = false;
       }
     },
   }
@@ -91,26 +108,25 @@ export default {
 }
 
 .top-content {
-  height: 5%;
-  width: 98%;
-  margin: 5px auto;
-  display: flex;
+  display: grid;
+  grid-template-columns: 83% 17%;
   align-items: center;
-  justify-content: space-between;
-  background-color: white;
+  gap: 20px;
+  width: 100%;
+  height: 50px;
+  margin: 5px auto;
   padding: 10px;
-  border-radius: 30px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .search-bar {
   display: flex;
   align-items: center;
   background-color: #f4f4f4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 10px 15px;
   border-radius: 30px;
-  flex-grow: 1;
   margin-right: 20px;
+  margin-left: 10px;
 }
 
 .search-bar i {
@@ -141,13 +157,12 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: white;
-  border-radius: 50%;
-  padding: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   min-width: 40px;
   height: 40px;
 }
-
 
 .badge font-awesome-icon {
   margin-right: 5px;
@@ -166,4 +181,38 @@ export default {
   color: gray;
 }
 
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.register-btn {
+  background-color: transparent;
+  border: 2px solid #333; /* Change this color to match the one in the image */
+  border-radius: 50px; /* Circular border */
+  color: #333;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.register-btn:hover {
+  background-color: #f4f4f4; /* Light background on hover */
+}
+
+.login-btn {
+  background-color: #333; /* Dark background for Login */
+  border: none;
+  border-radius: 50px;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  background-color: #555; /* Slightly lighter color on hover */
+}
 </style>

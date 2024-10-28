@@ -14,27 +14,27 @@ class CourseRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-//    public function authorize(): bool
-//    {
-//        if (!$this->user()) {
-//            return false;
-//        }
-//
-//        $courseService = App::make(CourseService::class);
-//        $course = null;
-//
-//        if ($this->isMethod('post')) {
-//            return $this->user()->can('create', new Course($this->only('name', 'created_by')));
-//        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
-//            $course = $courseService->getById($this->route('course'));
-//            return $this->user()->can('update', $course);
-//        } elseif ($this->isMethod('delete')) {
-//            $course = $courseService->getById($this->route('course'));
-//            return $this->user()->can('forceDelete', $course);
-//        }
-//
-//        return true;
-//    }
+    public function authorize(): bool
+    {
+        if (!$this->user()) {
+            return false;
+        }
+
+        $courseService = App::make(CourseService::class);
+        $course = null;
+
+        if ($this->isMethod('post')) {
+            return $this->user()->can('create', new Course($this->only('name', 'created_by')));
+        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
+            $course = $courseService->getById($this->route('course'));
+            return $this->user()->can('update', $course);
+        } elseif ($this->isMethod('delete')) {
+            $course = $courseService->getById($this->route('course'));
+            return $this->user()->can('forceDelete', $course);
+        }
+
+        return true;
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -53,7 +53,7 @@ class CourseRequest extends FormRequest
                 Rule::unique('courses', 'name')->ignore($this->course)
             ],
             'average_rating' => 'nullable|numeric|min:0',
-            'category_id' => 'required|int|max:30',
+            'category_id' => 'required|exists:categories,id',
             'description' => 'nullable|string|max:1000',
             'review_count' => 'nullable|integer|min:0',
             'created_by' => 'required|exists:admins,id',
@@ -66,7 +66,6 @@ class CourseRequest extends FormRequest
      */
     public function messages(): array
     {
-
         return [
             'name.required' => 'The course name is required.',
             'name.unique' => 'This course name already exists.',

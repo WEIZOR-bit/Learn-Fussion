@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Lesson;
 use App\Services\LessonService;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class LessonController extends Controller
 {
-    public function __construct(private LessonService $lessonService)
+
+    public function __construct(LessonService $lessonService)
     {
-        //
+        $this->lessonService = $lessonService;
     }
 
     public function index(): Collection|LengthAwarePaginator
@@ -34,16 +36,21 @@ class LessonController extends Controller
         return response()->json($lesson);
     }
 
-    public function update(Request $request, string $id): Lesson
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id): bool
     {
         $this->authorize('update', Lesson::class);
         return $this->lessonService->update($id, $request->all());
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(string $id): bool
     {
         $this->authorize('delete', Lesson::class);
         return $this->lessonService->delete($id);
     }
 }
-

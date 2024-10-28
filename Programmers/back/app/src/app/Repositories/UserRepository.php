@@ -22,4 +22,11 @@ class UserRepository extends BaseRepository
             ->orWhere('email', 'LIKE', '%' . $query . '%')
             ->paginate(10);
     }
+
+    public function rating()
+    {
+        return User::orderBy('mastery_level', 'desc')
+            ->take(10)
+            ->get();
+    }
 }

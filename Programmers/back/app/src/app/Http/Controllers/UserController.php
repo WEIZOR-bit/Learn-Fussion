@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\DTOs\UserStatsDTO;
-use App\Http\Requests\AvatarRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -11,8 +10,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -152,28 +149,6 @@ class UserController extends Controller
         return response()->json($this->userService->updateActivity($id));
     }
 
-
-    public function updateAvatar(AvatarRequest $request, string $id): JsonResponse
-    {
-            $request->validated();
-        $user =$this->userService->getById($id);
-
-        if ($user->avatar_url) {
-            Storage::disk('minio_avatars')->delete($user->avatar_url);
-        }
-
-        $path = $request->file('avatar')->store('avatars', 'minio_avatars');
-
-        $user->update([
-            'avatar_url' => $path
-        ]);
-
-        return response()->json([
-            'message' => 'Avatar uploaded successfully',
-            'avatar' => $user->avatar_url,
-        ]);
-    }
-
     /**
      * Update user's last activity and reset hearts.
      * @param string $id
@@ -189,9 +164,38 @@ class UserController extends Controller
         return response()->json($userStatsDTO->toArray());
     }
 
+    /**
+     * Update user's last activity and reset hearts.
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function decreaseHearts(string $id): JsonResponse
+    {
+        $user = $this->userService->getById($id);
+        if ($user->hearts > 0) {
+            $this->userService->update($id, ['hearts' => $user->hearts - 1]);
+        }
+        $user = $this->userService->getById($id);
+        return response()->json($user);
+    }
+
     public function search(Request $request): Collection|LengthAwarePaginator
     {
         $query = $request->input('query');
+        Log::debug( $query);
         return $this->userService->search($query);
     }
+
+    public function rating(): JsonResponse
+    {
+        $topUsers = $this->userService->rating();
+
+        $userRatings = $topUsers->map(function($user) {
+            $dto = new UserRatingDTO($user->name, $user->mastery_level);
+            return $dto->toArray();
+        });
+
+        return response()->json($userRatings);
+    }
+
 }

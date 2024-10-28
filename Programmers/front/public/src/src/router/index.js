@@ -9,6 +9,8 @@ import CoursesView from "@/views/CoursesView.vue";
 import RatingView from "@/views/RatingView.vue";
 import ChallengesView from "@/views/ChallengesView.vue";
 import ForumView from "@/views/ForumView.vue";
+import CourseView from "@/views/CourseView.vue";
+import LessonView from "@/views/LessonView.vue";
 
 
 const router = createRouter({
@@ -33,6 +35,18 @@ const router = createRouter({
       path: '/courses',
       name: 'courses',
       component: CoursesView
+    },
+    {
+      path: '/courses/:id',
+      name: 'course',
+      component: CourseView,
+      props: true,
+    },
+    {
+      path: '/lessons/:id',
+      name: 'lesson',
+      component: LessonView,
+      props: true,
     },
     {
       path: '/rating',

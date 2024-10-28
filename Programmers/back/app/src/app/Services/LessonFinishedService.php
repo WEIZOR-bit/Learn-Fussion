@@ -21,7 +21,7 @@ class LessonFinishedService
     }
 
     /**
-     * Get a LessonFinished by ID.
+     * Get a CourseFinished by ID.
      *
      * @param int $id
      * @return null|LessonFinished
@@ -32,7 +32,7 @@ class LessonFinishedService
     }
 
     /**
-     * Get all lessons finished, optionally paginated.
+     * Get all courses finished, optionally paginated.
      *
      * @param int|null $limit
      * @param array $columns
@@ -44,7 +44,7 @@ class LessonFinishedService
     }
 
     /**
-     * Create a new LessonFinished.
+     * Create a new CourseFinished.
      *
      * @param array $data
      * @return LessonFinished
@@ -55,7 +55,7 @@ class LessonFinishedService
     }
 
     /**
-     * Update an existing LessonFinished by ID.
+     * Update an existing CourseFinished by ID.
      *
      * @param int $id
      * @param array $data
@@ -67,7 +67,7 @@ class LessonFinishedService
     }
 
     /**
-     * Delete a LessonFinished by ID.
+     * Delete a CourseFinished by ID.
      *
      * @param int $id
      * @return bool
@@ -75,16 +75,5 @@ class LessonFinishedService
     public function delete(int $id): bool
     {
         return $this->lessonFinishedRepository->delete($this->getById($id));
-    }
-
-    /**
-     * Get all lessons finished by a specific user.
-     *
-     * @param int $userId
-     * @return Collection|array
-     */
-    public function getByUserId(int $userId): Collection|array
-    {
-        return $this->lessonFinishedRepository->getAllByUserId($userId);
     }
 }

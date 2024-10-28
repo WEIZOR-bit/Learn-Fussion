@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -24,40 +26,60 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request): JsonResponse
     {
-        //
+        $createdChallenge = $this->categoryService->create($request->validated());
+        if(!$createdChallenge) {
+            return response()->json(['error' => 'Challenge was not created'], 500);
+        }
+        return response()->json(['challenge' => $createdChallenge]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Category $category)
+    public function show(string $id): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Category $category)
-    {
-        //
+        $category = $this->categoryService->getById($id);
+        if(!$category) {
+            return response()->json(['error' => 'Category does not exist'], 500);
+        }
+        return response()->json(['category' => $category]);
     }
 
     /**
      * Update the specified resource in storage.
+     * @param CategoryRequest $request
+     * @param string $id
+     * @return JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, string $id): JsonResponse
     {
-        //
+        $category = $this->categoryService->getById($id);
+        if(!$category) {
+            return response()->json(['error' => 'Category does not exist'], 500);
+        }
+        $updatedCategory = $this->categoryService->update($id, $request->validated());
+        if(!$updatedCategory) {
+            return response()->json(['error' => 'Category was not updated'], 500);
+        }
+        $category = $this->categoryService->getById($id);
+        return  response()->json(['category' => $category], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(string $id): JsonResponse
     {
-        //
+        $category = $this->categoryService->getById($id);
+        if(!$category) {
+            return response()->json(['error' => 'Challenge does not exist'], 500);
+        }
+        $deletedCategory = $this->categoryService->delete($id);
+        if(!$deletedCategory) {
+            return response()->json(['error' => 'Challenge was not deleted'], 500);
+        }
+        return response()->json(['message' => "Challenge was deleted"]);
     }
 }
