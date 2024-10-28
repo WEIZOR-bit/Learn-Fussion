@@ -83,7 +83,7 @@ export default {
 
         this.user = await userStore.getUser();
 
-        let response_streak = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/streak`);
+        let response_streak = await axios.get(`http://0.0.0.0/api/public/profile/users/${this.user.id}/streak`);
         this.user = {
           ...this.user,
           streakDays: response_streak.data,

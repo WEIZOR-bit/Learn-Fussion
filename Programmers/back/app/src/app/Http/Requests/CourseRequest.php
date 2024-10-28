@@ -14,27 +14,27 @@ class CourseRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
-    {
-        if (!$this->user()) {
-            return false;
-        }
-
-        $courseService = App::make(CourseService::class);
-        $course = null;
-
-        if ($this->isMethod('post')) {
-            return $this->user()->can('create', new Course($this->only('name', 'created_by')));
-        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
-            $course = $courseService->getById($this->route('course'));
-            return $this->user()->can('update', $course);
-        } elseif ($this->isMethod('delete')) {
-            $course = $courseService->getById($this->route('course'));
-            return $this->user()->can('forceDelete', $course);
-        }
-
-        return true;
-    }
+//    public function authorize(): bool
+//    {
+//        if (!$this->user()) {
+//            return false;
+//        }
+//
+//        $courseService = App::make(CourseService::class);
+//        $course = null;
+//
+//        if ($this->isMethod('post')) {
+//            return $this->user()->can('create', new Course($this->only('name', 'created_by')));
+//        } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
+//            $course = $courseService->getById($this->route('course'));
+//            return $this->user()->can('update', $course);
+//        } elseif ($this->isMethod('delete')) {
+//            $course = $courseService->getById($this->route('course'));
+//            return $this->user()->can('forceDelete', $course);
+//        }
+//
+//        return true;
+//    }
 
     /**
      * Get the validation rules that apply to the request.

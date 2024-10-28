@@ -32,14 +32,14 @@ class LessonController extends Controller
     public function show(string $id, Request $request): \Illuminate\Http\JsonResponse
     {
         $this->authorize('view', Lesson::class);
-        $lesson = Lesson::with(['course', 'lesson_questions.questions_answers'])->findOrFail($id);
+        $lesson = Lesson::with(['course', 'questions.answers'])->findOrFail($id);
         return response()->json($lesson);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id): bool
+    public function update(Request $request, string $id): Lesson
     {
         $this->authorize('update', Lesson::class);
         return $this->lessonService->update($id, $request->all());

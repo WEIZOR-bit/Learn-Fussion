@@ -23,7 +23,7 @@ export default {
   },
   async mounted() {
     try {
-      const response = await axios.get(`http://localhost/api/public/profile/users/rating`);
+      const response = await axios.get(`http://0.0.0.0/api/public/profile/users/rating`);
       console.log(response.data);
       this.users = response.data;
       this.loading = false

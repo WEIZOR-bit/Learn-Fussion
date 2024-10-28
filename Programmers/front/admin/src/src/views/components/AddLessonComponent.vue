@@ -53,6 +53,9 @@ const openQuestionModal = () => {
 
 const addQuestion = () => {
   if (newQuestion.value.name) {
+    // Вычисляем порядок, основываясь на текущем количестве вопросов
+    newQuestion.value.order = lesson.value.questions.length + 1;
+
     lesson.value.questions.push({ ...newQuestion.value });
     lesson.value.question_count = lesson.value.questions.length;
     showQuestionModal.value = false;

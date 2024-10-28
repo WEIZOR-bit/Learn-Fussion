@@ -26,6 +26,7 @@ export default {
 
   data() {
     return {
+      userStore: useUserStore(),
       course: {},
       loading:true,
       nextLessonIndex:-1,
@@ -41,15 +42,14 @@ export default {
       console.log(userStore.user);
       if (userStore.isAuthenticated) {
         this.userLoggedIn = true;
-        const response_course = await axios.get(`http://localhost/api/public/profile/courses/${this.$route.params.id}/user/${userStore.user.id}`);
-        console.log(response_course);
+        const response_course = await axios.get(`http://0.0.0.0/api/public/profile/courses/${this.$route.params.id}/user/${userStore.user.id}`);
         this.course = {
           name: response_course.data.name,
           lessons: response_course.data.lessonsForUser,
         }
       }
       else {
-        const response_course = await axios.get(`http://localhost/api/public/profile/courses/${this.$route.params.id}`);
+        const response_course = await axios.get(`http://0.0.0.0/api/public/profile/courses/${this.$route.params.id}`);
         console.log(response_course);
         this.course = {
           name: response_course.data.name,
@@ -65,14 +65,51 @@ export default {
       this.nextLessonIndex = lastCompletedIndex === -1 ? 0 : lastCompletedIndex;
 
       this.loading = false;
+
+      this.checkCourseCompletion();
     }
     catch (error) {
       console.log(error);
-      toast.error(error.response.data.message, {
-        position: toast.POSITION.BOTTOM_RIGHT,
-      });
+    }
+  },
+
+
+  methods: {
+    async checkCourseCompletion() {
+      console.log('gпроверка структуры юзера', this.userStore.user)
+      const isCourseCompleted = this.course.lessons.every(lesson => lesson.completed);
+
+      // Проверяем, если у пользователя есть завершенные курсы и вытаскиваем только course_id
+      const completedCourseIds = (this.userStore.user.courses_finished || []).map(course => course.course_id);
+
+      const isCourseAlreadyCompleted = completedCourseIds.includes(parseInt(this.$route.params.id));
+
+      // Если курс завершен и не был завершен ранее, отправляем запрос на сервер
+      if (isCourseCompleted && this.userLoggedIn && !isCourseAlreadyCompleted) {
+        console.log('мы в завершенном курсе');
+        try {
+          const data = {
+            user_id: this.userStore.user.id,
+            course_id: this.$route.params.id,
+          };
+
+          await axios.post('http://0.0.0.0/api/public/profile/courses-finished', data);
+
+          // Добавляем курс в завершенные курсы пользователя
+          this.userStore.user.courses_finished.push({ course_id: parseInt(this.$route.params.id) });
+
+          toast.success('Course completed successfully!', {
+            position: toast.POSITION.TOP_CENTER,
+          });
+
+        } catch (error) {
+          console.log(error);
+        }
+      }
     }
   }
+
+
 }
 </script>
 

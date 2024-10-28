@@ -54,36 +54,30 @@ class CoursesSeeder extends Seeder
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 1,
-            'finished_at' => now(),
         ]);
 
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 2,
-            'finished_at' => now(),
         ]);
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 3,
-            'finished_at' => now(),
         ]);
 
         // second user finished courses
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 2,
-            'finished_at' => now(),
         ]);
 
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 2,
-            'finished_at' => now(),
         ]);
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 2,
-            'finished_at' => now(),
         ]);
 
 
@@ -91,18 +85,15 @@ class CoursesSeeder extends Seeder
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 3,
-            'finished_at' => now(),
         ]);
 
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 3,
-            'finished_at' => now(),
         ]);
         DB::table('courses_finished')->insert([
             'course_id' => 1,
             'user_id' => 3,
-            'finished_at' => now(),
         ]);
 
 

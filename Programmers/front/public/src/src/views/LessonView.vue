@@ -6,8 +6,10 @@ import {faArrowLeft, faArrowRight} from '@fortawesome/free-solid-svg-icons';
 import {library} from "@fortawesome/fontawesome-svg-core";
 import TopBarDynamic from "@/components/TopBarDynamic.vue";
 import {useUserStore} from "@/stores/userStore.js";
+import {useRouter} from "vue-router";
 
 library.add(faArrowLeft, faArrowRight);
+const router = useRouter();
 
 </script>
 
@@ -38,7 +40,7 @@ library.add(faArrowLeft, faArrowRight);
                 <span>{{currentIndex+1}}</span>
               </div>
               <div id="question-content">
-                <span>{{lesson.questions[currentIndex].matter}}</span>
+                <span>{{lesson.questions[currentIndex].name}}</span>
               </div>
             </div>
           </div>
@@ -91,7 +93,7 @@ library.add(faArrowLeft, faArrowRight);
 <script>
   import axios from "axios";
   import {toast} from "vue3-toastify";
-  import {useUserStore} from "@/stores/userStore.js";
+
 
   export default {
     data() {
@@ -122,7 +124,7 @@ library.add(faArrowLeft, faArrowRight);
         this.$router.push({name: 'home'});
       }
 
-      let response_streak = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/streak`);
+      let response_streak = await axios.get(`http://0.0.0.0/api/public/profile/users/${this.user.id}/streak`);
 
       this.user = {
         ...this.user,
@@ -132,7 +134,7 @@ library.add(faArrowLeft, faArrowRight);
       localStorage.setItem('streak_days',response_streak.data);
 
       try {
-        const response_lesson = await axios.get(`http://localhost/api/public/profile/lessons/${this.$route.params.id}`);
+        const response_lesson = await axios.get(`http://0.0.0.0/api/public/profile/lessons/${this.$route.params.id}`);
         console.log(response_lesson);
         this.lesson = response_lesson.data;
 
@@ -151,23 +153,18 @@ library.add(faArrowLeft, faArrowRight);
         this.showIncorrectAnswer = false;
       },
       async checkAnswer() {
-
         if (this.actionButtonState === 'Check') {
           const userStore = useUserStore();
           this.canChooseOptions = false;
           if (this.lesson.questions[this.currentIndex].answers[this.selectedOption].correct) {
-
             this.showCorrectAnswer = true;
 
             if (this.currentIndex + 1 >= this.lesson.questions.length) {
               this.actionButtonState = 'End';
-            }
-            else {
+            } else {
               this.actionButtonState = 'Next';
             }
-          }
-          else {
-
+          } else {
             this.showCorrectAnswer = true;
             this.showIncorrectAnswer = true;
 
@@ -177,25 +174,22 @@ library.add(faArrowLeft, faArrowRight);
               var temp = this.selectedOption;
               this.selectedOption = null;
 
-              const response = await axios.post(`http://localhost/api/public/profile/users/${userStore.user.id}/decrease-hearts`);
+              const response = await axios.post(`http://0.0.0.0/api/public/profile/users/${userStore.user.id}/decrease-hearts`);
               userStore.setUser(response.data);
 
               this.selectedOption = temp;
 
-              if (this.user.hearts <= 0) { // User lost all hearts
+              if (this.user.hearts <= 0) {
                 this.selectedOption = null;
                 toast.error("Sorry! It seems you're out of hearts. Come back tomorrow though!", {
                   position: toast.POSITION.TOP_CENTER,
                 });
                 setTimeout(() => {
                   this.$router.push({name: 'home'});
-                },3000);
-                // Handle zero hearts case (e.g., end lesson, show message)
-              }
-              else if (this.currentIndex + 1 >= this.lesson.questions.length) { //User got last question wrong, but still finished
+                }, 3000);
+              } else if (this.currentIndex + 1 >= this.lesson.questions.length) {
                 this.actionButtonState = 'End';
-              }
-              else { // User got question wrong, proceeding to next one
+              } else {
                 this.actionButtonState = 'Next';
               }
             } catch (error) {
@@ -205,9 +199,7 @@ library.add(faArrowLeft, faArrowRight);
               });
             }
           }
-        }
-        else if (this.actionButtonState === 'Next'){
-
+        } else if (this.actionButtonState === 'Next') {
           this.showCorrectAnswer = false;
           this.showIncorrectAnswer = false;
           this.selectedOption = null;
@@ -215,15 +207,31 @@ library.add(faArrowLeft, faArrowRight);
           this.currentIndex++;
           this.actionButtonState = 'Check';
           this.canChooseOptions = true;
-        }
-        else if (this.actionButtonState === 'End') {
+        } else if (this.actionButtonState === 'End') {
           toast.success('Congratulations!', {
             position: toast.POSITION.TOP_CENTER,
           });
-          // TODO отправить реквест на окончание урока, на бэке проверять закончил ли курс и если что делать энтри в бд
-          // TODO LessonFinishedController почему то не работает как нужно(post реквест http://localhost/api/public/profile/lessons-finished/ не авторизирован)
+
+          // Подготовьте данные для отправки
+          const data = {
+            user_id: this.user.id,
+            lesson_id: this.lesson.id,
+
+          };
+          console.log(data);
+
+          try {
+
+            const response = await axios.post('http://0.0.0.0/api/public/profile/lessons-finished', data);
+
+
+            this.$router.back();
+          } catch (error) {
+            console.log(error);
+          }
         }
       }
+
     }
   }
 </script>

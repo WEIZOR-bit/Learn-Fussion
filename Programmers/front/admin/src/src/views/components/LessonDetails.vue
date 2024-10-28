@@ -67,9 +67,9 @@ const addQuestion = () => {
     id: Date.now(),
     name: '',
     rating: null,
-    questions_answers: []
+    answers: []
   };
-  lesson.value.lesson_questions.push(newQuestion);
+  lesson.value.questions.push(newQuestion);
   expandedQuestions.value[newQuestion.id] = true;
 };
 
@@ -79,29 +79,31 @@ const addAnswer = (question) => {
     text: '',
     correct: false
   };
-  question.questions_answers.push(newAnswer);
+  question.answers.push(newAnswer);
 };
 
 const deleteQuestion = (question) => {
-  lesson.value.lesson_questions = lesson.value.lesson_questions.filter(q => q.id !== question.id);
+  lesson.value.questions = lesson.value.questions.filter(q => q.id !== question.id);
 };
 
 const deleteAnswer = (question, answer) => {
-  question.questions_answers = question.questions_answers.filter(a => a.id !== answer.id);
+  question.answers = question.answers.filter(a => a.id !== answer.id);
 };
 
 const prepareLessonData = () => {
   return {
     lesson: {
       name: editableLesson.value.name,
-      description: editableLesson.value.description
+      description: editableLesson.value.description,
+      tutorial_link: editableLesson.value.tutorial_link, // Добавлена ссылка на видео
+      average_rating: editableLesson.value.average_rating // Добавлен рейтинг
     },
-    questions: lesson.value.lesson_questions.map(question => ({
+    questions: lesson.value.questions.map(question => ({
       id: question.id || null,
       name: question.name,
       rating: question.rating || null,
       matter: question.matter || 0,
-      questions_answers: question.questions_answers.map(answer => ({
+      answers: question.answers.map(answer => ({
         id: answer.id || null,
         text: answer.text,
         correct: answer.correct
@@ -113,6 +115,7 @@ const prepareLessonData = () => {
 const confirmChanges = async (id) => {
   const lessonData = prepareLessonData();
   await lessonStore.updateLesson(id, lessonData);
+  console.log('lessonData', lessonData)
   isEditMode.value = false;  // После подтверждения выходим из режима редактирования
 };
 
@@ -124,7 +127,7 @@ const cancelEdit = () => {
 
 const toggleCorrectAnswer = (question, answer) => {
   // Снимаем все существующие отметки правильного ответа в вопросе
-  question.questions_answers.forEach((ans) => {
+  question.answers.forEach((ans) => {
     if (ans !== answer) ans.correct = false;
   });
 
@@ -199,7 +202,7 @@ const toggleCorrectAnswer = (question, answer) => {
 
       <div class="questions-container">
         <h2>Questions:</h2>
-        <div v-for="(question, qIndex) in lesson.lesson_questions" :key="question.id" class="question-item">
+        <div v-for="(question, qIndex) in lesson.questions" :key="question.id" class="question-item">
           <h3 @click="toggleQuestion(question.id)" class="question-header">
             {{ qIndex + 1 }}. {{ question.name }}
             <span v-if="!expandedQuestions[question.id]">[+]</span>
@@ -226,7 +229,7 @@ const toggleCorrectAnswer = (question, answer) => {
                 class="input-style"
             />
             <ul>
-              <li v-for="(answer, aIndex) in question.questions_answers" :key="answer.id">
+              <li v-for="(answer, aIndex) in question.answers" :key="answer.id">
                 <input
                     v-if="isEditMode"
                     type="text"
@@ -240,7 +243,7 @@ const toggleCorrectAnswer = (question, answer) => {
                 <div v-if="isEditMode">
                   <input type="checkbox" :checked="answer.correct" @change="toggleCorrectAnswer(question, answer)" /> Mark as correct
                   <button @click="deleteAnswer(question, answer)" class="btn btn-danger">Delete Answer</button>
-                  <span v-if="answer.correct && question.questions_answers.filter(ans => ans.correct).length > 1" class="error-message">Only one correct answer allowed</span>
+                  <span v-if="answer.correct && question.answers.filter(ans => ans.correct).length > 1" class="error-message">Only one correct answer allowed</span>
                 </div>
               </li>
             </ul>

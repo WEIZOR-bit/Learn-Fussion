@@ -22,16 +22,12 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-if (userStore.isAuthenticated) {
-  window.location.href='/';
-}
-
 const handleSubmit = async (event) => {
   event.preventDefault();
   isButtonDisabled.value = true;
 
   try {
-    const response = await axios.post('http://localhost:8000/api/public/login', {
+    const response = await axios.post('http://0.0.0.0:8000/api/public/login', {
       email: email.value,
       password: password.value,
     });

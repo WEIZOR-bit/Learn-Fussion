@@ -49,7 +49,7 @@ export const useCoursesStore = defineStore('coursesStore', {
             try {
                 const response = await coursesService.getCourse(id);
                 this.course = response.data;
-                console.log(response.data);
+                console.log('from course store', response.data);
             } catch (error) {
                 this.error = error.response?.data?.message || 'Error fetching course';
             } finally {

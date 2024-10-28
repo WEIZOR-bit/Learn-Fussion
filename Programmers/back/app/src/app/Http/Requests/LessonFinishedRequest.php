@@ -18,7 +18,7 @@ class LessonFinishedRequest extends FormRequest
         $lessonFinished = null;
 
         if ($this->isMethod('post')) {
-            return $this->user()->can('create', new LessonFinished($this->only('name', 'created_by')));
+            return $this->user()->can('create', new LessonFinished($this->only('name')));
         } elseif ($this->isMethod('put') || $this->isMethod('patch')) {
             $lessonFinished = $lessonFinishedService->getById($this->route('lessons_finished'));
             return $this->user()->can('update', $lessonFinished);
@@ -40,7 +40,6 @@ class LessonFinishedRequest extends FormRequest
         return [
             'lesson_id' => 'required|exists:lessons,id',
             'user_id' => 'required|exists:users,id',
-            'finished_at' => 'required|date',
         ];
     }
 

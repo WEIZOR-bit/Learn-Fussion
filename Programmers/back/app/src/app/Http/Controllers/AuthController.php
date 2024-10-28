@@ -97,7 +97,8 @@ class AuthController extends Controller
         if (!$user) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+        $userWithCourses = $user->load('courses_finished.course');
 
-        return response()->json($user);
+        return response()->json($userWithCourses);
     }
 }

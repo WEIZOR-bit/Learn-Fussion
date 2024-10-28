@@ -1,44 +1,46 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Lesson;
 use App\Repositories\LessonRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class LessonService
 {
-public function __construct(private LessonRepository $lessonRepository)
-{
+    public function __construct(private LessonRepository $lessonRepository)
+    {
 //
+    }
+
+    public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
+    {
+        return $this->lessonRepository->paginate($limit, $columns);
+    }
+
+    public function create(array $data): Lesson
+    {
+        return $this->lessonRepository->create($data);
+    }
+
+    public function update(int $id, array $data): Lesson
+    {
+        Log::debug($data);
+        $lessonData = $data['lesson'];
+        $questionsData = $data['questions'];
+
+        return $this->lessonRepository->updateLessonWithDependencies($id, $lessonData, $questionsData);
 }
 
-public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
-{
-return $this->lessonRepository->paginate($limit, $columns);
-}
+    public function delete(int $id): bool
+    {
+        return $this->lessonRepository->delete($this->getById($id));
+    }
 
-public function create(array $data): Lesson
-{
-return $this->lessonRepository->create($data);
-}
-
-public function update(int $id, array $data): Lesson
-{
-
-$lessonData = $data['lesson'];
-$questionsData = $data['questions'];
-
-return $this->lessonRepository->updateLessonWithDependencies($id, $lessonData, $questionsData);
-}
-
-public function delete(int $id): bool
-{
-return $this->lessonRepository->delete($this->getById($id));
-}
-
-public function getById(int $id): ?Lesson
-{
-return $this->lessonRepository->findOrFail($id);
-}
+    public function getById(int $id): ?Lesson
+    {
+        return $this->lessonRepository->findOrFail($id);
+    }
 }

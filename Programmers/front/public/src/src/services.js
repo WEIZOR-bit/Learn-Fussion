@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // Создаем экземпляр axios с базовыми настройками
 const services = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/public', // Базовый URL для всех запросов
+    baseURL: import.meta.env.VITE_API_BASE_URL || 'http://0.0.0.0:8000/api/public', // Базовый URL для всех запросов
     timeout: 5000, // Максимальное время ожидания ответа
     headers: {
         'Content-Type': 'application/json',

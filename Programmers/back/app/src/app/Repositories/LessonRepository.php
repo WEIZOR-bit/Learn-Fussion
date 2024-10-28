@@ -21,7 +21,7 @@ class LessonRepository extends BaseRepository
             $lesson->update($lessonData);
 
             // Получаем существующие вопросы
-            $existingQuestions = $lesson->lesson_questions()->get()->keyBy('id');
+            $existingQuestions = $lesson->questions()->get()->keyBy('id');
             $processedQuestionIds = [];
 
             foreach ($questionsData as $questionData) {
@@ -39,7 +39,7 @@ class LessonRepository extends BaseRepository
                 $existingAnswers = $question->questions_answers()->get()->keyBy('id');
                 $processedAnswerIds = [];
 
-                foreach ($questionData['questions_answers'] as $answerData) {
+                foreach ($questionData['answers'] as $answerData) {
                     // Создаем или обновляем ответ
                     $answer = isset($answerData['id']) && $existingAnswers->has($answerData['id'])
                         ? $existingAnswers->get($answerData['id'])
@@ -62,7 +62,7 @@ class LessonRepository extends BaseRepository
             }
 
             // Удаляем вопросы, которых нет в запросе
-            $lesson->lesson_questions()->whereNotIn('id', $processedQuestionIds)->delete();
+            $lesson->questions()->whereNotIn('id', $processedQuestionIds)->delete();
 
             return $lesson->refresh();
         });

@@ -106,6 +106,7 @@ class CourseController extends Controller
                 foreach ($lessonData['questions'] as $questionData) {
 //                    Log::debug('second foreach',$request['questions']);
                     $question = Question::create([
+                        'order' => $questionData['order'],
                         'name' => $questionData['name'],
                         'matter' => $questionData['matter'],
                         'lesson_id' => $lesson->id,
@@ -139,7 +140,7 @@ class CourseController extends Controller
      * @param string $id
      * @return JsonResponse
      */
-    public function show(string $id): JsonResponse
+    public function showOnlyPublish(string $id): JsonResponse
     {
         $course = $this->courseService->getById($id);
         if(!$course || !$course->published) {
@@ -149,6 +150,18 @@ class CourseController extends Controller
         }
         //$course->load('lessons.lesson_questions.questions_answers', 'creator');
         $course->load('lessons', 'creator');
+        return response()->json($course);
+    }
+
+    public function show(string $id): JsonResponse
+    {
+        $course = $this->courseService->getById($id);
+        if(!$course) {
+            return response()->json([
+                'message' => 'Course not found'
+            ],404);
+        }
+        $course->load('lessons.questions.questions_answers', 'creator');
         return response()->json($course);
     }
 

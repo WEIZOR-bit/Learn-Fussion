@@ -34,26 +34,34 @@ if (!userStore.isAuthenticated) {
             <div class="basic-info">
               <div>
                 <label>Username</label>
-                <input type="text" v-model="userStore.user.name" disabled />
+                <input type="text" v-model="userStore.user.name" :disabled="!userStore.user.name" />
               </div>
               <div>
                 <label>Mastery Tag</label>
-                <input type="text" v-model="userStore.user.mastery_tag" disabled />
+                <input type="text" v-model="userStore.user.mastery_tag" :disabled="!userStore.user.mastery_tag" />
               </div>
               <div>
                 <label>Email Address</label>
-                <input type="text" v-model="userStore.user.email" disabled />
+                <input type="text" v-model="userStore.user.email" :disabled="!userStore.user.email" />
               </div>
               <div>
                 <label>Mastery Level</label>
-                <input type="text" v-model="userStore.user.mastery_level" disabled />
+                <input type="text" v-model="userStore.user.mastery_level" :disabled="!userStore.user.mastery_level" />
               </div>
             </div>
           </div>
 
+
           <div class="courses">
             <h3>Courses</h3>
-            <p>Finished ({{finished_courses}})</p>
+            <div v-if="userStore.user.courses_finished.length === 0">
+              <p>No courses completed yet.</p>
+            </div>
+            <ul>
+              <li v-for="(course, index) in userStore.user.courses_finished" :key="index">
+                {{ course.course.name }} (Rating: {{ course.course.average_rating }})
+              </li>
+            </ul>
           </div>
 
           <div class="subscription">
@@ -86,25 +94,21 @@ import {useUserStore} from "@/stores/userStore.js";
 export default {
   data() {
     return {
-      finished_courses: null,
       streakDays: null,
-      friends: []
+      friends: [],
     };
   },
   async mounted() {
     await this.fetchStats();
+    const userStore = useUserStore();
   },
   methods: {
     async fetchStats() {
-
       const userStore = useUserStore();
 
       try {
-        let response_count = await axios.get(`http://localhost/api/public/profile/courses-finished/user/${userStore.user.id}/count`);
 
-        this.finished_courses =  response_count.data;
-
-        response_count = await axios.get(`http://localhost/api/public/profile/users/${userStore.user.id}/streak`);
+        let response_count = await axios.get(`http://0.0.0.0/api/public/profile/users/${userStore.user.id}/streak`);
 
         this.streakDays =  response_count.data;
 
@@ -124,7 +128,7 @@ export default {
           return;
         }
 
-        const response = await axios.post('http://localhost:8000/api/public/logout', {}, {
+        const response = await axios.post('http://0.0.0.0:8000/api/public/logout', {}, {
           headers: {
             'Authorization': `Bearer ${userStore.token}`
           }

@@ -58,11 +58,12 @@ export const useUserStore = defineStore ('userStore', {
 
         async fetchUser() {
             this.isLoading = true;
+            console.log('Fetching user...');
             if (!this.token) {
                 this.token = localStorage.getItem('jwt_token');
             }
             try {
-                const response = await axios.get('http://localhost/api/public/me', {
+                const response = await axios.get('http://0.0.0.0/api/public/me', {
                     headers: {
                         Authorization: `Bearer ${this.token}`
                     }

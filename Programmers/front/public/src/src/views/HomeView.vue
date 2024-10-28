@@ -27,7 +27,7 @@ export default {
   methods: {
     async fetchCourses() {
       try {
-        const response = await axios.get('http://localhost/api/public/profile/courses');
+        const response = await axios.get('http://0.0.0.0/api/public/profile/courses');
         const response_courses = response.data;
 
         response_courses.data.forEach(course => {
