@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Course;
 use App\Models\User;
-use Couchbase\Role;
 use Illuminate\Auth\Access\Response;
 
 class CoursePolicy

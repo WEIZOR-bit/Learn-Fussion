@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\UserRatingDTO;
 use App\DTOs\UserStatsDTO;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
@@ -51,10 +52,13 @@ class UserController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $user =$this->userService->getById($id);
-        if(!$user) {
+        // Получаем пользователя с завершенными курсами
+        $user = $this->userService->getById($id)->load('courses_finished.course');
+
+        if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
         }
+
         return response()->json(['user' => $user], 200);
     }
 
@@ -156,11 +160,67 @@ class UserController extends Controller
      */
     public function getUserStats(string $id): JsonResponse
     {
+        // Получение пользователя с завершенными курсами
+        $user = $this->userService->getById($id);
+
+        // Получение всех данных завершенных курсов пользователя через связь
+        $completedCourses = $user->courses_finished()
+            ->with('course') // Подгружаем информацию о курсах
+            ->get()
+            ->map(function ($completedCourse) {
+                return [
+                    'id' => $completedCourse->course->id,
+                    'title' => $completedCourse->course->title,
+                    'description' => $completedCourse->course->description,
+                    // Добавьте другие поля, которые хотите вернуть
+                ];
+            })
+            ->toArray();
+
+        // Создание DTO с завершенными курсами
         $userStatsDTO = new UserStatsDTO(
-            $this->userService->getById($id)->hearts,
+            $user->hearts,
             $this->userService->getStreakDays($id),
-            $this->userService->getById($id)->mastery_level
+            $user->mastery_level,
+            $completedCourses // Передаем массив объектов завершенных курсов в DTO
         );
+
         return response()->json($userStatsDTO->toArray());
     }
+
+
+    /**
+     * Update user's last activity and reset hearts.
+     * @param string $id
+     * @return JsonResponse
+     */
+    public function decreaseHearts(string $id): JsonResponse
+    {
+        $user = $this->userService->getById($id);
+        if ($user->hearts > 0) {
+            $this->userService->update($id, ['hearts' => $user->hearts - 1]);
+        }
+        $user = $this->userService->getById($id);
+        return response()->json($user);
+    }
+
+    public function search(Request $request): Collection|LengthAwarePaginator
+    {
+        $query = $request->input('query');
+        Log::debug( $query);
+        return $this->userService->search($query);
+    }
+
+    public function rating(): JsonResponse
+    {
+        $topUsers = $this->userService->rating();
+
+        $userRatings = $topUsers->map(function($user) {
+            $dto = new UserRatingDTO($user->name, $user->mastery_level);
+            return $dto->toArray();
+        });
+
+        return response()->json($userRatings);
+    }
+
 }

@@ -4,9 +4,6 @@ import { useAuthStore } from '@/store/auth';
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL || 'http://0.0.0.0/api/admin',
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 axiosInstance.interceptors.request.use(
@@ -27,13 +24,14 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
     (response) => {
+        console.log(response.data);
         return response;
     },
     (error) => {
         if (error.response && error.response.status === 401) {
             const authStore = useAuthStore();
             authStore.logout();
-            window.location.href = '/sign-in';
+            // window.location.href = 'admin/sign-in';
         }
         return Promise.reject(error);
     }
@@ -44,6 +42,7 @@ const axiosService = {
         return axiosInstance.get(url, { params });
     },
     post(url, data) {
+        console.log(data);
         return axiosInstance.post(url, data);
     },
     put(url, data) {

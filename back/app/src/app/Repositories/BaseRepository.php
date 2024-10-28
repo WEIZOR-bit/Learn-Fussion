@@ -2,8 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Models\Lesson;
+use App\Models\LessonQuestion;
+use App\Models\Question;
+use App\Models\QuestionAnswer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class BaseRepository
@@ -85,8 +90,14 @@ class BaseRepository
      */
     public function update(Model $entity, array $data): bool
     {
-        return $entity->update($data);
+            $entity->update($data);
+
+        return  $entity->save();
+
     }
+
+
+
 
     /**
      * Delete an entity.

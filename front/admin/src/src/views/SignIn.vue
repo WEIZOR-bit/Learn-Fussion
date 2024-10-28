@@ -13,9 +13,9 @@
                 <div class="card-body">
                   <form role="form" class="text-start" @submit.prevent="login">
                     <label>Email</label>
-                    <vsud-input v-model="email" type="email" placeholder="Email" name="email" id="email" />
+                    <vsud-input v-model="email" type="email" placeholder="admin@gmail.com" name="email" id="email" />
                     <label>Password</label>
-                    <vsud-input v-model="password" type="password" placeholder="Password" name="password" id="password" />
+                    <vsud-input v-model="password" type="password" placeholder="123123123123" name="password" id="password" />
                     <div class="text-center">
                       <vsud-button
                           type="submit"
@@ -55,7 +55,7 @@ import VsudInput from "@/components/VsudInput.vue";
 import VsudSwitch from "@/components/VsudSwitch.vue";
 import VsudButton from "@/components/VsudButton.vue";
 import bgImg from "@/assets/img/curved-images/curved9.jpg";
-import { useAuthStore } from "@/store/auth"; // Импортируем хранилище Pinia для аутентификации
+import { useAuthStore } from "@/store/auth.js"; // Импортируем хранилище Pinia для аутентификации
 import {ref} from "vue"; // Для реактивных данных
 import {useRouter} from "vue-router"; // Для перенаправления после логина
 
@@ -85,7 +85,7 @@ export default {
         console.log("Логин успешен, перенаправляем на dashboard");
         console.log("Токен пользователя:", authStore.token);
         console.log("Пользователь:", authStore.user);
-        await router.push('/');
+        await router.push({name: 'Dashboard'});
       } catch (error) {
         console.error("Ошибка при авторизации:", error);
       }

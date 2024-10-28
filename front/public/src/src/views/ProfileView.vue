@@ -1,8 +1,11 @@
 <script setup>
 import Sidebar from "@/components/Sidebar.vue";
 import TopBar from "@/components/TopBar.vue";
+import {useUserStore} from "@/stores/userStore.js";
 
-if (!axios.defaults.headers.common['Authorization']) {
+const userStore = useUserStore();
+
+if (!userStore.isAuthenticated) {
   window.location.href='/login';
 }
 </script>
@@ -31,26 +34,34 @@ if (!axios.defaults.headers.common['Authorization']) {
             <div class="basic-info">
               <div>
                 <label>Username</label>
-                <input type="text" v-model="user.name" disabled />
+                <input type="text" v-model="userStore.user.name" :disabled="!userStore.user.name" />
               </div>
               <div>
                 <label>Mastery Tag</label>
-                <input type="text" v-model="user.mastery_tag" disabled />
+                <input type="text" v-model="userStore.user.mastery_tag" :disabled="!userStore.user.mastery_tag" />
               </div>
               <div>
                 <label>Email Address</label>
-                <input type="text" v-model="user.email" disabled />
+                <input type="text" v-model="userStore.user.email" :disabled="!userStore.user.email" />
               </div>
               <div>
                 <label>Mastery Level</label>
-                <input type="text" v-model="user.mastery_level" disabled />
+                <input type="text" v-model="userStore.user.mastery_level" :disabled="!userStore.user.mastery_level" />
               </div>
             </div>
           </div>
 
+
           <div class="courses">
             <h3>Courses</h3>
-            <p>Finished ({{user.finished_courses}})</p>
+            <div v-if="userStore.user.courses_finished.length === 0">
+              <p>No courses completed yet.</p>
+            </div>
+            <ul>
+              <li v-for="(course, index) in userStore.user.courses_finished" :key="index">
+                {{ course.course.name }} (Rating: {{ course.course.average_rating }})
+              </li>
+            </ul>
           </div>
 
           <div class="subscription">
@@ -60,6 +71,10 @@ if (!axios.defaults.headers.common['Authorization']) {
               <button>UPGRADE MY EXPERIENCE</button>
             </div>
           </div>
+
+          <button @click="logout" id="logout-button">
+            Log Out
+          </button>
         </div>
 
         <div class="friends-list">
@@ -73,53 +88,64 @@ if (!axios.defaults.headers.common['Authorization']) {
 
 <script>
 import axios from "axios";
+import {toast} from "vue3-toastify";
+import {useUserStore} from "@/stores/userStore.js";
 
 export default {
   data() {
     return {
-      user: {
-        name: '',
-        mastery_level: '',
-        mastery_tag: '',
-        email: '',
-      },
-      friends: []
+      streakDays: null,
+      friends: [],
     };
   },
   async mounted() {
-    await this.fetchUser();
+    await this.fetchStats();
+    const userStore = useUserStore();
   },
   methods: {
-    async fetchUser() {
+    async fetchStats() {
+      const userStore = useUserStore();
+
       try {
-        const response_user = await axios.get('http://localhost:8000/api/public/me');
 
-        this.user = {
-          id: response_user.data.id,
-          name: response_user.data.name,
-          mastery_level: response_user.data.mastery_level,
-          mastery_tag: response_user.data.mastery_tag,
-          email: response_user.data.email,
-        };
+        let response_count = await axios.get(`http://0.0.0.0/api/public/profile/users/${userStore.user.id}/streak`);
 
-        let response_count = await axios.get(`http://localhost/api/public/profile/courses-finished/user/${this.user.id}/count`);
-
-        this.user = {
-          ...this.user,
-          finished_courses: response_count.data,
-        };
-
-        response_count = await axios.get(`http://localhost/api/public/profile/users/${this.user.id}/streak`);
-
-        this.user = {
-          ...this.user,
-          streakDays: response_count.data,
-        };
+        this.streakDays =  response_count.data;
 
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
     },
+    async logout() {
+
+      const userStore = useUserStore();
+
+      try {
+        if (!userStore.isAuthenticated) {
+          toast.error('Please log in first.', {
+            position: toast.POSITION.BOTTOM_RIGHT,
+          });
+          return;
+        }
+
+        const response = await axios.post('http://0.0.0.0:8000/api/public/logout', {}, {
+          headers: {
+            'Authorization': `Bearer ${userStore.token}`
+          }
+        });
+
+        console.log(response.data);
+
+        userStore.logout();
+
+        this.$router.push({name: 'home'});
+      } catch (error) {
+        console.log(error);
+        toast.error(error.response.data.message, {
+          position: toast.POSITION.BOTTOM_RIGHT,
+        });
+      }
+    }
   }
 };
 </script>
@@ -302,6 +328,17 @@ input[type="text"]:focus {
 
 input, button, h2, h3, p, label {
   color: black;
+}
+
+#logout-button {
+  background: #c30000;
+  font-size: 14px;
+  font-weight: bold;
+  color:white;
+  padding: 12px 20px;
+  border-radius: 30px;
+  border: none;
+  margin-left: 20px;
 }
 
 </style>

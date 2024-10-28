@@ -16,4 +16,17 @@ class UserRepository extends BaseRepository
     {
         $this->model = $user;
     }
+
+    public function search(string $query) {
+        return User::where('name', 'LIKE', '%' . $query . '%')
+            ->orWhere('email', 'LIKE', '%' . $query . '%')
+            ->paginate(10);
+    }
+
+    public function rating()
+    {
+        return User::orderBy('mastery_level', 'desc')
+            ->take(10)
+            ->get();
+    }
 }

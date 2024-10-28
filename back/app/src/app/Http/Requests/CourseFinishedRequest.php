@@ -40,7 +40,6 @@ class CourseFinishedRequest extends FormRequest
         return [
             'course_id' => 'required|exists:courses,id',
             'user_id' => 'required|exists:users,id',
-            'finished_at' => 'required|date',
         ];
     }
 

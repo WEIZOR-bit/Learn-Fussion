@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DISK', 'minio'),
+    'default' => env('FILESYSTEM_DISK', 'minio_public'),
 
     /*
     |--------------------------------------------------------------------------
@@ -36,34 +36,41 @@ return [
             'throw' => false,
         ],
 
-        'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
-            'throw' => false,
-        ],
 
-        's3' => [
+        'minio_public' => [
             'driver' => 's3',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'region' => env('AWS_DEFAULT_REGION'),
-            'bucket' => env('AWS_BUCKET'),
-            'url' => env('AWS_URL'),
-            'endpoint' => env('AWS_ENDPOINT'),
-            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
-        ],
-
-        'minio' => [
-            'driver' => 's3',
-            'endpoint' => env('MINIO_ENDPOINT'),
-            'key' => env('MINIO_ACCESS_KEY'),
-            'secret' => env('MINIO_SECRET_KEY'),
+            'key' => env('MINIO_API_USER_PUBLIC_KEY'),
+            'secret' => env('MINIO_API_USER_SECRET_KEY'),
             'region' => 'us-east-1',
-            'bucket' => env('MINIO_BUCKET'),
+            'bucket' => env('MINIO_BUCKET_PUBLIC'),
+            'url' => env('MINIO_URL'),
+            'endpoint' => env('MINIO_URL'),
             'use_path_style_endpoint' => true,
+            'throw' => true,
+        ],
+
+        'minio_private' => [
+            'driver' => 's3',
+            'key' => env('MINIO_API_USER_PUBLIC_KEY'),
+            'secret' => env('MINIO_API_USER_SECRET_KEY'),
+            'region' => 'us-east-1',
+            'bucket' => env('MINIO_BUCKET_PRIVATE'),
+            'url' => env('MINIO_URL'),
+            'endpoint' => env('MINIO_URL'),
+            'use_path_style_endpoint' => true,
+            'throw' => true,
+        ],
+
+        'minio_avatars' => [
+            'driver' => 's3',
+            'key' => env('MINIO_API_USER_PUBLIC_KEY'),
+            'secret' => env('MINIO_API_USER_SECRET_KEY'),
+            'region' => 'us-east-1',
+            'bucket' => env('MINIO_BUCKET_AVATARS'),
+            'url' => env('MINIO_URL'),
+            'endpoint' => env('MINIO_URL'),
+            'use_path_style_endpoint' => true,
+            'throw' => true,
         ],
     ],
 

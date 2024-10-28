@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import axiosService from '@/services/AxiosService.js';
 
+
 export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: null,
@@ -12,17 +13,20 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async login(email, password) {
             try {
-                // Пример запроса на авторизацию
                 const response = await axiosService.post('/login', { email, password });
                 console.log(response);
-                // Получаем токен из ответа
+
                 this.token = response.data.token.access_token; // Извлечение токена
                 this.user = response.data.admin; // Извлечение данных пользователя
 
-                // Сохраняем токен в localStorage
-                localStorage.setItem('token', this.token);
 
-                // После успешного логина, axiosInstance автоматически добавит заголовок авторизации через интерцептор
+                localStorage.setItem('token', this.token);
+                //сохор юзера
+                localStorage.setItem('user', JSON.stringify(this.user));
+                //срок токена
+
+
+
             } catch (error) {
                 console.error('Ошибка при входе:', error);
                 throw error;
@@ -33,19 +37,39 @@ export const useAuthStore = defineStore('auth', {
             this.token = '';
 
             // Удаляем токен из localStorage
+            localStorage.removeItem('user');
             localStorage.removeItem('token');
         },
-        async fetchUser() {
-            try {
-                if (this.token) {
-                    // Запрос для получения данных о текущем пользователе
-                    const response = await axiosService.get('/user');
-                    this.user = response.data;
-                }
-            } catch (error) {
-                console.error('Ошибка при получении данных пользователя:', error);
-                this.logout(); // Если токен недействителен, выходим
+        loadUserFromStorage() {
+            const user = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            if (user && token) {
+                this.$patch({
+                    user: JSON.parse(user),
+                    token: token,
+                });
+
+
             }
         },
+        async uploadAvatar(formData, id) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const response = await axiosService.post(`admin/${id}/avatar`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                });
+                this.user.avatar_url = response.data.avatar_url;
+                localStorage.setItem('user', JSON.stringify(this.user));
+                return response;
+
+            } catch (error) {
+                this.error = error.response?.data?.message || 'Error uploading avatar';
+            } finally {
+                this.isLoading = false;
+            }
+        },
+
+
     },
 });

@@ -15,16 +15,20 @@ return new class extends Migration
             $table->softDeletes();
             $table->id();
             $table->string('name')->unique();
-            $table->string('category');
             $table->float('average_rating');
             $table->string('description')->nullable();
-            $table->unsignedBigInteger('review_count');
+            $table->unsignedBigInteger('review_count')->nullable();
+            $table->boolean('published')->default(false);
+            $table->string('cover_url')->default('');
 
             $table->unsignedBigInteger('created_by');
             $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('category_id');
+
 
             $table->foreign('created_by')->references('id')->on('admins');
             $table->foreign('updated_by')->references('id')->on('admins');
+            $table->foreign('category_id')->references('id')->on('categories');
 
             $table->timestamps();
         });

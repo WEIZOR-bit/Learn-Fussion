@@ -39,6 +39,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'mastery_tag',
         'started_streak_at',
         'last_active_at',
+        'avatar_url',
     ];
 
     /**

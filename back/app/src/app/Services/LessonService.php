@@ -6,72 +6,39 @@ use App\Models\Lesson;
 use App\Repositories\LessonRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class LessonService
 {
-    /**
-     * Create a new service instance.
-     *
-     * @param  LessonRepository  $lessonRepository
-     * @return void
-     */
     public function __construct(private LessonRepository $lessonRepository)
     {
-        //
+//
     }
 
-    /**
-     * Get all lessons, optionally paginated.
-     *
-     * @param int|null $limit
-     * @param array $columns
-     * @return LengthAwarePaginator|Collection
-     */
     public function all(?int $limit = null, array $columns = ['*']): Collection|LengthAwarePaginator
     {
         return $this->lessonRepository->paginate($limit, $columns);
     }
 
-    /**
-     * Create a new lesson.
-     *
-     * @param array $data
-     * @return Lesson
-     */
     public function create(array $data): Lesson
     {
         return $this->lessonRepository->create($data);
     }
 
-    /**
-     * Update an existing lesson by ID.
-     *
-     * @param int $id
-     * @param array $data
-     * @return bool
-     */
-    public function update(int $id, array $data): bool
+    public function update(int $id, array $data): Lesson
     {
-        return $this->lessonRepository->update($this->getById($id), $data);
-    }
+        Log::debug($data);
+        $lessonData = $data['lesson'];
+        $questionsData = $data['questions'];
 
-    /**
-     * Delete a lesson by ID.
-     *
-     * @param int $id
-     * @return bool
-     */
+        return $this->lessonRepository->updateLessonWithDependencies($id, $lessonData, $questionsData);
+}
+
     public function delete(int $id): bool
     {
         return $this->lessonRepository->delete($this->getById($id));
     }
 
-    /**
-     * Get a lesson by ID.
-     *
-     * @param int $id
-     * @return null|Lesson
-     */
     public function getById(int $id): ?Lesson
     {
         return $this->lessonRepository->findOrFail($id);

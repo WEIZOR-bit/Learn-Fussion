@@ -6,8 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 import axios from 'axios';
+import {useUserStore} from "@/stores/userStore.js";
 
 library.add(faEye, faEyeSlash);
+
+const userStore = useUserStore();
 
 const showPassword = ref(false);
 const email = ref('');
@@ -19,22 +22,19 @@ const togglePasswordVisibility = () => {
   showPassword.value = !showPassword.value;
 };
 
-if (axios.defaults.headers.common['Authorization']) {
-  window.location.href='/';
-}
-
 const handleSubmit = async (event) => {
   event.preventDefault();
   isButtonDisabled.value = true;
 
   try {
-    const response = await axios.post('http://localhost:8000/api/public/login', {
+    const response = await axios.post('http://0.0.0.0:8000/api/public/login', {
       email: email.value,
       password: password.value,
     });
 
     const token = response.data.token.access_token;
-    localStorage.setItem('jwt_token', token);
+    localStorage.setItem('jwt_token',token);
+    userStore.setToken(token);
     window.location.href = '/';
 
   } catch (error) {

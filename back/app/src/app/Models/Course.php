@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -18,12 +19,14 @@ class Course extends Model
      */
     protected $fillable = [
         'name',
-        'category',
+        'category_id',
+        'published',
         'average_rating',
         'description',
         'review_count',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'cover_url',
     ];
 
     protected $table = 'courses';
@@ -58,8 +61,13 @@ class Course extends Model
         return $this->hasMany(CourseFinished::class);
     }
 
-    public function creator()
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(Admin::class, 'created_by');
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class, 'category_id');
     }
 }

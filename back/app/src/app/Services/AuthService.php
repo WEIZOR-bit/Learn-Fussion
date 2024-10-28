@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Notifications\EmailVerification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -89,11 +90,18 @@ class AuthService
     public function loginAdmin(AdminLoginRequest $request): Admin
     {
         $admin = $this->adminService->getByEmail($request->email);
+        Log::debug('Admin login info', [$request->validated()]);
 
-        if (!$admin || !Hash::check($request->password, $admin->password)) {
-            return abort(401, 'Invalid credentials.');
+        if (!$admin) {
+            throw new NotFoundHttpException('Admin not found.');
         }
-        $admin->assignRole('Super-Admin');
+
+        if (!Hash::check($request->password, $admin->password)) {
+            throw new HttpException(401, 'Invalid credentials.');
+        }
+        if (!$admin->hasRole('Super-Admin')) {
+            $admin->assignRole('Super-Admin');
+        }
         return $admin;
     }
 

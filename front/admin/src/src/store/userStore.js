@@ -16,12 +16,12 @@ export const useUserStore = defineStore('user', {
     }),
     getters: {
         isAuthenticated: (state) => !!state.token,
-        hasUsers: (state) => state.users.data.length > 0, // Геттер для проверки наличия пользователей
+        hasUsers: (state) => state.users.data.length > 0,
     },
     actions: {
         async fetchUsers(page = 1) {
-            this.isLoading = true; // Устанавливаем состояние загрузки
-            this.error = null; // Сбрасываем ошибки перед запросом
+            this.isLoading = true;
+            this.error = null;
 
             try {
                 const response = await axiosService.get(`/users?page=${page}`);
@@ -30,35 +30,56 @@ export const useUserStore = defineStore('user', {
                 this.users.total = response.data.total;
                 this.users.per_page = response.data.per_page;
                 this.users.last_page = response.data.last_page;
-                this.users.data = response.data.data; // Обновляем только массив пользователей
+                this.users.data = response.data.data;
             } catch (error) {
                 console.error('Ошибка при получении пользователей:', error);
-                this.error = error; // Сохраняем ошибку в состоянии
-                throw error; // Бросаем ошибку дальше
+                this.error = error;
+                throw error;
             } finally {
-                this.isLoading = false; // Снимаем состояние загрузки
+                this.isLoading = false;
             }
         },
         async fetchUserById(id) {
             //
         },
         async addUser(payload) {
-            this.isLoading = true; // Устанавливаем состояние загрузки
-            this.error = null; // Сбрасываем ошибки перед запросом
+            this.isLoading = true;
+            this.error = null;
 
             try {
                 const response = await axiosService.post(`/users`, payload);
-                // Обновляем массив пользователей, добавляя нового
-                this.users.data.push(response.data); // Предполагается, что ответ содержит добавленного пользователя
-                this.users.total += 1; // Увеличиваем общее количество пользователей
-                return response.data; // Возвращаем добавленного пользователя
+                this.users.data.push(response.data);
+                this.users.total += 1;
+                return response.data;
             } catch (error) {
                 console.error('Ошибка при добавлении пользователя:', error);
-                this.error = error; // Сохраняем ошибку в состоянии
-                throw error; // Бросаем ошибку дальше
+                this.error = error;
+                throw error;
             } finally {
-                this.isLoading = false; // Снимаем состояние загрузки
+                this.isLoading = false;
+            }
+        },
+
+        async search(page = 1, query = null) {
+            this.isLoading = true;
+            this.error = null;
+            try {
+                const response = await axiosService.get(`/users/search?page=${page}&query=${query}`);
+                console.log('response', response);
+                this.users.current_page = response.data.current_page;
+                this.users.total = response.data.total;
+                this.users.per_page = response.data.per_page;
+                this.users.last_page = response.data.last_page;
+                this.users.data = response.data.data;
+            }
+            catch (error) {
+                console.error('Ошибка при получении пользователей:', error);
+            }
+            finally {
+                this.isLoading = false;
             }
         }
     },
+
+
 });

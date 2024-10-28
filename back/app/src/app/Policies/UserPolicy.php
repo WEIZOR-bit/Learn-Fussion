@@ -36,7 +36,7 @@ class UserPolicy
      */
     public function update(User $user): bool
     {
-        return $user->hasRole('Super-Admin');
+        return $user->hasAnyPermission(['take courses', 'update articles']);
     }
 
     /**

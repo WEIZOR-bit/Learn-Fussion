@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use app\Models\Challenge;
+use App\Models\Challenge;
 use App\Models\Course;
-use app\Models\CourseFinished;
-use app\Models\CourseReview;
-use app\Models\Homework;
+use App\Models\CourseFinished;
+use App\Models\CourseReview;
+use App\Models\Homework;
 use App\Models\Lesson;
 use App\Models\Question;
-use app\Models\User;
+use App\Models\User;
 use App\Policies\ChallengePolicy;
 use App\Policies\CourseFinishedPolicy;
 use App\Policies\CoursePolicy;
