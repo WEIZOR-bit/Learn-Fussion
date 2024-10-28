@@ -192,7 +192,6 @@ class UserController extends Controller
     public function search(Request $request): Collection|LengthAwarePaginator
     {
         $query = $request->input('query');
-        Log::debug( $query);
         return $this->userService->search($query);
     }
 }

@@ -1,4 +1,6 @@
 <template>
+  <LoaderComponent v-if="isLoading" />
+  <div v-else class="content">
   <div class="container-fluid">
     <div class="mt-4 page-header min-height-300 border-radius-xl">
       <span class="mask bg-gradient-success opacity-6"></span>
@@ -45,15 +47,17 @@
               </div>
 
               <div class="mb-4 col-xl-3 col-md-6 mb-xl-0">
-                <div class="border card h-100 card-plain">
-                  <div class="text-center card-body d-flex flex-column justify-content-center">
-                    <a href="javascript:;">
-                      <i class="mb-3 fa fa-plus text-secondary"></i>
-                      <h5 class="text-secondary">New project</h5>
-                    </a>
-                  </div>
+                <div
+                    class="border card h-100 card-plain"
+                    @click="navigateToNewProject"
+                    style="cursor: pointer;"
+                >
+                <div class="text-center card-body d-flex flex-column justify-content-center">
+                  <i class="mb-3 fa fa-plus text-secondary"></i>
+                  <h5 class="text-secondary">New project</h5>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </div>
@@ -76,6 +80,7 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
@@ -92,11 +97,13 @@ import VsudButton from "@/components/VsudButton.vue";
 import {computed, ref} from "vue";
 import router from "@/router/index.js";
 import {useCoursesStore} from "@/store/coursesStore.js";
+import LoaderComponent from "@/views/components/LoaderComponent.vue";
 
 
 export default {
   name: "ProfileOverview",
   components: {
+    LoaderComponent,
     VsudButton,
     VsudSwitch,
     ProfileCard,
@@ -177,6 +184,10 @@ export default {
         console.error('Error uploading avatar:', error);
       }
     },
+
+    navigateToNewProject() {
+      router.push({ name: 'Add Course' });
+    }
 
   }
 };

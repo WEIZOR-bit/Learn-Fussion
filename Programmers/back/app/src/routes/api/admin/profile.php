@@ -26,10 +26,11 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('admin/{id}', [AdminController::class, 'getAdmin']);
 
 
-
+    Route::get('/courses/search', [CourseController::class, 'search']);
     Route::resource('courses', CourseController::class)->except(['create', 'edit']);
     Route::post('/courses/{id}/publish', [CourseController::class, 'publish']);
     Route::delete('/courses/{id}/cover', [CourseController::class, 'deleteCover']);
+
 
     Route::resource('categories', CategoryController::class)->except(['create', 'edit']);
     Route::post('/courses/{course}/lessons', [CourseController::class, 'addLessons']);

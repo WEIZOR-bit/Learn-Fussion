@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\DTOs\CourseShortDTO;
 use App\Models\Course;
 use App\Repositories\CourseRepository;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 class CourseService
 {
@@ -69,6 +72,32 @@ class CourseService
 
         return false;
 
+    }
+
+
+    public function search(string $query): LengthAwarePaginator
+    {
+        $paginator = $this->courseRepository->search($query);
+
+
+        $coursesDTO = $paginator->getCollection()->map(function ($course) {
+            return new CourseShortDTO(
+                $course->id,
+                $course->name,
+                $course->category,
+                $course->creator->name,
+                $course->published,
+                $course->cover_url
+            );
+        });
+
+        return new LengthAwarePaginator(
+            $coursesDTO,
+            $paginator->total(),
+            $paginator->perPage(),
+            $paginator->currentPage(),
+            ['path' => LengthAwarePaginator::resolveCurrentPath()]
+        );
     }
 
 }

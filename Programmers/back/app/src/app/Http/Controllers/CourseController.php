@@ -278,4 +278,11 @@ class CourseController extends Controller
         return response()->json(['message' => 'Cover deleted'], 204);
     }
 
+    public function search(Request $request): JsonResponse
+    {
+        $query = $request->input('query');
+        $courses = $this->courseService->search($query);
+        return response()->json($courses);
+    }
+
 }

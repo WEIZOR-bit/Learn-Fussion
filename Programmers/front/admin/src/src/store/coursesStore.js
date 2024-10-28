@@ -153,6 +153,23 @@ export const useCoursesStore = defineStore('coursesStore', {
             } finally {
                 this.isLoading = false;
             }
+        },
+
+
+        async search(page = 1, query = null) {
+            this.error = null;
+            try {
+                const response = await axiosService.get(`/courses/search?page=${page}&query=${query}`);
+                console.log('response', response);
+                this.courses.current_page = response.data.current_page;
+                this.courses.total = response.data.total;
+                this.courses.per_page = response.data.per_page;
+                this.courses.last_page = response.data.last_page;
+                this.courses.data = response.data.data;
+            }
+            catch (error) {
+                console.error('Ошибка при получении пользователей:', error);
+            }
         }
     },
 });

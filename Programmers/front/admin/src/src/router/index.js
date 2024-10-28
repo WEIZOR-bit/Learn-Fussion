@@ -14,6 +14,7 @@ import DeleteCourse from "@/views/components/DeleteCourse.vue";
 import { useAuthStore } from "@/store/auth";
 import AddUserComponent from "@/views/components/AddUserComponent.vue";
 import AddLessonComponent from "@/views/components/AddLessonComponent.vue";
+import LessonDetails from "@/views/components/LessonDetails.vue";
 
 const routes = [
   {
@@ -45,6 +46,13 @@ const routes = [
     path: '/courses/:id',
     name: 'Course Details',
     component: CourseDetails,
+    meta: { requiresAuth: true },
+  },
+
+  {
+    path: '/lesson/:lessonId',
+    name: 'Lesson Details',
+    component: LessonDetails,
     meta: { requiresAuth: true },
   },
   {

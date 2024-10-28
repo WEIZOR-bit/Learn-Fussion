@@ -10,12 +10,13 @@ class QuestionAnswer extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'question_id',
         'answer_id',
     ];
 
-    protected $table = 'question_answers';
+    protected $table = 'questions_answers';
 
     /**
      * Get the question association.

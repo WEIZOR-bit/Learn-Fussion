@@ -33,6 +33,10 @@ const coursesService = {
 
     async deleteCover(id) {
         return axiosService.delete(`courses/${id}/cover`);
+    },
+
+    async updateLesson(id, lessonData) {
+        return axiosService.put(`/lessons/${id}`, lessonData);
     }
 };
 

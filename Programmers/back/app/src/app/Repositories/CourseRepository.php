@@ -63,4 +63,24 @@ class CourseRepository extends BaseRepository
         $entity->update($data);
         return  $entity->save();
     }
+
+
+    public function search(string $query) {
+
+        $keywords = explode(' ', $query);
+
+        $courses = Course::with(['category', 'creator']);
+
+        $courses->where('name', 'LIKE', '%' . $query . '%');
+        foreach ($keywords as $word) {
+            $courses->orWhere('description', 'LIKE', '%' . $word . '%');
+        }
+
+        $courses->orWhereHas('creator', function ($query) use ($keywords) {
+            foreach ($keywords as $word) {
+                $query->where('name', 'LIKE', '%' . $word . '%');
+            }
+        });
+        return $courses->paginate(10);
+    }
 }

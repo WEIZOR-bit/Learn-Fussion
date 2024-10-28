@@ -25,44 +25,48 @@
       </div>
 
       <div class="lesson-list">
-        <card-component
+        <div
             v-for="(lesson, index) in course.lessons"
             :key="index"
-            :title="'Lesson ' + (index + 1) + ': ' + lesson.name"
             class="lesson-card"
+            @click="goToLessonDetails(lesson.id)"
+        >
+        <card-component
+            :title="'Lesson ' + (index + 1) + ': ' + lesson.name"
         ></card-component>
       </div>
+    </div>
 
-      <div class="nav-buttons">
-        <button type="button" @click="goToAddLesson" class="btn btn-success">Add lesson</button>
-        <button type="button" @click="goToCourses" class="btn btn-outline-dark">Back</button>
-        <button v-if="!published" type="button" @click="publish" class="btn btn-danger">Publish</button>
-      </div>
+    <div class="nav-buttons">
+      <button type="button" @click="goToAddLesson" class="btn btn-success">Add lesson</button>
+      <button type="button" @click="goToCourses" class="btn btn-outline-dark">Back</button>
+      <button v-if="!published" type="button" @click="publish" class="btn btn-danger">Publish</button>
+    </div>
 
-      <!-- Modal for Cover Image -->
-      <div v-if="isModalOpen" class="modal cover-modal" @click="closeModal">
-        <div class="modal-content" @click.stop>
-          <span class="close" @click="closeModal">&times;</span>
-          <div class="modal-image-container">
-            <img :src="course.cover_url" alt="Course cover" class="modal-image" />
-          </div>
-          <div class="modal-buttons">
-            <button @click="openFileModal" class="btn btn-warning">Change cover</button>
-            <button @click="removeCover(course.id)" class="btn btn-danger">Delete cover</button>
-          </div>
+    <!-- Modal for Cover Image -->
+    <div v-if="isModalOpen" class="modal cover-modal" @click="closeModal">
+      <div class="modal-content" @click.stop>
+        <span class="close" @click="closeModal">&times;</span>
+        <div class="modal-image-container">
+          <img :src="course.cover_url" alt="Course cover" class="modal-image" />
         </div>
-      </div>
-
-      <!-- Modal for File Upload -->
-      <div v-if="isFileModalOpen" class="modal file-modal" @click="closeFileModal">
-        <div class="file-modal-content" @click.stop>
-          <span class="close" @click="closeFileModal">&times;</span>
-          <h2 class="modal-title">Загрузка новой обложки</h2>
-          <input type="file" @change="handleFileChange" class="form-control file-input" />
-          <button @click="uploadCover" class="btn btn-success upload-button">Загрузить</button>
+        <div class="modal-buttons">
+          <button @click="openFileModal" class="btn btn-warning">Change cover</button>
+          <button @click="removeCover(course.id)" class="btn btn-danger">Delete cover</button>
         </div>
       </div>
     </div>
+
+    <!-- Modal for File Upload -->
+    <div v-if="isFileModalOpen" class="modal file-modal" @click="closeFileModal">
+      <div class="file-modal-content" @click.stop>
+        <span class="close" @click="closeFileModal">&times;</span>
+        <h2 class="modal-title">Загрузка новой обложки</h2>
+        <input type="file" @change="handleFileChange" class="form-control file-input" />
+        <button @click="uploadCover" class="btn btn-success upload-button">Загрузить</button>
+      </div>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -113,13 +117,17 @@ const goToAddLesson = () => {
 };
 
 const goToCourses = async () => {
-  await router.push({ name: 'Courses' });
-}
+  await router.back();
+};
+
+const goToLessonDetails = (lessonId) => {
+  router.push({ name: 'Lesson Details', params: { lessonId } });
+};
 
 const publish = async () => {
   await courseStore.publishCourse(route.params.id);
   await courseStore.fetchCourseById(route.params.id);
-}
+};
 
 // Обработка выбора файла
 const handleFileChange = (event) => {
@@ -161,7 +169,6 @@ const uploadCover = async () => {
 
 // Обработка удаления обложки
 const removeCover = async (id) => {
-
   await courseStore.deleteCover(id);
   await courseStore.fetchCourseById(route.params.id);
   closeFileModal();
